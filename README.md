@@ -13,6 +13,12 @@ prior(disparity·confidence·entropy·내부 feature)만을 사용**해 장면 �
 > 학습된 모델(.pt)·논문·보고서·발표자료·재현 노트북**만 담았습니다. 재생성 방법은
 > [`REPRODUCE.md`](REPRODUCE.md) 참고.
 
+### 📄 최종 보고서 (메인 제출물)
+
+**[Find_Mirror_Geometry_최종보고서_20211680_김정현.pdf](Find_Mirror_Geometry_최종보고서_20211680_김정현.pdf)** — 최종 제출 보고서.
+
+함께 보기: [발표 슬라이드](FoundationStereo/presentation/slides.html) · [기술보고서(seed 데이터셋)](FoundationStereo/report/ds_seeds_report.html) · [논문 수치 검증](FoundationStereo/report/paper_results.html) · [논문 LaTeX](FoundationStereo/paper/paper_final.tex)
+
 ---
 
 ## 핵심 결과
@@ -25,6 +31,31 @@ prior(disparity·confidence·entropy·내부 feature)만을 사용**해 장면 �
 | **거울 평면 복원 (반사대칭 정공법)** | (거울안 점 p′, 방 점 q) 수직이등분면 RANSAC + ICP. 법선각 med **2.30°**, 수직거리오차 med **0.137m**, 동시성공(<10°&<0.5m) **71.7%**. naive RANSAC(반사면을 거울면으로 오인) 87.5°/2.52m/0.1% 대비 압도. |
 
 GT 거울평면: 16씬 / 37거울을 Blender에서 추출(절대 미터, K 무관).
+
+## 결과 이미지
+
+**RQ1 — 스테레오는 거울에서 깨진다.** FoundationStereo가 거울을 통과해 "반사된 장면"의 깊이를 보면서 거울 영역 disparity가 크게 어긋난다(computer_room).
+
+![FS disparity on mirror](FoundationStereo/report/figures_seeds/pipeline_vis_disp_computer_room_v00.png)
+
+**RQ2 — 그 실패가 prior에 신호로 남는다.** AHCF(반복 정제) 전/후 confidence·entropy 신호 분석. 정제 후 거울 영역이 분리되기 시작한다(단일 채널은 약하나, 학습된 136차원 조합이 강하게 분리).
+
+![AHCF before/after](FoundationStereo/report/figures/fig_ahcf.png)
+
+**거울 검출 (픽셀당 136d 경량 MLP head).** 좌: 입력 / 중: 예측 / 우: GT (cozy_living_room).
+
+![detection](FoundationStereo/report/figures/fig_detection.png)
+
+**거울 평면 복원 (반사대칭 정공법).** 좌: 추정 vs GT 법선각·수직거리 산점도 + CDF / 우: 성공 예 top-down(추정 평면이 GT 거울 유리면과 일치).
+
+![sym scatter](FoundationStereo/report/figures_seeds/sym_scatter.png)
+![sym success top-down](FoundationStereo/report/figures_seeds/sym_topdown_good.png)
+
+**GT 거울평면 재투영 오버레이** (computer_room) — Blender에서 추출한 GT 평면을 카메라로 재투영해 마스크와 정합 확인.
+
+![GT overlay computer_room](FoundationStereo/report/figures/fig_gt_computer.png)
+
+> 더 많은 그림: [`FoundationStereo/report/figures/`](FoundationStereo/report/figures) · [`figures_seeds/`](FoundationStereo/report/figures_seeds)
 
 ## 파이프라인
 
