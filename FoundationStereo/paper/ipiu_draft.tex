@@ -1,0 +1,219 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{IPIU}  % 스타일 패키지
+
+% ----- 제목 / 저자 / 날짜 -----
+\title{스테레오 Prior에 내재된 거울 기하의 복원:\\ 동결 FoundationStereo Prior를 이용한 거울 평면 거리$\cdot$법선$\cdot$경계 추정}
+
+\IPIUAuthor
+  {이든솔\textsuperscript{1}, 김정현\textsuperscript{2}, 김지성\textsuperscript{2}}
+  {숭실대학교 AI소프트웨어학부\textsuperscript{1}, 숭실대학교 소프트웨어학부\textsuperscript{2}}
+  {leedeunsol@soongsil.ac.kr, 4cat1@soongsil.ac.kr, rlawltjd3240@soongsil.ac.kr}
+
+\date{}
+
+\begin{document}
+
+\emergencystretch=3em  % 한글 본문 속 긴 영문 토큰(FoundationStereo 등)의 overfull 흡수
+
+% ----- ABSTRACT -----
+\begin{abstract}
+거울은 좌$\cdot$우 영상의 광도 일관성을 훼손해 스테레오 정합을 교란하지만, 바로 그 불안정성이 거울의 위치와 기하를 드러내는 신호가 된다. 본 논문은 FoundationStereo의 가중치를 \textbf{동결한 채}, 그 내부 prior(side-tuning 특징, AHCF cost-volume 통계, disparity)에 경량 검출 헤드와 학습 없는 반사 대칭 최적화를 결합해 스테레오 한 쌍에서 거울 기하의 세 요소(평면 거리, 평면 법선, 경계)를 추정하는 파이프라인을 제안한다. 먼저 동결된 FoundationStereo 특징 위에 픽셀당 경량 MLP 헤드를 부가해 거울 영역을 검출하고(미지 장면 ROC AUC 0.93, 마스크 IoU 0.49; 자기 장면 특화 시 0.72), 그 예측 마스크의 외접 사각형을 bounding box로 취한다. 다음으로, 거울 안 점군의 단순 평면 적합은 거울면이 아니라 반사면(약 2배 깊음)을 포착한다는 원리적 한계를 지적하고, 이를 \textbf{반사 대칭(reflection symmetry)} 최적화로 해결한다. 거울 안 가상점과 방의 실제점이 거울평면에 대해 대칭이라는 성질을 이용해 두 점의 수직이등분면을 닫힌형으로 추정하는 RANSAC을 설계하여, 학습 없이 1{,}536개 뷰에서 법선각 중앙값 $2.3^\circ$, 카메라-평면 수직거리 오차 중앙값 $0.14$\,m를 달성하였다. 평면 복원 성능은 GT 마스크 조건에서 기하 알고리즘의 상한을 먼저 평가한 것이며, 검출 마스크와 연결한 완전 파이프라인 평가는 향후 과제로 남긴다. Reflect3r 합성 데이터로 검증한 결과, 무거운 분할 네트워크 없이도 FoundationStereo prior 안에 거울 기하가 충분히 들어 있음을 정량적으로 입증한다.
+\end{abstract}
+
+\maketitle
+\begingroup
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+\endgroup
+
+\section{서론}
+
+거울 표면은 자신의 깊이가 아니라 \emph{반사된 장면}의 깊이를 나타낸다. 따라서 일반 스테레오$\cdot$다시점 복원은 거울 너머의 가상 공간을 실제 기하로 오인하며, 이는 3D 재구성과 로봇 주행에서 고질적인 실패 원인이다. 거울을 다루는 기존 연구는 크게 두 갈래다. 하나는 단일 영상에서 거울 영역을 분할하는 무거운 전용 네트워크이고~\cite{mirrornet2019,pmd2020}, 다른 하나는 거울 반사를 추가 시점으로 활용해 3D를 복원하는 방법이다~\cite{mirrorgaussian2024,reflect3r2026}. 그러나 전자는 거울의 \emph{기하}(평면 법선$\cdot$거리)를 제공하지 못하고, 후자는 거울평면이 미리 주어졌다고 가정하거나 별도 모델을 요구한다.
+
+본 연구의 출발점은 다른 데 있다. FoundationStereo~\cite{foundationstereo2025}는 100만 쌍 규모의 합성 데이터로 학습되어 강한 zero-shot 일반화를 보이며, 그 핵심에는 풍부한 단안 prior를 결합하는 side-tuning 백본과 cost volume를 장거리 문맥으로 정제하는 AHCF(Attentive Hybrid Cost Filtering) 모듈이 있다. 거울이 놓이면 좌우 광도 일관성이 깨지므로 FoundationStereo의 내부 표현에는 거울에 대한 강한 \emph{이상 신호}가 남는다. 본 논문의 핵심 가설은 \textbf{``거울이 유발하는 정합 불안정성 자체가 거울의 prior가 된다''}는 것이다.
+
+이 가설 아래, 본 논문은 FoundationStereo의 가중치는 동결한 채, 그 내부 prior와 경량 검출 헤드 및 학습 없는 반사 대칭 최적화를 결합하여 스테레오 한 쌍으로부터 거울의 경계, 평면 법선, 카메라-평면 수직거리를 추정한다. 세 요소는 두 모듈에서 산출된다.
+\begin{itemize}[leftmargin=1.2em,itemsep=1pt,topsep=2pt]
+  \item \textbf{경계(bounding box)}: 동결 FoundationStereo 특징 위 픽셀당 경량 MLP 헤드로 거울 마스크를 검출하고 그 외접 사각형을 취한다.
+  \item \textbf{법선과 평면 거리}: 거울 안 점군의 단순 평면 적합이 포착하는 ``반사면''의 한계를 \emph{반사 대칭} 최적화로 교정해 진짜 거울평면을 복원하고, 그 평면의 법선 벡터와 카메라로부터의 수직거리가 각각 거울의 \emph{법선}과 \emph{평면 거리}가 된다.
+\end{itemize}
+즉 경계는 검출 헤드에서, 법선과 평면 거리는 하나의 복원된 거울평면에서 함께 산출되어 본 논문이 목표한 세 요소에 대응한다. 기여는 다음과 같다. (1) FoundationStereo prior에 거울 신호가 \emph{어디서} 생기는지를 AHCF 전후 비교로 정량화한다(비용 부피 통계의 분리도가 AHCF 이전 우연 수준 $0.51$에서 이후 $0.75$로 상승하며, 가장 강한 단일 신호는 AHCF와 독립인 side-tuning 특징의 $0.80$이다). (2) 학습 없는 반사 대칭 RANSAC으로 거울평면을 복원하여 1{,}536뷰에서 법선각 $2.3^\circ$$\cdot$거리 $0.14$\,m를 달성한다. (3) Reflect3r .blend 자원을 다시점 스테레오로 재렌더하고 거울 마스크와 3D 평면 정답(GT)을 추출하여 평가 인프라를 완비한다.
+
+\section{관련 연구 및 배경}
+
+\noindent\textbf{FoundationStereo와 AHCF.} FoundationStereo~\cite{foundationstereo2025}는 RAFT 계열의 반복 정제~\cite{raftstereo2021} 위에 단안 기반모델 특징을 결합한다. 본 연구가 추출하는 prior는 (i) side-tuning 2D 특징 \texttt{feat\_left}(128채널), (ii) AHCF 이전/이후 비용 부피(\texttt{corr\_stem}/\texttt{cost\_agg})에서 유도한 disparity 분포 통계(신뢰도$\cdot$엔트로피$\cdot$argmax 등), (iii) 최종 disparity, (iv) 단안 prior \texttt{mono\_disp}~\cite{depthanythingv2}이다. FoundationStereo는 거울을 ``창문''처럼 통과해 반사 장면의 깊이를 보므로, 거울 안 disparity는 멀리 있는 가상 내용에 고정된다.
+
+\noindent\textbf{거울 검출과 복원.} MirrorNet~\cite{mirrornet2019}, PMD~\cite{pmd2020}는 단일 RGB에서 거울을 분할하는 전용 네트워크를 학습하지만 평면 기하를 제공하지 못한다. MirrorGaussian~\cite{mirrorgaussian2024}은 거울 대칭을 이용해 반사를 재구성하나 거울평면을 입력으로 가정한다. Reflect3r~\cite{reflect3r2026}은 거울 반사를 가상 시점으로 삼아 단일 영상 3D를 복원하며 16개 Blender 실내 장면의 합성 데이터를 제공한다. 본 연구는 이 데이터의 .blend 원본을 스테레오 렌더 및 평면 GT 추출에 활용한다.
+
+\section{방법}
+
+\subsection{동결 FoundationStereo prior 추출}
+스테레오 한 쌍당 계측된 FoundationStereo 순전파 1회로 위의 prior 4종을 얻는다. 렌더 영상($1280\times720$)은 크기 변경 없이 32의 배수가 되도록 반사 패딩만 적용해($736\times1280$) FoundationStereo에 입력하며, prior는 그 쿼터 해상도인 $184\times320$에서 추출된다. 최종 disparity는 패딩을 제거해 원래 $1280\times720$로 되돌리고(값 재스케일 없음) GT와 같은 해상도에서 비교하며, 검출 마스크와 IoU는 prior와 같은 $184\times320$ 격자에서 계산한다. 검출 헤드는 픽셀당 \textbf{136차원}(\texttt{feat\_left} 128 + 비용 부피 통계 8) 벡터를 입력으로 받고, 평면 복원(\S\ref{sec:sym})은 최종 disparity로 역투영한 점군을 이용한다(단안 \texttt{mono\_disp}는 추출하되 본 실험의 헤드$\cdot$복원에는 사용하지 않는다). FoundationStereo 가중치는 전 과정에서 동결한다.
+
+\subsection{경량 헤드 거울 검출 $\to$ bounding box}
+\label{sec:detect}
+136차원 입력에 은닉 64의 작은 MLP($136\to64\to1$)를 픽셀당 적용하여 거울 확률을 예측한다. 뷰당 4{,}000 픽셀 균형 샘플로 300 epoch 학습하며, 무거운 분할 네트워크는 사용하지 않는다. 예측 마스크의 외접 사각형이 bounding box가 된다. 거울 신호의 시점 불변성 덕에, 후술하듯 매우 적은 학습 뷰로도 일반화된다.
+
+\subsection{반사 대칭 기반 거울평면 복원 $\to$ 법선$\cdot$평면 거리}
+\label{sec:sym}
+거울 안 점군에 평면을 직접 적합하면 거울 유리면이 아니라 거울 \emph{뒤} 가상공간의 면이 적합된다. 실측상 이 ``반사면''은 진짜 거울면보다 약 2배 깊다(예: computer\_room에서 RANSAC $6.96$\,m vs.\ GT $3.24$\,m). 우리는 이를 반사 대칭으로 해결한다. 거울 안 가상점 $P'$와 방의 실제점 $P$는 거울평면 $M=(\mathbf{n},d)$에 대해 완전 대칭이며(하우스홀더 반사),
+\begin{equation}
+  P = P' - 2(\mathbf{n}\cdot P' + d)\,\mathbf{n}.
+\end{equation}
+핵심 성질은 \emph{대응쌍 $(P',P)$ 하나만으로 평면이 닫힌형으로 결정}된다는 것이다(두 점의 수직이등분면):
+\begin{equation}
+  \mathbf{n} = \frac{P-P'}{\lVert P-P'\rVert},\qquad d = -\,\mathbf{n}\cdot\frac{P+P'}{2}.
+\end{equation}
+이로부터 학습 없이 FoundationStereo 출력만 사용하는 RANSAC~\cite{ransac1981}을 구성한다. (1)~마스크를 침식한 내부에서 거울 안 점 $P'$를(최대 4{,}000점), 마스크를 팽창한 외부에서 방 점 $Q$를(최대 80{,}000점, KD-tree) 분리한다. (2)~무작위 쌍 $(p',q)$ 4{,}000개로 각 쌍의 수직이등분면을 가설로 생성한다(수직거리를 $0.3$\,m에서 가상점 깊이의 90퍼센타일까지로 제약). (3)~각 가설로 $P'$를 반사한 뒤, 반사된 \emph{각 점에서 가장 가까운} 방 점 $Q$까지의 \emph{단방향} 최근접 거리(reflect$(P')\!\to\!Q$, $Q\!\to\!P'$ 역방향은 사용하지 않음)를 구하고, 그 \emph{하위 절반 평균}(trimmed)으로 점수화한다(거울은 카메라 뒤 등 관측 밖 영역도 비추므로 대응 없는 점의 절사가 필수다). 먼저 150점으로 전수 평가한 뒤 상위 40개 가설만 600점으로 재평가해 약 7배 가속한다. (4)~상위 5개 가설을 ICP식으로 8회 정제한다(반사 $\to$ 하위 60\% 최근접 대응 $\to$ 방향 주성분과 중점 median으로 닫힌형 재추정). 회복된 평면의 법선 $\mathbf{n}$이 거울의 법선을, 카메라로부터의 수직거리가 평면 거리를 제공한다. 평가 시 법선각은 부호 모호성($\mathbf{n}$과 $-\mathbf{n}$이 같은 평면)을 고려해 $\min(\angle(\mathbf{n},\mathbf{n}_{\mathrm{gt}}),\,\angle(-\mathbf{n},\mathbf{n}_{\mathrm{gt}}))$로 계산한다. 구현은 단위테스트 6종(반사 involution, 이등분면 복원, 닫힌형 정제 정밀도, 합성 방 복원에서 노이즈 2\,cm$\cdot$무대응 40\%에도 $<3^\circ$)으로 검증하였다.
+
+\section{데이터셋}
+Reflect3r~\cite{reflect3r2026}의 .blend 원본으로부터 Blender 물리 기반 렌더링(베이스라인 $0.08$\,m, $1280\times720$)으로 다시점 스테레오 쌍을 생성한다. 단일 장면당 단일 뷰였던 한계를 넘어, \textbf{카메라를 교란}($\pm0.3$\,m 이동, $\pm5^\circ$ 회전)하여 장면당 수십 뷰를 렌더해 거울의 겉보기 크기$\cdot$각도 다양성을 확보한다. 각 뷰는 거울 마스크, GT depth/disparity, 그리고 \textbf{3D 거울평면 GT}를 갖는다. 마스크는 \emph{재질} 기준으로 거울 객체를 선택해(이름 부분일치는 ``Mirror Wall'' 같은 확산 벽을 잘못 포함) 객체 인덱스 패스로 생성하며, 평면 GT는 거울 메쉬 정점의 최소제곱 평면을 OpenCV 좌표로 변환해 얻는다. 투영된 3D 사각형이 마스크와 IoU $0.88$--$0.98$로 겹쳐 마스크와 평면을 교차검증한다. 데이터는 두 시드(\texttt{ds\_v1\_seed0}, \texttt{ds\_v2\_seed1}; 카메라 난수만 상이)로 각각 13개 장면을 렌더한 것이다. 각 시드의 한 장면은 기준뷰 \texttt{v00}(교란 0, 두 시드 동일 카메라)와 그 위의 무작위 교란 뷰로 이루어져 장면$\cdot$시드당 $55$--$66$뷰가 생성된다. R 카메라가 이동하지 않은 렌더 버그(좌우 영상이 사실상 동일)를 보인 loft 한 장면을 제외하면, \textbf{12장면을 두 시드로 렌더한 총 1{,}537뷰}가 남으며 이를 전 단계 실패 0으로 처리하였다(``12장면 $\times$ 2시드''는 곱이 아니라 시드별 장면당 수십 뷰의 합이다).
+
+\section{실험 결과}
+
+\subsection{거울 영역에서의 FoundationStereo 오차 분석}
+GT 대비 FoundationStereo 오차를 거울/비거울 영역으로 나눠 1{,}537뷰 전체에 집계하였다(표~\ref{tab:fs_break}). 거울 영역의 disparity 오차는 비거울 대비 약 \textbf{41배}, depth 오차는 약 17배이며, 1픽셀 이상 오차 비율(bad@1px)은 비거울 8.0\%에서 거울 \textbf{96.6\%}로 급증한다. 두 시드의 수치가 사실상 동일하여(거울 disp MAE seed0 $8.72$ / seed1 $8.84$\,px, depth MAE $2.57$ / $2.61$\,m) 카메라 샘플링에 강건한 결론이며, 이러한 큰 이상치가 이후 검출과 복원이 활용하는 신호가 된다.
+
+\begin{table}[h]
+\centering
+\caption{GT 대비 FoundationStereo 오차: 거울 vs.\ 비거울 (disp/depth MAE는 뷰별 중앙값, bad@1px는 픽셀평균; 1{,}537뷰)}
+\label{tab:fs_break}
+\begin{tabular}{lccc}
+\toprule
+지표 & 비거울 & 거울 & 배율 \\
+\midrule
+disp MAE (px)  & 0.21 & 8.72 & $\sim$41$\times$ \\
+depth MAE (m)  & 0.151 & 2.57 & $\sim$17$\times$ \\
+bad@1px (\%)   & 8.0 & 96.6 & n/a \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{AHCF 이후 비용 부피 통계의 거울 분리도 증가}
+거울 신호가 FoundationStereo 내부 \emph{어디서} 생기는지 분석하기 위해, 후보 prior 채널 각각을 거울 마스크와 대조해 단일 채널 분리도(ROC AUC)를 측정하였다(표~\ref{tab:ahcf}, 그림~\ref{fig:ahcf}). 핵심은 두 가지다. 첫째, AHCF \emph{이전}의 비용 부피 통계(\texttt{pre\_*})는 모든 장면에서 우연 수준($\approx0.51$)인 반면, \emph{이후}의 통계(\texttt{post\_*}/\texttt{delta\_*})는 뚜렷이 상승한다(비용 부피 최고는 \texttt{post\_entropy}로 scandinavian $0.75$, green\_house $0.74$; 그림의 computer\_room은 \texttt{delta\_entropy} $0.68$). 즉 거울 분별 신호는 원시 매칭이 아니라 \textbf{AHCF 집계 이후의 비용 부피 통계에서 뚜렷이 강화}된다. 둘째, side-tuning \emph{특징}의 첫 주성분(\texttt{feat\_left\_pc1})은 비용 부피와 독립적으로 거울을 분리하며, 모든 채널을 통틀어 가장 강한 신호도 여기서 나타난다(modern\_living\_room에서 AUC $0.80$). 두 prior 계열이 상보적으로 거울 신호를 포함하므로, 검출 헤드는 이 둘을 합친 136차원을 입력으로 사용한다(\S\ref{sec:detect}). 이 채널별 분리도는 신호의 \emph{위치}를 규명하는 초기 진단으로, 본 코퍼스와 부분적으로만 겹치는 8개 대표 장면에서 측정했다. \texttt{post\_entropy} 최고인 scandinavian$\cdot$green\_house는 본 코퍼스에 포함되나 \texttt{feat\_left\_pc1} $0.80$의 modern\_living\_room은 포함되지 않으므로, 이 수치는 신호의 소재를 보이는 진단일 뿐 1{,}537뷰 정량 결과와 동일 선상의 평가는 아니다.
+
+\begin{table}[h]
+\centering
+\caption{거울 분별 신호의 출처별 단일 채널 최고 분리도(ROC AUC).}
+\label{tab:ahcf}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lc}
+\toprule
+prior 신호 계열 & 최고 AUC \\
+\midrule
+\texttt{pre\_*} (AHCF 이전 비용 부피) & $\approx0.51$ \\
+\texttt{post\_*}/\texttt{delta\_*} (AHCF 이후 비용 부피) & $0.75$ \\
+\texttt{feat\_left\_pc1} (side-tuning 특징) & $\mathbf{0.80}$ \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/ahcf.png}
+\caption{AHCF 전/후 신호 분석(computer\_room). 이전(\texttt{pre}, AUC $\approx0.51$)은 우연, 이후(\texttt{post}/\texttt{delta})는 $0.68$로 상승.}
+\label{fig:ahcf}
+\end{figure}
+
+\subsection{거울 검출과 bounding box}
+공통 셋업(픽셀당 136차원, MLP $136\to64\to1$)으로 4가지 train/test 체제를 평가하였다(표~\ref{tab:detect}). 각 체제는 자기 정의의 test 뷰에서 측정한다: view\_split$\cdot$single\_scene은 장면별 $30\%$의 미지 시점(464뷰), scene\_split은 미지 4장면(511뷰), rep\_view는 \texttt{v00}을 제외한 459뷰다. 본 적 있는 장면의 새 시점(view\_split)에서 AUC $0.958$, 한 번도 본 적 없는 장면(scene\_split)에서도 AUC $0.928$로, 검출은 미지 장면$\cdot$미지 시점에 안정적이다(그림~\ref{fig:detect}). 세 가지 발견이 두드러진다. (1) \textbf{장면 커버리지가 결정적이다}: 장면당 대표뷰 1장씩 12장만 학습한 rep\_view(AUC 0.955)가 1{,}073뷰 학습(view\_split)과 사실상 동급이다(FoundationStereo 특징이 시점 불변이기 때문이다). (2) \textbf{경계 정밀도는 장면 특화에서 향상된다}: 장면 12개를 각각 단독 학습해 만든 12$\times$12 교차 행렬에서, 대각(자기 장면) 평균 IoU $0.715$가 비대각(교차) $0.425$를 크게 앞선다(그림~\ref{fig:matrix}). 검출 순위(AUC)는 범용 특징으로 충분하지만 경계의 정밀도는 장면 특화에서 비롯된다. (3) IoU 실패의 다수는 ``AUC는 높은데 임계 0.5에서 무너지는'' 캘리브레이션 문제(작은 거울)로, 순위(검출) 자체는 옳다. bounding box는 이 예측 마스크의 외접 사각형으로 얻으며, 표의 IoU는 마스크 IoU여서 bbox IoU는 별도로 측정하지 않았다.
+
+\begin{table}[h]
+\centering
+\caption{거울 검출 4체제 비교(own=자기 장면, unseen=미지 장면). IoU는 예측 대 GT 마스크의 픽셀 단위 마스크 IoU($184\times320$ 특징 격자)다. single\_scene은 자기/교차 두 행이며, 12$\times$12 장면 행렬의 평균이라 공통 임계 F1을 산출하지 않아 AUC$\cdot$IoU로만 비교한다.}
+\label{tab:detect}
+\begin{tabular}{lccc}
+\toprule
+체제 & AUC & IoU & F1 \\
+\midrule
+single\_scene (own)        & \textbf{0.985} & \textbf{0.715} & n/a \\
+view\_split (새 시점)       & 0.958 & 0.546 & 0.692 \\
+rep\_view (씬당 1뷰)        & 0.955 & 0.540 & 0.686 \\
+scene\_split (미지 장면)    & 0.928 & 0.492 & 0.642 \\
+single\_scene (교차)        & 0.908 & 0.425 & n/a \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/detection_test.png}
+\caption{경량 헤드 거울 검출 예. 한 번도 학습에 사용하지 않은 \emph{미지 장면}(scene\_split의 blue\_bathroom, IoU $0.77$)의 test 뷰다. 좌: 입력 / 중: 예측 확률 / 우: GT 마스크.}
+\label{fig:detect}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/scene_matrix.png}
+\caption{12$\times$12 장면 교차 IoU 행렬(행=학습 장면, 열=평가 장면). 대각(자기 장면)이 비대각(교차)보다 밝아, 경계 정밀도가 장면 특화에서 비롯됨을 보인다.}
+\label{fig:matrix}
+\end{figure}
+
+\subsection{거울평면 복원: 법선과 평면 거리}
+\S\ref{sec:sym}의 반사 대칭 RANSAC을, 검출에 사용한 1{,}537뷰 중 거울 안 점이 부족해 RANSAC을 건너뛴 1뷰를 제외한 \textbf{1{,}536뷰}(GT 마스크)에 적용한 결과를 표~\ref{tab:sym}에 정리한다(불안정성$\cdot$검출 분석이 1{,}537뷰, 평면 복원이 1{,}536뷰인 차이는 이 1뷰 때문이다). 법선각 중앙값 $2.3^\circ$($<10^\circ$ 92\%), 평면 수직거리 오차 중앙값 $0.14$\,m이며, 두 조건을 동시에 만족($<10^\circ$\,\&\,$<0.5$\,m)하는 비율이 72\%다. 단순 RANSAC의 ``반사면''($6.96$\,m)과 달리 본 방법은 GT($3.24$\,m)에 일치하는 $3.23$\,m를 복원한다(그림~\ref{fig:sym}). 장면별로는 computer\_room($100\%$)$\cdot$livingroom($98\%$)$\cdot$minigym($96\%$)이 최상이다(표~\ref{tab:sym_scene}).
+
+동시 충족 실패(28\%)는 고르게 퍼지지 않고 scandinavian(성공률 $2\%$)$\cdot$green\_house($40\%$)$\cdot$terrazzo($64\%$) 세 장면에 몰린다. 이들은 모두 ``$d$-슬라이딩'' 퇴화로, GT 평면으로 반사하면 거울 안 점이 카메라 뒤(관측 밖)로 가 방 점군에 대응이 사라지고 trimmed 점수가 신호를 잃어 더 깊은 평면이 선택된다(scandinavian의 수직거리 오차 중앙값 $2.09$\,m). 거울이 비추는 영역과 카메라 관측 영역의 겹침이 작을수록 취약하며, 마스크 경계 링 제약$\cdot$가시성 인지 점수$\cdot$멀티뷰 일관성으로 개선 여지가 있다.
+
+\begin{table}[h]
+\centering
+\caption{반사 대칭 거울평면 복원(1{,}536뷰, 학습 없음).}
+\label{tab:sym}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lc}
+\toprule
+지표 & 값 \\
+\midrule
+법선각 중앙값 & $2.3^\circ$ ($<5^\circ$: 76\%, $<10^\circ$: 92\%) \\
+수직거리 오차 중앙값 & $0.14$\,m ($<0.2$\,m: 57\%, $<0.5$\,m: 74\%) \\
+동시 충족 ($<10^\circ$ \& $<0.5$\,m) & 72\% \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{장면별 거울평면 복원(1{,}536뷰). 성공률은 $<10^\circ$ \& $<0.5$\,m 동시 충족 비율.}
+\label{tab:sym_scene}
+\footnotesize
+\begin{tabular}{lrrr}
+\toprule
+장면 & 법선각 med & 수직거리 med & 성공률 \\
+\midrule
+computer\_room        & $1.4^\circ$ & $0.04$\,m & \textbf{100\%} \\
+livingroom           & $1.0^\circ$ & $0.05$\,m & 98\% \\
+minigym              & $2.2^\circ$ & $0.08$\,m & 96\% \\
+sunlight             & $1.1^\circ$ & $0.13$\,m & 88\% \\
+gym                  & $2.3^\circ$ & $0.07$\,m & 82\% \\
+minimal\_interior    & $1.8^\circ$ & $0.10$\,m & 76\% \\
+living\_room\_contemp & $2.2^\circ$ & $0.16$\,m & 75\% \\
+blue\_bathroom       & $0.9^\circ$ & $0.19$\,m & 74\% \\
+bedroom              & $2.9^\circ$ & $0.14$\,m & 71\% \\
+terrazzo             & $4.2^\circ$ & $0.40$\,m & 64\% \\
+green\_house         & $5.1^\circ$ & $0.61$\,m & 40\% \\
+scandinavian         & $7.0^\circ$ & $2.09$\,m & 2\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/sym_scatter.png}
+\caption{추정 대 GT 수직거리 산점도(좌)와 법선각 CDF(우), 1{,}536뷰. 대각선 위 정렬과 $92\%$가 $<10^\circ$인 분포가 학습 없는 복원의 정확도를 보인다.}
+\label{fig:scatter}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.95\linewidth]{figures/sym_good.png}
+\caption{반사 대칭 복원 성공 예(top-down). 거울 안 가상점(빨강)을 추정 평면으로 반사하면(초록) 방 점군(회색)과 정합하고, 추정 평면(주황)이 GT(파랑)와 일치.}
+\label{fig:sym}
+\end{figure}
+
+\section{결론}
+동결 FoundationStereo prior에 경량 검출 헤드와 학습 없는 반사 대칭 최적화를 결합해 스테레오 한 쌍에서 거울 기하의 세 요소를 추정하였다. 거울이 비용 부피를 교란하는 불안정성(거울 영역 disparity 오차 $\sim$41배)은 AHCF 집계 단계에서 분별 가능한 신호로 정제되고(비용 부피 통계 우연 0.51 $\to$ 0.75), side-tuning 특징은 이와 독립적으로 더 강한 신호를 포함한다(\texttt{feat\_left\_pc1} 0.80). 이 둘을 합친 입력 위에서 경량 헤드는 미지 장면에서도 안정적으로 거울을 검출(AUC 0.93)해 bounding box를 제공한다. 단순 평면 적합이 포착하는 ``반사면''의 원리적 한계는 학습이 필요 없는 반사 대칭 최적화로 교정되어, 1{,}536뷰에서 법선각 $2.3^\circ$$\cdot$수직거리 오차 $0.14$\,m로 진짜 거울평면을 복원한다. 무거운 분할 네트워크 없이도 FoundationStereo prior 안에 거울 기하가 충분히 들어 있음을 입증하였으며, 이는 거울 반사를 포함한 3D 재구성의 경량 prior로 직접 활용될 수 있다. 한계로, 검출 IoU는 작은 거울에서 임계 캘리브레이션 문제로 장면 특화 모델($0.715$)에 미치지 못하며, 평면 복원은 반사 영역과 관측 영역의 겹침이 작을 때 취약하다. 또한 view\_split$\cdot$single\_scene 분할은 두 시드의 동일 카메라 기준뷰 \texttt{v00}을 시드 인지 없이 나누어 장면당 최대 1뷰의 근사 중복이 train/test에 함께 포함될 수 있으므로(test의 $\lesssim3\%$; rep\_view는 test에서 v00을 모두 제외하고 scene\_split은 미지 장면 평가라 영향이 없다), 시드 인지 분할 재평가가 보완점이다. 또한 평면 복원은 GT 마스크를 입력으로 평가했으며, 검출 헤드의 \emph{예측} 마스크를 그대로 잇는 완전 end-to-end 복원은 향후 과제다(연결 구현은 되어 있다). 끝으로 평가는 Reflect3r 합성 데이터에 한정되어 실영상 검증이 남는다.
+
+% ----- REFERENCES (BibTeX) -----
+\bibliographystyle{ieeetr}
+\bibliography{main}
+
+\end{document}

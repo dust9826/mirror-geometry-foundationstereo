@@ -1,0 +1,27 @@
+# FoundationStereo 로컬(Windows, RTX 5070 Ti / Blackwell) 추론 + mirror-geometry 실험용.
+#
+# torch 는 별도로 cu128 휠을 먼저 설치한다(setup_local.ps1 이 처리):
+#   pip install torch==2.7.1 torchvision==0.22.1 --index-url https://download.pytorch.org/whl/cu128
+# 이유: repo environment.yml 의 torch==2.4.1(cu121)은 Blackwell(sm_120) 미지원.
+#
+# flash-attn: 코드에서 실제로 import 하지 않음 -> 설치 불필요(특히 Windows 빌드 어려움).
+# xformers: dinov2 가 있으면 쓰고 없으면 표준 attention 으로 폴백 -> 선택 사항.
+
+numpy<2.3
+omegaconf
+opencv-contrib-python
+timm
+scikit-image
+scipy
+pandas
+imageio
+einops
+ruamel.yaml
+huggingface-hub
+open3d
+matplotlib
+tqdm
+gdown
+Pillow
+trimesh
+joblib

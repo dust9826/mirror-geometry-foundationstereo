@@ -1,0 +1,176 @@
+00:01.141  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\archiviz.blend"
+00:01.844  blend.doversion  | WARNING Region type 9 missing in space type "Userpref" (id: 19) - removing region
+00:01.844  blend.doversion  | WARNING Region type 9 missing in space type "Userpref" (id: 19) - removing region
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\archiviz_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['main door middle.001', 'main door right.001']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.156  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\bedroom\bedroom.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\bedroom_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Wardrobe_04_001', 'Wardrobe_04_001.001', 'Wardrobe_04_001.002', 'Wardrobe_04_001.003', 'Wardrobe_04_001.004']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.109  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\blue_bathroom.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\blue_bathroom_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Azeen Rectangle Wood Mirror', 'Mirror_Plane']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.079  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\computer_room.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\computer_room_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.125  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\cozy_living_room.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\cozy_living_room_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.125  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\flat-archiviz.blend"
+00:01.781  blend.doversion  | WARNING Region type 9 missing in space type "Userpref" (id: 19) - removing region
+00:01.781  blend.doversion  | WARNING Region type 9 missing in space type "Userpref" (id: 19) - removing region
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\flat-archiviz_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['main door middle.001', 'main door right.001']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.140  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\green_house.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\green_house_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+Error: Not freed memory blocks: 1, total unfreed memory 0.000023 MB
+00:01.125  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\gym.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\gym_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.109  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\livingRoom_contemporary\living_room.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\living_room_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['MirrorL', 'MirrorM', 'MirrorR']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+[archiviz_baseline080] mirror_object = main door middle.001,main door right.001
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\archiviz.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\archiviz_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object main door middle.001,main door right.001
+[ok] archiviz_baseline080: mirrors=2 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\archiviz_baseline080\mirror_gt
+[bedroom_baseline080] mirror_object = Wardrobe_04_001,Wardrobe_04_001.001,Wardrobe_04_001.002,Wardrobe_04_001.003,Wardrobe_04_001.004
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\bedroom\bedroom.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\bedroom_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Wardrobe_04_001,Wardrobe_04_001.001,Wardrobe_04_001.002,Wardrobe_04_001.003,Wardrobe_04_001.004
+[ok] bedroom_baseline080: mirrors=5 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\bedroom_baseline080\mirror_gt
+[blue_bathroom_baseline080] mirror_object = Azeen Rectangle Wood Mirror,Mirror_Plane
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\blue_bathroom.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\blue_bathroom_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Azeen Rectangle Wood Mirror,Mirror_Plane
+[ok] blue_bathroom_baseline080: mirrors=2 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\blue_bathroom_baseline080\mirror_gt
+[computer_room_baseline080] mirror_object = Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\computer_room.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\computer_room_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Mirror
+[ok] computer_room_baseline080: mirrors=1 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\computer_room_baseline080\mirror_gt
+[cozy_living_room_baseline080] mirror_object = Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\cozy_living_room.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\cozy_living_room_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Mirror
+[ok] cozy_living_room_baseline080: mirrors=1 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\cozy_living_room_baseline080\mirror_gt
+[skip] demo_computer_room: .blend 못찾음 (base=demo_computer_room)
+[flat-archiviz_baseline080] mirror_object = main door middle.001,main door right.001
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\flat-archiviz.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\flat-archiviz_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object main door middle.001,main door right.001
+[ok] flat-archiviz_baseline080: mirrors=2 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\flat-archiviz_baseline080\mirror_gt
+[green_house_baseline080] mirror_object = Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\green_house.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\green_house_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Mirror
+[ok] green_house_baseline080: mirrors=1 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\green_house_baseline080\mirror_gt
+[gym_baseline080] mirror_object = Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\gym.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\gym_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Mirror
+[ok] gym_baseline080: mirrors=1 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\gym_baseline080\mirror_gt
+[living_room_baseline080] mirror_object = MirrorL,MirrorM,MirrorR
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\livingRoom_contemporary\living_room.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\living_room_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object MirrorL,MirrorM,MirrorR
+[ok] living_room_baseline080: mirrors=3 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\living_room_baseline080\mirror_gt
+[livingroom_baseline080] mirror_object = LL_Mirror,LM_Mirror,LR_Mirror,UL_Mirror,UM_Mirror,UR_Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\livingroom.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\livingroom_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object LL_Mirror,LM_Mirror,LR_Mirror,UL_Mirror,UM_Mirror,UR_Mirror00:01.094  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\livingroom.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\livingroom_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['LL_Mirror', 'LM_Mirror', 'LR_Mirror', 'UL_Mirror', 'UM_Mirror', 'UR_Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.109  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\loft\loft.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\loft_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Cube.019', 'CubeL', 'CubeM', 'CubeR', 'PlaneL', 'PlaneM', 'PlaneR']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.125  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\minigym.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minigym_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['L', 'M', 'R']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.125  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\minigym.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minigym_view04\mirror_gt\gt_mirror_world.json mirrors: ['Cube.002', 'Cube.001', 'Cube.003']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.172  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\minimal_interior.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minimal_interior_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.125  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\modern_living_room.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\modern_living_room_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['MirrorL', 'MirrorR']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.125  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\scandinavian\scandinavian.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\scandinavian_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.094  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\sunlight.blend"
+00:01.641  object.modifier  | WARNING Object: "Cube.014", Modifier: "Skin", No valid root vertex found (you need one per mesh island you want to skin)
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\sunlight_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Plane_Mirror1', 'Plane_Mirror2']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+00:01.156  blend            | Read blend: "D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\terrazzo.blend"
+WROTE D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\terrazzo_baseline080\mirror_gt\gt_mirror_world.json mirrors: ['Mirror']
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit
+
+[ok] livingroom_baseline080: mirrors=6 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\livingroom_baseline080\mirror_gt
+[loft_baseline080] mirror_object = Cube.019,CubeL,CubeM,CubeR,PlaneL,PlaneM,PlaneR
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\loft\loft.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\loft_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Cube.019,CubeL,CubeM,CubeR,PlaneL,PlaneM,PlaneR
+[warn] loft_baseline080/Cube.019: planarity_rms=0.055m (비평면 거울 의심)
+[ok] loft_baseline080: mirrors=7 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\loft_baseline080\mirror_gt
+[minigym_baseline080] mirror_object = L,M,R
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\minigym.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minigym_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object L,M,R
+[ok] minigym_baseline080: mirrors=3 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minigym_baseline080\mirror_gt
+[minigym_view04] mirror_object = Cube.002,Cube.001,Cube.003
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\minigym.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minigym_view04\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Cube.002,Cube.001,Cube.003
+[warn] minigym_view04/Cube.002: planarity_rms=1.000m (비평면 거울 의심)
+[warn] minigym_view04/Cube.001: planarity_rms=1.000m (비평면 거울 의심)
+[warn] minigym_view04/Cube.003: planarity_rms=1.000m (비평면 거울 의심)
+[ok] minigym_view04: mirrors=3 cam_diff(blend↔dataset)=1.41e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minigym_view04\mirror_gt
+[minimal_interior_baseline080] mirror_object = Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\minimal_interior.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minimal_interior_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Mirror
+[ok] minimal_interior_baseline080: mirrors=1 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\minimal_interior_baseline080\mirror_gt
+[modern_living_room_baseline080] mirror_object = MirrorL,MirrorR
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\modern_living_room.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\modern_living_room_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object MirrorL,MirrorR
+[ok] modern_living_room_baseline080: mirrors=2 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\modern_living_room_baseline080\mirror_gt
+[scandinavian_baseline080] mirror_object = Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\scandinavian\scandinavian.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\scandinavian_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Mirror
+[ok] scandinavian_baseline080: mirrors=1 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\scandinavian_baseline080\mirror_gt
+[sunlight_baseline080] mirror_object = Plane_Mirror1,Plane_Mirror2
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\sunlight.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\sunlight_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Plane_Mirror1,Plane_Mirror2
+[ok] sunlight_baseline080: mirrors=2 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\sunlight_baseline080\mirror_gt
+[terrazzo_baseline080] mirror_object = Mirror
+RUN: C:\Program Files\Blender Foundation\Blender 5.1\blender.exe --background D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\data\source_scenes\blender_source_files\terrazzo.blend --python D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\MakeStereoDataset\scripts\export_mirror_gt.py -- --out D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\terrazzo_baseline080\mirror_gt\gt_mirror_world.json --camera CM --mirror_object Mirror
+[ok] terrazzo_baseline080: mirrors=1 cam_diff(blend↔dataset)=0.00e+00 → D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\terrazzo_baseline080\mirror_gt
+
+#### SUMMARY
+  [OK] archiviz_baseline080
+  [OK] bedroom_baseline080
+  [OK] blue_bathroom_baseline080
+  [OK] computer_room_baseline080
+  [OK] cozy_living_room_baseline080
+  [FAIL] demo_computer_room
+  [OK] flat-archiviz_baseline080
+  [OK] green_house_baseline080
+  [OK] gym_baseline080
+  [OK] living_room_baseline080
+  [OK] livingroom_baseline080
+  [OK] loft_baseline080
+  [OK] minigym_baseline080
+  [OK] minigym_view04
+  [OK] minimal_interior_baseline080
+  [OK] modern_living_room_baseline080
+  [OK] scandinavian_baseline080
+  [OK] sunlight_baseline080
+  [OK] terrazzo_baseline080

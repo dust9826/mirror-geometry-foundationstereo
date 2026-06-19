@@ -1,0 +1,110 @@
+{
+  "view_split": [
+    {
+      "file": "view_split_good1_ds_v2_seed1__blue_bathroom_v51.png",
+      "view": "ds_v2_seed1/blue_bathroom_v51",
+      "iou": 0.817255315410297,
+      "auc": 0.9905190424234925,
+      "kind": "good"
+    },
+    {
+      "file": "view_split_good2_ds_v1_seed0__minigym_v27.png",
+      "view": "ds_v1_seed0/minigym_v27",
+      "iou": 0.8118679454557317,
+      "auc": 0.982435930597932,
+      "kind": "good"
+    },
+    {
+      "file": "view_split_good3_ds_v2_seed1__computer_room_v55.png",
+      "view": "ds_v2_seed1/computer_room_v55",
+      "iou": 0.8026083186017812,
+      "auc": 0.9774133327601676,
+      "kind": "good"
+    },
+    {
+      "file": "view_split_bad_ds_v2_seed1__minimal_interior_v02.png",
+      "view": "ds_v2_seed1/minimal_interior_v02",
+      "iou": 0.05795486207857342,
+      "auc": 0.9630459446040842,
+      "kind": "bad"
+    }
+  ],
+  "scene_split": [
+    {
+      "file": "scene_split_good1_ds_v2_seed1__blue_bathroom_v51.png",
+      "view": "ds_v2_seed1/blue_bathroom_v51",
+      "iou": 0.7722982739562962,
+      "auc": 0.9857727155718328,
+      "kind": "good"
+    },
+    {
+      "file": "scene_split_good2_ds_v2_seed1__terrazzo_v29.png",
+      "view": "ds_v2_seed1/terrazzo_v29",
+      "iou": 0.6764518426873618,
+      "auc": 0.9515973773620189,
+      "kind": "good"
+    },
+    {
+      "file": "scene_split_good3_ds_v2_seed1__gym_v60.png",
+      "view": "ds_v2_seed1/gym_v60",
+      "iou": 0.6584024969851742,
+      "auc": 0.9545595668616665,
+      "kind": "good"
+    },
+    {
+      "file": "scene_split_bad_ds_v2_seed1__minimal_interior_v02.png",
+      "view": "ds_v2_seed1/minimal_interior_v02",
+      "iou": 0.04290544479421709,
+      "auc": 0.9215167855028896,
+      "kind": "bad"
+    }
+  ],
+  "rep_view": [
+    {
+      "file": "rep_view_good1_ds_v2_seed1__computer_room_v63.png",
+      "view": "ds_v2_seed1/computer_room_v63",
+      "iou": 0.8042121684867395,
+      "auc": 0.9734506555343074,
+      "kind": "good"
+    },
+    {
+      "file": "rep_view_good2_ds_v2_seed1__blue_bathroom_v41.png",
+      "view": "ds_v2_seed1/blue_bathroom_v41",
+      "iou": 0.8041635267520724,
+      "auc": 0.9915003601176501,
+      "kind": "good"
+    },
+    {
+      "file": "rep_view_good3_ds_v2_seed1__minigym_v49.png",
+      "view": "ds_v2_seed1/minigym_v49",
+      "iou": 0.7820576179540103,
+      "auc": 0.9641380099028093,
+      "kind": "good"
+    },
+    {
+      "file": "rep_view_bad_ds_v1_seed0__blue_bathroom_v03.png",
+      "view": "ds_v1_seed0/blue_bathroom_v03",
+      "iou": 0.05402087170042971,
+      "auc": 0.9499454259378348,
+      "kind": "bad"
+    }
+  ],
+  "single_scene": [
+    {
+      "file": "single_scene_own_best_terrazzo_on_ds_v1_seed0__terrazzo_v05.png",
+      "view": "ds_v1_seed0/terrazzo_v05",
+      "model": "terrazzo",
+      "iou": 0.9317549371633752,
+      "auc": 0.9939501106688186,
+      "kind": "good"
+    },
+    {
+      "file": "single_scene_cross_worst_minimal_interior_on_ds_v2_seed1__blue_bathroom_v33.png",
+      "view": "ds_v2_seed1/blue_bathroom_v33",
+      "model": "minimal_interior",
+      "iou": 0.0,
+      "auc": 0.9580390810256069,
+      "kind": "bad"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+# ── 재생성 가능한 무거운 산출물 (절대 커밋 금지) ─────────────────
+# FS 추론 텐서 / 포인트클라우드 / 시각화 / 뷰별 패널
+*.npy
+*.npz
+*.ply
+FoundationStereo/experiments/**/fs/
+FoundationStereo/experiments/**/input/*.png
+FoundationStereo/experiments/**/*.png
+FoundationStereo/experiments/_splits/**/applied/
+# experiments 안의 결과물(panel/overlay/pred_mask 등) PNG는 제외하되,
+# 논문/보고서/발표용 figure 는 살린다:
+!FoundationStereo/report/**
+!FoundationStereo/presentation/**
+!FoundationStereo/paper/**
+
+# ── 외부 의존물 (재취득) ──────────────────────────────────────
+FoundationStereo/pretrained_models/
+FoundationStereo/repo/
+Archive/
+MakeStereoDataset/data/
+
+# ── 대용량 재현 번들 (build 스크립트로 재생성) ────────────────
+FoundationStereo/colab/*.zip
+
+# ── 파이썬/환경 ───────────────────────────────────────────────
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ── OS / 에디터 ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/

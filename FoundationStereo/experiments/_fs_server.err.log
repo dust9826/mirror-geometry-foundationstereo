@@ -1,0 +1,23 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Using cache found in C:\Users\dust/.cache\torch\hub\facebookresearch_dinov2_main
+C:\Users\dust/.cache\torch\hub\facebookresearch_dinov2_main\dinov2\layers\swiglu_ffn.py:51: UserWarning: xFormers is not available (SwiGLU)
+  warnings.warn("xFormers is not available (SwiGLU)")
+C:\Users\dust/.cache\torch\hub\facebookresearch_dinov2_main\dinov2\layers\attention.py:33: UserWarning: xFormers is not available (Attention)
+  warnings.warn("xFormers is not available (Attention)")
+C:\Users\dust/.cache\torch\hub\facebookresearch_dinov2_main\dinov2\layers\block.py:40: UserWarning: xFormers is not available (Block)
+  warnings.warn("xFormers is not available (Block)")
+using MLP layer as FFN
+D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\scripts\run_foundation_stereo.py:131: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(True):
+D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\repo\core\foundation_stereo.py:206: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=self.args.mixed_precision):
+D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\repo\core\submodule.py:390: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\repo\core\geometry.py:73: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(enabled=False):
+D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\repo\core\foundation_stereo.py:245: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=self.args.mixed_precision):
+D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\repo\core\foundation_stereo.py:191: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=self.args.mixed_precision):
+D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\scripts\run_foundation_stereo.py:173: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(False):

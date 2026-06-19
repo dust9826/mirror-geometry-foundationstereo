@@ -1,0 +1,6 @@
+{
+  "scene": "loft_baseline080",
+  "status": "skipped",
+  "reason": "\uc720\ud6a8\ud55c \uac70\uc6b8 3D \uc810\uc774 3\uac1c \ubbf8\ub9cc - \ud3c9\uba74 \ucd94\uc815 skip. mask \ub294 167693px \uc774\uc9c0\ub9cc 0<depth<=50.0m \uc778 \uc720\ud6a8 3D \uc810\uc774 \uc5c6\uc74c (FS \uac00 \uac70\uc6b8 \ubc18\uc0ac\ub97c \ub9e4\uce6d \ubabb\ud574 disparity\u22480 -> depth \ud3ed\ubc1c). --max_depth \uc870\uc815 \uac00\ub2a5.",
+  "mask_px": 167693
+}

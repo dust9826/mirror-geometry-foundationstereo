@@ -1,0 +1,106 @@
+{
+  "scene": "ds_v1_seed0/minigym_v34",
+  "feature_hw": [
+    184,
+    320
+  ],
+  "scale_to_full": 3.91304349899292,
+  "have_mask": true,
+  "mirror_frac": 0.23060461956521738,
+  "has_feat_left": true,
+  "feat_left_channels": 128,
+  "ranked": [
+    {
+      "signal": "delta_entropy",
+      "auc": 0.577,
+      "polarity": "-",
+      "separability": 0.1003,
+      "mean_inside": -1.555964,
+      "mean_outside": -1.380105
+    },
+    {
+      "signal": "feat_left_pc1",
+      "auc": 0.5767,
+      "polarity": "-",
+      "separability": 0.1634,
+      "mean_inside": 1.85952,
+      "mean_outside": 2.311591
+    },
+    {
+      "signal": "pre_entropy",
+      "auc": 0.5749,
+      "polarity": "+",
+      "separability": 0.0893,
+      "mean_inside": 2.170903,
+      "mean_outside": 2.01269
+    },
+    {
+      "signal": "feat_left_l2",
+      "auc": 0.5731,
+      "polarity": "+",
+      "separability": 0.1029,
+      "mean_inside": 17.203091,
+      "mean_outside": 16.731518
+    },
+    {
+      "signal": "pre_conf",
+      "auc": 0.5718,
+      "polarity": "-",
+      "separability": 0.1389,
+      "mean_inside": 0.354164,
+      "mean_outside": 0.416825
+    },
+    {
+      "signal": "delta_conf",
+      "auc": 0.5592,
+      "polarity": "+",
+      "separability": 0.1163,
+      "mean_inside": 0.349971,
+      "mean_outside": 0.291297
+    },
+    {
+      "signal": "post_entropy",
+      "auc": 0.5345,
+      "polarity": "-",
+      "separability": 0.0637,
+      "mean_inside": 0.614939,
+      "mean_outside": 0.632585
+    },
+    {
+      "signal": "feat_left_pc3",
+      "auc": 0.5224,
+      "polarity": "-",
+      "separability": 0.0257,
+      "mean_inside": 1.702707,
+      "mean_outside": 1.772633
+    },
+    {
+      "signal": "feat_left_pc2",
+      "auc": 0.516,
+      "polarity": "+",
+      "separability": 0.0291,
+      "mean_inside": 1.954081,
+      "mean_outside": 1.870305
+    },
+    {
+      "signal": "delta_argdisp",
+      "auc": 0.5103,
+      "polarity": "+",
+      "separability": 0.0136,
+      "mean_inside": 44.855133,
+      "mean_outside": 43.98265
+    },
+    {
+      "signal": "post_conf",
+      "auc": 0.5095,
+      "polarity": "-",
+      "separability": 0.0161,
+      "mean_inside": 0.704135,
+      "mean_outside": 0.708123
+    }
+  ],
+  "best_signal": "delta_entropy",
+  "best_auc": 0.577,
+  "best_polarity": "-",
+  "note": "AUC>0.5 이면 거울 분리 신호 존재. polarity '+' = 거울에서 값 큼, '-' = 거울에서 값 작음(부호반전이 더 분리). best_signal 이 AHCF 전(pre_*)보다 후(post_*)/delta_* 면 AHCF 가 거울 신호를 강화한 것."
+}

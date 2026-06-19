@@ -1,0 +1,19 @@
+[load] view_split model  (train 1073 / test 464 views)
+  [train] 100/1073
+  [train] 200/1073
+  [train] 300/1073
+  [train] 400/1073
+  [train] 500/1073
+  [train] 600/1073
+  [train] 700/1073
+  [train] 800/1073
+  [train] 900/1073
+  [train] 1000/1073
+[view_split/train] 1073 views  AUC 0.9567  IoU 0.5501  F1 0.6969
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_splits\view_split\applied\metrics_train.csv
+  [test] 100/464
+  [test] 200/464
+  [test] 300/464
+  [test] 400/464
+[view_split/test] 464 views  AUC 0.9579  IoU 0.5463  F1 0.6917
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_splits\view_split\applied\metrics_test.csv

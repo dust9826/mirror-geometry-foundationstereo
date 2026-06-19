@@ -1,0 +1,20 @@
+[load] scene_split model  (train 1026 / test 511 views)
+  [train] 100/1026
+  [train] 200/1026
+  [train] 300/1026
+  [train] 400/1026
+  [train] 500/1026
+  [train] 600/1026
+  [train] 700/1026
+  [train] 800/1026
+  [train] 900/1026
+  [train] 1000/1026
+[scene_split/train] 1026 views  AUC 0.9545  IoU 0.5572  F1 0.7048
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_splits\scene_split\applied\metrics_train.csv
+  [test] 100/511
+  [test] 200/511
+  [test] 300/511
+  [test] 400/511
+  [test] 500/511
+[scene_split/test] 511 views  AUC 0.9284  IoU 0.4919  F1 0.6422
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_splits\scene_split\applied\metrics_test.csv

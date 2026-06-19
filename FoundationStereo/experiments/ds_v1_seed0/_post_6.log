@@ -1,0 +1,3468 @@
+[batch] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\Archive\ds_v1_seed0 → experiments/ds_v1_seed0/  (2 scene, 132 views, post_only)
+
+##### [55/132] ds_v1_seed0/sunlight_v54  (done 0, fail 0, skip 54, elapsed 0m, ETA 0m) #####
+[scene] ds_v1_seed0/sunlight_v54  size=1280x720
+[select] mirror 점 개수 = 216799  (mask=216799, valid&depth = 904688)
+[conf] mirror 영역 평균 confidence = 0.7132
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.5000, -0.7454, -0.4409]
+      d = +3.2607   mirror_depth(perp) = 3.2607 m   view_z = 11.9307 m
+      n_inliers = 216799/216799   rms_residual = 0.96467 m
+  [RANSAC]
+      normal = [+0.8176, +0.0852, -0.5694]
+      d = +5.7409   mirror_depth(perp) = 5.7409 m   view_z = 11.9307 m
+      n_inliers = 96887/216799   rms_residual = 0.03160 m
+  [SVD robust (IRLS)]
+      normal = [+0.5136, -0.7192, -0.4680]
+      d = +3.6603   mirror_depth(perp) = 3.6603 m   view_z = 11.9307 m
+      n_inliers = 20902/216799   rms_residual = 0.06842 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\mirror_geometry
+[ds_v1_seed0/sunlight_v54] 거울 점 216799개 중 inlier 96887 (44.7%) / outlier 119912
+  normal=[ 0.818  0.085 -0.569] d=5.741  rms(inlier)=0.0316 m  thr≈0.118 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v54                 perp 7.75m planRMS 0.0557m  normal [-0.576, 0.101, -0.811]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v54] feature 184x320  mirror_frac=0.23517323369565218  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  pre_conf           0.5571   -  0.1283     0.35583    0.410547
+  2  pre_entropy        0.5523   +  0.0603    2.122132    2.023495
+  3  delta_conf         0.5504   +  0.1013    0.357195    0.310055
+  4  delta_entropy      0.5503   -  0.0543   -1.484023   -1.396113
+  5  post_entropy        0.545   +  0.0404    0.638109    0.627382
+  6  delta_argdisp      0.5401   +  0.0647   45.503286   41.455488
+  7  feat_left_l2       0.5377   +  0.0532   17.273972   17.045261
+  8  post_conf          0.5203   -  0.0317    0.713024    0.720602
+  9  feat_left_pc2      0.5111   +  0.0233    1.952666    1.883856
+ 10  feat_left_pc3      0.5087   +  0.0123     1.89209    1.856048
+ 11  feat_left_pc1      0.5006   -  0.0036    2.520739     2.50949
+BEST: pre_conf (AUC=0.5571, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5701
+  [train] epoch 120/300  loss=0.3522
+  [train] epoch 180/300  loss=0.2358
+  [train] epoch 240/300  loss=0.1662
+  [train] epoch 300/300  loss=0.1231
+
+[VAL] scene=ds_v1_seed0/sunlight_v54  (pixel 70/30 split)
+  AUC      = 0.9933
+  IoU@0.5  = 0.8474
+  F1@0.5   = 0.9174
+  accuracy = 0.9601  (prec=0.8840, rec=0.9535)
+  tp=3916 fp=514 fn=191 tn=13043
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v54  (저장모델로 새 데이터 평가)
+  AUC      = 0.9286
+  IoU@0.5  = 0.5716
+  F1@0.5   = 0.7274
+  accuracy = 0.8546  (prec=0.6503, rec=0.8252)
+  tp=11427 fp=6144 fn=2420 tn=38889
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v54 (ok)
+
+##### [56/132] ds_v1_seed0/sunlight_v55  (done 1, fail 0, skip 54, elapsed 1m, ETA 66m) #####
+[scene] ds_v1_seed0/sunlight_v55  size=1280x720
+[select] mirror 점 개수 = 124409  (mask=124409, valid&depth = 902001)
+[conf] mirror 영역 평균 confidence = 0.7017
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.2023, -0.8741, -0.4417]
+      d = +2.8632   mirror_depth(perp) = 2.8632 m   view_z = 11.2035 m
+      n_inliers = 124409/124409   rms_residual = 0.40171 m
+  [RANSAC]
+      normal = [+0.8780, +0.1173, -0.4641]
+      d = +5.9016   mirror_depth(perp) = 5.9016 m   view_z = 11.2035 m
+      n_inliers = 44062/124409   rms_residual = 0.04473 m
+  [SVD robust (IRLS)]
+      normal = [+0.2260, -0.8678, -0.4425]
+      d = +2.8571   mirror_depth(perp) = 2.8571 m   view_z = 11.2035 m
+      n_inliers = 23564/124409   rms_residual = 0.06121 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\mirror_geometry
+[ds_v1_seed0/sunlight_v55] 거울 점 124409개 중 inlier 44062 (35.4%) / outlier 80347
+  normal=[ 0.878  0.117 -0.464] d=5.902  rms(inlier)=0.0447 m  thr≈0.106 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v55                 perp 7.49m planRMS 0.0767m  normal [-0.457, 0.265, -0.849]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v55] feature 184x320  mirror_frac=0.13624320652173913  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_l2       0.6464   +  0.2359   18.017602   17.015266
+  2  pre_entropy        0.6084   +  0.1582    2.227444    1.973273
+  3  delta_entropy      0.6031   -  0.1493   -1.578935   -1.340729
+  4  feat_left_pc1      0.6006   -  0.1687    2.178726    2.680903
+  5  pre_conf           0.5966   -  0.1954    0.334626    0.414956
+  6  delta_conf         0.5758   +  0.1501    0.366789     0.29735
+  7  post_entropy       0.5683   +  0.0625    0.648509    0.632544
+  8  delta_argdisp      0.5394   +  0.0642    48.33994   44.369814
+  9  post_conf          0.5291   -  0.0472    0.701415    0.712307
+ 10  feat_left_pc2       0.513   +  0.0335    1.968734    1.872664
+ 11  feat_left_pc3      0.5044   +   0.022    1.924682    1.861028
+BEST: feat_left_l2 (AUC=0.6464, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5871
+  [train] epoch 120/300  loss=0.3937
+  [train] epoch 180/300  loss=0.2820
+  [train] epoch 240/300  loss=0.2053
+  [train] epoch 300/300  loss=0.1517
+
+[VAL] scene=ds_v1_seed0/sunlight_v55  (pixel 70/30 split)
+  AUC      = 0.9910
+  IoU@0.5  = 0.7401
+  F1@0.5   = 0.8506
+  accuracy = 0.9536  (prec=0.7601, rec=0.9656)
+  tp=2332 fp=736 fn=83 tn=14513
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v55  (저장모델로 새 데이터 평가)
+  AUC      = 0.9549
+  IoU@0.5  = 0.4772
+  F1@0.5   = 0.6461
+  accuracy = 0.8642  (prec=0.5010, rec=0.9094)
+  tp=7295 fp=7266 fn=727 tn=43592
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v55 (ok)
+
+##### [57/132] ds_v1_seed0/sunlight_v56  (done 2, fail 0, skip 54, elapsed 1m, ETA 52m) #####
+[scene] ds_v1_seed0/sunlight_v56  size=1280x720
+[select] mirror 점 개수 = 159437  (mask=159437, valid&depth = 902549)
+[conf] mirror 영역 평균 confidence = 0.7172
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.2270, -0.8422, -0.4890]
+      d = +3.0310   mirror_depth(perp) = 3.0310 m   view_z = 11.3357 m
+      n_inliers = 159437/159437   rms_residual = 0.48024 m
+  [RANSAC]
+      normal = [+0.7569, +0.1499, -0.6362]
+      d = +5.8115   mirror_depth(perp) = 5.8115 m   view_z = 11.3357 m
+      n_inliers = 63993/159437   rms_residual = 0.02810 m
+  [SVD robust (IRLS)]
+      normal = [+0.2344, -0.8442, -0.4820]
+      d = +2.8953   mirror_depth(perp) = 2.8953 m   view_z = 11.3357 m
+      n_inliers = 31654/159437   rms_residual = 0.06990 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\mirror_geometry
+[ds_v1_seed0/sunlight_v56] 거울 점 159437개 중 inlier 63993 (40.1%) / outlier 95444
+  normal=[ 0.757  0.15  -0.636] d=5.811  rms(inlier)=0.0281 m  thr≈0.121 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v56                 perp 7.49m planRMS 0.0687m  normal [-0.657, 0.222, -0.721]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v56] feature 184x320  mirror_frac=0.17403192934782608  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  post_entropy       0.5844   +  0.1265    0.634449    0.603343
+  2  pre_entropy        0.5733   +  0.0953    2.200932    2.044456
+  3  pre_conf           0.5716   -   0.156    0.341679    0.406805
+  4  delta_entropy      0.5606   -  0.0774   -1.566483   -1.441113
+  5  feat_left_l2       0.5598   +  0.1052   17.291662   16.819741
+  6  delta_conf          0.556   +  0.1205    0.375013     0.31955
+  7  post_conf          0.5277   -  0.0409    0.716692    0.726355
+  8  feat_left_pc3      0.5221   +   0.039    1.927292    1.815288
+  9  feat_left_pc2      0.5185   +  0.0363    1.924475    1.818839
+ 10  delta_argdisp      0.5092   +  0.0089    45.42998   44.863426
+ 11  feat_left_pc1      0.5062   -  0.0117    2.442938    2.404551
+BEST: post_entropy (AUC=0.5844, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.6157
+  [train] epoch 120/300  loss=0.4265
+  [train] epoch 180/300  loss=0.3084
+  [train] epoch 240/300  loss=0.2292
+  [train] epoch 300/300  loss=0.1750
+
+[VAL] scene=ds_v1_seed0/sunlight_v56  (pixel 70/30 split)
+  AUC      = 0.9860
+  IoU@0.5  = 0.7311
+  F1@0.5   = 0.8447
+  accuracy = 0.9411  (prec=0.7718, rec=0.9327)
+  tp=2828 fp=836 fn=204 tn=13796
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v56  (저장모델로 새 데이터 평가)
+  AUC      = 0.9517
+  IoU@0.5  = 0.5620
+  F1@0.5   = 0.7196
+  accuracy = 0.8828  (prec=0.6164, rec=0.8642)
+  tp=8855 fp=5510 fn=1392 tn=43123
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v56 (ok)
+
+##### [58/132] ds_v1_seed0/sunlight_v57  (done 3, fail 0, skip 54, elapsed 2m, ETA 49m) #####
+[scene] ds_v1_seed0/sunlight_v57  size=1280x720
+[select] mirror 점 개수 = 191111  (mask=191111, valid&depth = 904546)
+[conf] mirror 영역 평균 confidence = 0.7340
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.4940, -0.6954, -0.5219]
+      d = +4.3444   mirror_depth(perp) = 4.3444 m   view_z = 12.3223 m
+      n_inliers = 191111/191111   rms_residual = 0.74568 m
+  [RANSAC]
+      normal = [+0.8548, +0.1349, -0.5012]
+      d = +5.7877   mirror_depth(perp) = 5.7877 m   view_z = 12.3223 m
+      n_inliers = 90938/191111   rms_residual = 0.03038 m
+  [SVD robust (IRLS)]
+      normal = [+0.5288, -0.6657, -0.5265]
+      d = +4.4197   mirror_depth(perp) = 4.4197 m   view_z = 12.3223 m
+      n_inliers = 23293/191111   rms_residual = 0.06842 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\mirror_geometry
+[ds_v1_seed0/sunlight_v57] 거울 점 191111개 중 inlier 90938 (47.6%) / outlier 100173
+  normal=[ 0.855  0.135 -0.501] d=5.788  rms(inlier)=0.0304 m  thr≈0.118 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v57                 perp 7.82m planRMS 0.0635m  normal [-0.515, 0.168, -0.841]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v57] feature 184x320  mirror_frac=0.2084578804347826  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_conf         0.5859   +  0.1628    0.384248    0.308307
+  2  delta_entropy      0.5753   -  0.0961   -1.536948   -1.379117
+  3  feat_left_l2       0.5726   +  0.1024   17.522167   17.085323
+  4  pre_entropy         0.571   +  0.0915    2.163341    2.011868
+  5  pre_conf            0.566   -  0.1416    0.349807    0.410105
+  6  feat_left_pc1      0.5446   -  0.0779    2.400538    2.636416
+  7  delta_argdisp      0.5384   +  0.0676   47.926756   43.708643
+  8  post_conf          0.5322   +  0.0658    0.734055    0.718412
+  9  feat_left_pc3      0.5214   +   0.043    1.980741    1.854561
+ 10  post_entropy        0.516   +  0.0222    0.626392    0.632751
+ 11  feat_left_pc2      0.5011   -  0.0042    1.925331    1.913304
+BEST: delta_conf (AUC=0.5859, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5600
+  [train] epoch 120/300  loss=0.3582
+  [train] epoch 180/300  loss=0.2452
+  [train] epoch 240/300  loss=0.1716
+  [train] epoch 300/300  loss=0.1233
+
+[VAL] scene=ds_v1_seed0/sunlight_v57  (pixel 70/30 split)
+  AUC      = 0.9945
+  IoU@0.5  = 0.8416
+  F1@0.5   = 0.9140
+  accuracy = 0.9619  (prec=0.8667, rec=0.9667)
+  tp=3576 fp=550 fn=123 tn=13415
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v57  (저장모델로 새 데이터 평가)
+  AUC      = 0.9445
+  IoU@0.5  = 0.5684
+  F1@0.5   = 0.7248
+  accuracy = 0.8617  (prec=0.6192, rec=0.8739)
+  tp=10726 fp=6596 fn=1548 tn=40010
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v57 (ok)
+
+##### [59/132] ds_v1_seed0/sunlight_v58  (done 4, fail 0, skip 54, elapsed 3m, ETA 48m) #####
+[scene] ds_v1_seed0/sunlight_v58  size=1280x720
+[select] mirror 점 개수 = 119022  (mask=119022, valid&depth = 901547)
+[conf] mirror 영역 평균 confidence = 0.6981
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.1276, -0.8934, -0.4308]
+      d = +2.3264   mirror_depth(perp) = 2.3264 m   view_z = 11.2522 m
+      n_inliers = 119022/119022   rms_residual = 0.34751 m
+  [RANSAC]
+      normal = [-0.0484, -0.9208, -0.3871]
+      d = +2.6470   mirror_depth(perp) = 2.6470 m   view_z = 11.2522 m
+      n_inliers = 39797/119022   rms_residual = 0.06600 m
+  [SVD robust (IRLS)]
+      normal = [+0.1348, -0.8882, -0.4391]
+      d = +2.3945   mirror_depth(perp) = 2.3945 m   view_z = 11.2522 m
+      n_inliers = 29776/119022   rms_residual = 0.07334 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\mirror_geometry
+[ds_v1_seed0/sunlight_v58] 거울 점 119022개 중 inlier 39797 (33.4%) / outlier 79225
+  normal=[-0.048 -0.921 -0.387] d=2.647  rms(inlier)=0.0660 m  thr≈0.127 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v58                 perp 7.84m planRMS 0.0849m  normal [-0.608, 0.27, -0.747]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v58] feature 184x320  mirror_frac=0.13026494565217392  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_l2       0.6037   +  0.1631   17.545228   16.850467
+  2  post_entropy       0.5901   +  0.1218    0.647989    0.618837
+  3  pre_entropy          0.57   +  0.0862    2.213034    2.072484
+  4  pre_conf           0.5645   -  0.1386    0.339476    0.396531
+  5  delta_entropy      0.5577   -   0.069   -1.565045   -1.453647
+  6  delta_conf         0.5392   +  0.0891    0.359061    0.317538
+  7  post_conf          0.5378   -  0.0638    0.698537    0.714068
+  8  feat_left_pc1      0.5339   -  0.0402    2.214148    2.344135
+  9  feat_left_pc3      0.5316   +   0.055    1.951902    1.794387
+ 10  feat_left_pc2      0.5206   +  0.0356    1.929687    1.826746
+ 11  delta_argdisp      0.5036   -  0.0152   44.469492   45.430326
+BEST: feat_left_l2 (AUC=0.6037, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.6226
+  [train] epoch 120/300  loss=0.4337
+  [train] epoch 180/300  loss=0.3144
+  [train] epoch 240/300  loss=0.2302
+  [train] epoch 300/300  loss=0.1733
+
+[VAL] scene=ds_v1_seed0/sunlight_v58  (pixel 70/30 split)
+  AUC      = 0.9881
+  IoU@0.5  = 0.6990
+  F1@0.5   = 0.8229
+  accuracy = 0.9472  (prec=0.7260, rec=0.9496)
+  tp=2167 fp=818 fn=115 tn=14564
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v58  (저장모델로 새 데이터 평가)
+  AUC      = 0.9611
+  IoU@0.5  = 0.5112
+  F1@0.5   = 0.6766
+  accuracy = 0.8879  (prec=0.5420, rec=0.9001)
+  tp=6904 fp=5835 fn=766 tn=45375
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v58 (ok)
+
+##### [60/132] ds_v1_seed0/sunlight_v59  (done 5, fail 0, skip 54, elapsed 3m, ETA 45m) #####
+[scene] ds_v1_seed0/sunlight_v59  size=1280x720
+[select] mirror 점 개수 = 80204  (mask=80204, valid&depth = 903592)
+[conf] mirror 영역 평균 confidence = 0.6963
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.6346, -0.1723, -0.7534]
+      d = +4.4887   mirror_depth(perp) = 4.4887 m   view_z = 9.5601 m
+      n_inliers = 80204/80204   rms_residual = 0.30940 m
+  [RANSAC]
+      normal = [+0.6286, +0.1688, -0.7592]
+      d = +5.3630   mirror_depth(perp) = 5.3630 m   view_z = 9.5601 m
+      n_inliers = 50245/80204   rms_residual = 0.03653 m
+  [SVD robust (IRLS)]
+      normal = [+0.6252, -0.0784, -0.7765]
+      d = +4.9669   mirror_depth(perp) = 4.9669 m   view_z = 9.5601 m
+      n_inliers = 26224/80204   rms_residual = 0.04115 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\mirror_geometry
+[ds_v1_seed0/sunlight_v59] 거울 점 80204개 중 inlier 50245 (62.6%) / outlier 29959
+  normal=[ 0.629  0.169 -0.759] d=5.363  rms(inlier)=0.0365 m  thr≈0.072 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v59                 perp 7.33m planRMS 0.1031m  normal [-0.795, 0.203, -0.572]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v59] feature 184x320  mirror_frac=0.08707540760869566  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  pre_entropy        0.6444   +  0.2376    2.270397    1.899914
+  2  delta_entropy      0.6308   -  0.2146   -1.640981   -1.305831
+  3  pre_conf           0.6275   -  0.2384     0.33194    0.430346
+  4  feat_left_pc1      0.5914   -   0.166     2.10906    2.606802
+  5  post_entropy       0.5869   +  0.1477    0.629416    0.594082
+  6  post_conf          0.5792   -  0.1357    0.696212    0.730318
+  7  delta_conf         0.5709   +  0.1317    0.364271    0.299972
+  8  delta_argdisp      0.5539   +  0.0748   44.401794    39.84466
+  9  feat_left_l2       0.5455   +  0.0523   17.264928   17.050221
+ 10  feat_left_pc3      0.5346   +  0.0617    2.053801    1.871095
+ 11  feat_left_pc2      0.5299   +  0.0598    2.042448    1.858211
+BEST: pre_entropy (AUC=0.6444, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.6103
+  [train] epoch 120/300  loss=0.3938
+  [train] epoch 180/300  loss=0.2729
+  [train] epoch 240/300  loss=0.1949
+  [train] epoch 300/300  loss=0.1435
+
+[VAL] scene=ds_v1_seed0/sunlight_v59  (pixel 70/30 split)
+  AUC      = 0.9908
+  IoU@0.5  = 0.6518
+  F1@0.5   = 0.7892
+  accuracy = 0.9568  (prec=0.6813, rec=0.9376)
+  tp=1428 fp=668 fn=95 tn=15473
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v59  (저장모델로 새 데이터 평가)
+  AUC      = 0.9404
+  IoU@0.5  = 0.3844
+  F1@0.5   = 0.5553
+  accuracy = 0.8845  (prec=0.4178, rec=0.8278)
+  tp=4244 fp=5915 fn=883 tn=47838
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v59 (ok)
+
+##### [61/132] ds_v1_seed0/sunlight_v60  (done 6, fail 0, skip 54, elapsed 4m, ETA 43m) #####
+[scene] ds_v1_seed0/sunlight_v60  size=1280x720
+[select] mirror 점 개수 = 227864  (mask=227864, valid&depth = 904815)
+[conf] mirror 영역 평균 confidence = 0.7239
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.5049, -0.7199, -0.4763]
+      d = +3.7235   mirror_depth(perp) = 3.7235 m   view_z = 11.8185 m
+      n_inliers = 227864/227864   rms_residual = 0.92525 m
+  [RANSAC]
+      normal = [+0.8250, +0.1124, -0.5538]
+      d = +5.5779   mirror_depth(perp) = 5.5779 m   view_z = 11.8185 m
+      n_inliers = 95055/227864   rms_residual = 0.03418 m
+  [SVD robust (IRLS)]
+      normal = [+0.5153, -0.7036, -0.4893]
+      d = +3.9392   mirror_depth(perp) = 3.9392 m   view_z = 11.8185 m
+      n_inliers = 21259/227864   rms_residual = 0.06901 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\mirror_geometry
+[ds_v1_seed0/sunlight_v60] 거울 점 227864개 중 inlier 95055 (41.7%) / outlier 132809
+  normal=[ 0.825  0.112 -0.554] d=5.578  rms(inlier)=0.0342 m  thr≈0.119 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v60                 perp 7.64m planRMS 0.0610m  normal [-0.564, 0.115, -0.818]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v60] feature 184x320  mirror_frac=0.2470108695652174  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_conf         0.5518   +  0.1046    0.355698    0.306123
+  2  feat_left_l2       0.5482   +  0.0748   17.297439   16.967773
+  3  delta_argdisp      0.5457   +  0.0749     45.8147   41.114309
+  4  pre_conf           0.5365   -  0.0966    0.368195    0.409381
+  5  delta_entropy      0.5299   -   0.026   -1.422909   -1.380694
+  6  pre_entropy        0.5295   +  0.0271    2.060282    2.016195
+  7  post_entropy        0.522   +  0.0068    0.637373    0.635501
+  8  post_conf          0.5166   +  0.0357    0.723893    0.715504
+  9  feat_left_pc3      0.5111   +  0.0161    1.904004    1.856735
+ 10  feat_left_pc2      0.5105   +  0.0218    1.937726    1.873456
+ 11  feat_left_pc1      0.5061   -  0.0018    2.485212    2.490874
+BEST: delta_conf (AUC=0.5518, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5451
+  [train] epoch 120/300  loss=0.3407
+  [train] epoch 180/300  loss=0.2324
+  [train] epoch 240/300  loss=0.1656
+  [train] epoch 300/300  loss=0.1229
+
+[VAL] scene=ds_v1_seed0/sunlight_v60  (pixel 70/30 split)
+  AUC      = 0.9921
+  IoU@0.5  = 0.8506
+  F1@0.5   = 0.9193
+  accuracy = 0.9590  (prec=0.8872, rec=0.9537)
+  tp=4121 fp=524 fn=200 tn=12819
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v60  (저장모델로 새 데이터 평가)
+  AUC      = 0.9333
+  IoU@0.5  = 0.6019
+  F1@0.5   = 0.7515
+  accuracy = 0.8656  (prec=0.6915, rec=0.8228)
+  tp=11967 fp=5338 fn=2577 tn=38998
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v60 (ok)
+
+##### [62/132] ds_v1_seed0/sunlight_v61  (done 7, fail 0, skip 54, elapsed 4m, ETA 44m) #####
+[scene] ds_v1_seed0/sunlight_v61  size=1280x720
+[select] mirror 점 개수 = 236436  (mask=236436, valid&depth = 905101)
+[conf] mirror 영역 평균 confidence = 0.7132
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.4834, -0.7582, -0.4375]
+      d = +3.8488   mirror_depth(perp) = 3.8488 m   view_z = 11.5574 m
+      n_inliers = 236436/236436   rms_residual = 0.89500 m
+  [RANSAC]
+      normal = [+0.8028, +0.0258, -0.5956]
+      d = +5.7341   mirror_depth(perp) = 5.7341 m   view_z = 11.5574 m
+      n_inliers = 103871/236436   rms_residual = 0.03927 m
+  [SVD robust (IRLS)]
+      normal = [+0.4660, -0.7688, -0.4379]
+      d = +3.9523   mirror_depth(perp) = 3.9523 m   view_z = 11.5574 m
+      n_inliers = 23609/236436   rms_residual = 0.07243 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\mirror_geometry
+[ds_v1_seed0/sunlight_v61] 거울 점 236436개 중 inlier 103871 (43.9%) / outlier 132565
+  normal=[ 0.803  0.026 -0.596] d=5.734  rms(inlier)=0.0393 m  thr≈0.124 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v61                 perp 7.39m planRMS 0.0534m  normal [-0.593, 0.056, -0.803]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v61] feature 184x320  mirror_frac=0.2565047554347826  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_conf         0.5975   +   0.184    0.352038    0.265037
+  2  post_entropy       0.5874   -  0.2316    0.638494    0.719934
+  3  delta_entropy      0.5786   -  0.1132   -1.463966    -1.28113
+  4  feat_left_pc1      0.5783   -  0.1612    2.243342    2.725008
+  5  post_conf          0.5733   +  0.1431    0.712954     0.67655
+  6  delta_argdisp      0.5637   +  0.1041    45.47858   39.013706
+  7  pre_conf           0.5553   -  0.1202    0.360916    0.411514
+  8  pre_entropy        0.5515   +  0.0635     2.10246    2.001063
+  9  feat_left_l2       0.5078   +  0.0103   17.037572   17.081562
+ 10  feat_left_pc2      0.5076   -  0.0191    1.864685    1.920933
+ 11  feat_left_pc3      0.5024   -  0.0108     1.84025    1.870981
+BEST: delta_conf (AUC=0.5975, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5855
+  [train] epoch 120/300  loss=0.3778
+  [train] epoch 180/300  loss=0.2571
+  [train] epoch 240/300  loss=0.1829
+  [train] epoch 300/300  loss=0.1365
+
+[VAL] scene=ds_v1_seed0/sunlight_v61  (pixel 70/30 split)
+  AUC      = 0.9904
+  IoU@0.5  = 0.8259
+  F1@0.5   = 0.9047
+  accuracy = 0.9496  (prec=0.8655, rec=0.9475)
+  tp=4223 fp=656 fn=234 tn=12551
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v61  (저장모델로 새 데이터 평가)
+  AUC      = 0.9364
+  IoU@0.5  = 0.6163
+  F1@0.5   = 0.7626
+  accuracy = 0.8683  (prec=0.7094, rec=0.8245)
+  tp=12452 fp=5102 fn=2651 tn=38675
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v61 (ok)
+
+##### [63/132] ds_v1_seed0/sunlight_v62  (done 8, fail 0, skip 54, elapsed 5m, ETA 44m) #####
+[scene] ds_v1_seed0/sunlight_v62  size=1280x720
+[select] mirror 점 개수 = 67449  (mask=67449, valid&depth = 902737)
+[conf] mirror 영역 평균 confidence = 0.7165
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.1427, -0.8747, -0.4632]
+      d = +2.2449   mirror_depth(perp) = 2.2449 m   view_z = 10.3290 m
+      n_inliers = 67449/67449   rms_residual = 0.31225 m
+  [RANSAC]
+      normal = [+0.6618, +0.1856, -0.7263]
+      d = +6.1171   mirror_depth(perp) = 6.1171 m   view_z = 10.3290 m
+      n_inliers = 26536/67449   rms_residual = 0.03805 m
+  [SVD robust (IRLS)]
+      normal = [+0.1822, -0.8565, -0.4829]
+      d = +2.3015   mirror_depth(perp) = 2.3015 m   view_z = 10.3290 m
+      n_inliers = 14721/67449   rms_residual = 0.05776 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\mirror_geometry
+[ds_v1_seed0/sunlight_v62] 거울 점 67449개 중 inlier 26536 (39.3%) / outlier 40913
+  normal=[ 0.662  0.186 -0.726] d=6.117  rms(inlier)=0.0380 m  thr≈0.098 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v62                 perp 7.76m planRMS 0.1043m  normal [-0.726, 0.264, -0.635]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v62] feature 184x320  mirror_frac=0.07353940217391304  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  pre_entropy        0.6692   +  0.2799    2.357148     1.92703
+  2  delta_entropy      0.6614   -   0.267   -1.725059   -1.317651
+  3  feat_left_pc1      0.6481   -  0.3014    1.671819    2.487681
+  4  pre_conf            0.648   -  0.2738    0.312371    0.421903
+  5  delta_conf         0.6195   +  0.2267    0.404111    0.301113
+  6  feat_left_l2       0.6123   +  0.1593   17.597094   16.994177
+  7  delta_argdisp      0.5632   +  0.1066   47.160739   40.552814
+  8  post_entropy       0.5504   +  0.0999    0.632089    0.609379
+  9  feat_left_pc2      0.5305   +  0.0538     2.00533    1.847355
+ 10  post_conf          0.5213   -  0.0283    0.716482    0.723016
+ 11  feat_left_pc3      0.5069   +  0.0079    1.833954     1.81131
+BEST: pre_entropy (AUC=0.6692, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5950
+  [train] epoch 120/300  loss=0.4095
+  [train] epoch 180/300  loss=0.3006
+  [train] epoch 240/300  loss=0.2221
+  [train] epoch 300/300  loss=0.1665
+
+[VAL] scene=ds_v1_seed0/sunlight_v62  (pixel 70/30 split)
+  AUC      = 0.9858
+  IoU@0.5  = 0.5540
+  F1@0.5   = 0.7130
+  accuracy = 0.9450  (prec=0.5765, rec=0.9342)
+  tp=1206 fp=886 fn=85 tn=15487
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v62  (저장모델로 새 데이터 평가)
+  AUC      = 0.9649
+  IoU@0.5  = 0.3700
+  F1@0.5   = 0.5401
+  accuracy = 0.8826  (prec=0.3794, rec=0.9372)
+  tp=4058 fp=6639 fn=272 tn=47911
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v62 (ok)
+
+##### [64/132] ds_v1_seed0/sunlight_v63  (done 9, fail 0, skip 54, elapsed 5m, ETA 42m) #####
+[scene] ds_v1_seed0/sunlight_v63  size=1280x720
+[select] mirror 점 개수 = 201865  (mask=201865, valid&depth = 904093)
+[conf] mirror 영역 평균 confidence = 0.7195
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.3575, -0.7469, -0.5607]
+      d = +3.9703   mirror_depth(perp) = 3.9703 m   view_z = 11.7325 m
+      n_inliers = 201865/201865   rms_residual = 0.65895 m
+  [RANSAC]
+      normal = [+0.7747, +0.1304, -0.6188]
+      d = +5.5257   mirror_depth(perp) = 5.5257 m   view_z = 11.7325 m
+      n_inliers = 91332/201865   rms_residual = 0.03761 m
+  [SVD robust (IRLS)]
+      normal = [+0.3584, -0.7593, -0.5432]
+      d = +3.7149   mirror_depth(perp) = 3.7149 m   view_z = 11.7325 m
+      n_inliers = 24299/201865   rms_residual = 0.06922 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\mirror_geometry
+[ds_v1_seed0/sunlight_v63] 거울 점 201865개 중 inlier 91332 (45.2%) / outlier 110533
+  normal=[ 0.775  0.13  -0.619] d=5.526  rms(inlier)=0.0376 m  thr≈0.120 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v63                 perp 7.79m planRMS 0.0640m  normal [-0.62, 0.177, -0.764]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v63] feature 184x320  mirror_frac=0.21958220108695653  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  pre_entropy        0.5948   +  0.1352    2.196152    1.973947
+  2  pre_conf            0.591   -  0.1853    0.344871    0.422929
+  3  delta_conf         0.5824   +   0.168    0.374432    0.296084
+  4  delta_entropy        0.58   -  0.1126   -1.553281   -1.370384
+  5  post_entropy       0.5785   +  0.1493    0.642872    0.603563
+  6  feat_left_l2        0.532   +  0.0483   17.133424   16.932617
+  7  feat_left_pc3      0.5258   +   0.048    1.969578    1.829006
+  8  feat_left_pc1      0.5246   +  0.0598    2.629566    2.435523
+  9  delta_argdisp      0.5169   +  0.0298   46.061567   44.166917
+ 10  feat_left_pc2      0.5117   +  0.0162    1.900032    1.852109
+ 11  post_conf          0.5001   +  0.0012    0.719303    0.719013
+BEST: pre_entropy (AUC=0.5948, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5597
+  [train] epoch 120/300  loss=0.3554
+  [train] epoch 180/300  loss=0.2430
+  [train] epoch 240/300  loss=0.1738
+  [train] epoch 300/300  loss=0.1292
+
+[VAL] scene=ds_v1_seed0/sunlight_v63  (pixel 70/30 split)
+  AUC      = 0.9918
+  IoU@0.5  = 0.8260
+  F1@0.5   = 0.9047
+  accuracy = 0.9565  (prec=0.8639, rec=0.9495)
+  tp=3651 fp=575 fn=194 tn=13244
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v63  (저장모델로 새 데이터 평가)
+  AUC      = 0.9559
+  IoU@0.5  = 0.6397
+  F1@0.5   = 0.7803
+  accuracy = 0.8939  (prec=0.7155, rec=0.8580)
+  tp=11093 fp=4411 fn=1836 tn=41540
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v63 (ok)
+
+##### [65/132] ds_v1_seed0/sunlight_v64  (done 10, fail 0, skip 54, elapsed 6m, ETA 41m) #####
+[scene] ds_v1_seed0/sunlight_v64  size=1280x720
+[select] mirror 점 개수 = 229874  (mask=229874, valid&depth = 905282)
+[conf] mirror 영역 평균 confidence = 0.7197
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.4961, -0.7536, -0.4312]
+      d = +3.7164   mirror_depth(perp) = 3.7164 m   view_z = 11.7683 m
+      n_inliers = 229874/229874   rms_residual = 0.92170 m
+  [RANSAC]
+      normal = [+0.8046, +0.0612, -0.5907]
+      d = +5.6597   mirror_depth(perp) = 5.6597 m   view_z = 11.7683 m
+      n_inliers = 96883/229874   rms_residual = 0.04581 m
+  [SVD robust (IRLS)]
+      normal = [+0.4894, -0.7560, -0.4346]
+      d = +3.8401   mirror_depth(perp) = 3.8401 m   view_z = 11.7683 m
+      n_inliers = 20862/229874   rms_residual = 0.06833 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\mirror_geometry
+[ds_v1_seed0/sunlight_v64] 거울 점 229874개 중 inlier 96883 (42.1%) / outlier 132991
+  normal=[ 0.805  0.061 -0.591] d=5.660  rms(inlier)=0.0458 m  thr≈0.118 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v64                 perp 7.60m planRMS 0.0587m  normal [-0.59, 0.052, -0.806]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v64] feature 184x320  mirror_frac=0.2494735054347826  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_conf         0.5946   +  0.1773    0.354218     0.27097
+  2  post_entropy       0.5907   -   0.224    0.635536    0.708089
+  3  post_conf          0.5884   +  0.1631    0.719715    0.679655
+  4  delta_argdisp      0.5627   +  0.1017   45.782286   39.461542
+  5  delta_entropy      0.5597   -  0.0807   -1.440092     -1.3113
+  6  feat_left_pc1      0.5592   -  0.1136    2.334427    2.689116
+  7  pre_conf           0.5434   -  0.1027    0.365497    0.408685
+  8  pre_entropy        0.5336   +  0.0353    2.075628     2.01939
+  9  feat_left_l2       0.5206   +  0.0134   17.110052   17.053463
+ 10  feat_left_pc3      0.5055   +  0.0012    1.870762    1.867384
+ 11  feat_left_pc2       0.505   -  0.0121    1.883846    1.919644
+BEST: delta_conf (AUC=0.5946, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5694
+  [train] epoch 120/300  loss=0.3627
+  [train] epoch 180/300  loss=0.2438
+  [train] epoch 240/300  loss=0.1716
+  [train] epoch 300/300  loss=0.1270
+
+[VAL] scene=ds_v1_seed0/sunlight_v64  (pixel 70/30 split)
+  AUC      = 0.9933
+  IoU@0.5  = 0.8566
+  F1@0.5   = 0.9228
+  accuracy = 0.9604  (prec=0.8892, rec=0.9589)
+  tp=4181 fp=521 fn=179 tn=12783
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v64  (저장모델로 새 데이터 평가)
+  AUC      = 0.9368
+  IoU@0.5  = 0.6059
+  F1@0.5   = 0.7546
+  accuracy = 0.8632  (prec=0.6830, rec=0.8429)
+  tp=12382 fp=5747 fn=2307 tn=38444
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v64 (ok)
+
+##### [66/132] ds_v1_seed0/sunlight_v65  (done 11, fail 0, skip 54, elapsed 7m, ETA 41m) #####
+[scene] ds_v1_seed0/sunlight_v65  size=1280x720
+[select] mirror 점 개수 = 121180  (mask=121180, valid&depth = 901071)
+[conf] mirror 영역 평균 confidence = 0.7045
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.1433, -0.8806, -0.4517]
+      d = +2.5815   mirror_depth(perp) = 2.5815 m   view_z = 11.0272 m
+      n_inliers = 121180/121180   rms_residual = 0.33555 m
+  [RANSAC]
+      normal = [+0.0040, -0.9266, -0.3760]
+      d = +2.4106   mirror_depth(perp) = 2.4106 m   view_z = 11.0272 m
+      n_inliers = 40058/121180   rms_residual = 0.05235 m
+  [SVD robust (IRLS)]
+      normal = [+0.1544, -0.8746, -0.4595]
+      d = +2.6405   mirror_depth(perp) = 2.6405 m   view_z = 11.0272 m
+      n_inliers = 28739/121180   rms_residual = 0.06154 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\mirror_geometry
+[ds_v1_seed0/sunlight_v65] 거울 점 121180개 중 inlier 40058 (33.1%) / outlier 81122
+  normal=[ 0.004 -0.927 -0.376] d=2.411  rms(inlier)=0.0524 m  thr≈0.111 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\mirror_geometry\ransac_inliers.png
+[gt] sunlight_v65                 perp 7.71m planRMS 0.0843m  normal [-0.586, 0.281, -0.76]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/sunlight_v65] feature 184x320  mirror_frac=0.13252377717391303  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_l2       0.6025   +  0.1505   17.652471   17.056085
+  2  pre_entropy        0.5806   +  0.1053    2.214569    2.042396
+  3  pre_conf           0.5784   -  0.1621    0.337024    0.404148
+  4  delta_entropy      0.5713   -  0.0938   -1.577978   -1.426238
+  5  feat_left_pc1      0.5646   -  0.1048    2.163807    2.492596
+  6  post_entropy       0.5632   +  0.0843    0.636591    0.616158
+  7  delta_conf          0.561   +   0.123    0.367753    0.310391
+  8  post_conf          0.5266   -  0.0405    0.704777     0.71454
+  9  feat_left_pc2      0.5219   +  0.0411    1.969983     1.84795
+ 10  delta_argdisp      0.5213   +  0.0294   45.505959   43.665818
+ 11  feat_left_pc3      0.5152   +  0.0298    1.916961    1.831251
+BEST: feat_left_l2 (AUC=0.6025, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.6237
+  [train] epoch 120/300  loss=0.4337
+  [train] epoch 180/300  loss=0.3112
+  [train] epoch 240/300  loss=0.2268
+  [train] epoch 300/300  loss=0.1695
+
+[VAL] scene=ds_v1_seed0/sunlight_v65  (pixel 70/30 split)
+  AUC      = 0.9876
+  IoU@0.5  = 0.6933
+  F1@0.5   = 0.8188
+  accuracy = 0.9454  (prec=0.7222, rec=0.9454)
+  tp=2181 fp=839 fn=126 tn=14518
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/sunlight_v65  (저장모델로 새 데이터 평가)
+  AUC      = 0.9561
+  IoU@0.5  = 0.5044
+  F1@0.5   = 0.6706
+  accuracy = 0.8837  (prec=0.5368, rec=0.8932)
+  tp=6970 fp=6015 fn=833 tn=45062
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/sunlight_v65 (ok)
+
+##### [110/132] ds_v1_seed0/terrazzo_v43  (done 12, fail 0, skip 97, elapsed 7m, ETA 14m) #####
+[scene] ds_v1_seed0/terrazzo_v43  size=1280x720
+[select] mirror 점 개수 = 290582  (mask=304643, valid&depth = 900681)
+[conf] mirror 영역 평균 confidence = 0.7163
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.1210, -0.9130, -0.3895]
+      d = +2.3322   mirror_depth(perp) = 2.3322 m   view_z = 8.2040 m
+      n_inliers = 290582/290582   rms_residual = 0.37566 m
+  [RANSAC]
+      normal = [-0.7629, +0.1427, -0.6306]
+      d = +5.1290   mirror_depth(perp) = 5.1290 m   view_z = 8.2040 m
+      n_inliers = 93304/290582   rms_residual = 0.02115 m
+  [SVD robust (IRLS)]
+      normal = [-0.2186, -0.8812, -0.4192]
+      d = +2.4656   mirror_depth(perp) = 2.4656 m   view_z = 8.2040 m
+      n_inliers = 70262/290582   rms_residual = 0.07227 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\mirror_geometry
+[ds_v1_seed0/terrazzo_v43] 거울 점 290582개 중 inlier 93304 (32.1%) / outlier 197278
+  normal=[-0.763  0.143 -0.631] d=5.129  rms(inlier)=0.0212 m  thr≈0.121 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v43                 perp 4.94m planRMS 0.0000m  normal [0.647, 0.21, -0.733]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v43] feature 184x320  mirror_frac=0.3329483695652174  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_pc1      0.5533   +  0.1119    2.284566    1.880535
+  2  post_entropy       0.5383   -  0.1024    0.617134    0.647289
+  3  delta_argdisp      0.5345   +  0.1064   38.503928   31.802857
+  4  post_conf          0.5318   +  0.0594    0.711855    0.696991
+  5  feat_left_l2       0.5284   -  0.0141     16.7022   16.769271
+  6  feat_left_pc2      0.5175   -  0.0151    1.944049    1.987472
+  7  pre_conf           0.5117   +  0.0401    0.424433    0.405117
+  8  delta_entropy      0.5112   -  0.0493   -1.410278   -1.316355
+  9  delta_conf         0.5085   +  0.0084    0.287421    0.291874
+ 10  feat_left_pc3      0.5057   -  0.0348     1.84673    1.741759
+ 11  pre_entropy        0.5023   -  0.0334    2.027412    1.963644
+BEST: feat_left_pc1 (AUC=0.5533, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4932
+  [train] epoch 120/300  loss=0.3612
+  [train] epoch 180/300  loss=0.2766
+  [train] epoch 240/300  loss=0.2135
+  [train] epoch 300/300  loss=0.1673
+
+[VAL] scene=ds_v1_seed0/terrazzo_v43  (pixel 70/30 split)
+  AUC      = 0.9850
+  IoU@0.5  = 0.8269
+  F1@0.5   = 0.9053
+  accuracy = 0.9346  (prec=0.8644, rec=0.9502)
+  tp=5519 fp=866 fn=289 tn=10990
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v43  (저장모델로 새 데이터 평가)
+  AUC      = 0.9295
+  IoU@0.5  = 0.2784
+  F1@0.5   = 0.4355
+  accuracy = 0.7549  (prec=0.9344, rec=0.2839)
+  tp=5566 fp=391 fn=14038 tn=38885
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v43 (ok)
+
+##### [111/132] ds_v1_seed0/terrazzo_v44  (done 13, fail 0, skip 97, elapsed 8m, ETA 14m) #####
+[scene] ds_v1_seed0/terrazzo_v44  size=1280x720
+[select] mirror 점 개수 = 384141  (mask=399063, valid&depth = 906678)
+[conf] mirror 영역 평균 confidence = 0.7217
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.6409, -0.4906, -0.5905]
+      d = +3.9526   mirror_depth(perp) = 3.9526 m   view_z = 8.7731 m
+      n_inliers = 384141/384141   rms_residual = 0.54177 m
+  [RANSAC]
+      normal = [-0.6949, +0.0647, -0.7161]
+      d = +5.3298   mirror_depth(perp) = 5.3298 m   view_z = 8.7731 m
+      n_inliers = 207983/384141   rms_residual = 0.01668 m
+  [SVD robust (IRLS)]
+      normal = [-0.7410, -0.1395, -0.6569]
+      d = +4.5765   mirror_depth(perp) = 4.5765 m   view_z = 8.7731 m
+      n_inliers = 101192/384141   rms_residual = 0.05499 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\mirror_geometry
+[ds_v1_seed0/terrazzo_v44] 거울 점 384141개 중 inlier 207983 (54.1%) / outlier 176158
+  normal=[-0.695  0.065 -0.716] d=5.330  rms(inlier)=0.0167 m  thr≈0.099 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v44                 perp 4.95m planRMS 0.0060m  normal [0.719, 0.079, -0.691]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v44] feature 184x320  mirror_frac=0.4352411684782609  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_argdisp       0.617   +  0.2292   46.747844    31.95453
+  2  feat_left_l2       0.5737   -  0.1189    16.36257   16.990908
+  3  feat_left_pc3      0.5697   -  0.0972    1.579816    1.875761
+  4  feat_left_pc1      0.5688   +  0.0889    2.411919    2.078924
+  5  pre_entropy        0.5624   +  0.1525     2.13065    1.857142
+  6  delta_entropy      0.5623   -  0.1487   -1.510946   -1.245664
+  7  pre_conf           0.5503   -   0.075     0.39299    0.427701
+  8  post_conf          0.5342   -  0.0579    0.717479    0.730865
+  9  post_entropy       0.5325   +  0.0329    0.619704    0.611478
+ 10  delta_conf         0.5285   +  0.0423    0.324489    0.303164
+ 11  feat_left_pc2      0.5171   +  0.0133    2.224728    2.185617
+BEST: delta_argdisp (AUC=0.617, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4741
+  [train] epoch 120/300  loss=0.3462
+  [train] epoch 180/300  loss=0.2597
+  [train] epoch 240/300  loss=0.1956
+  [train] epoch 300/300  loss=0.1499
+
+[VAL] scene=ds_v1_seed0/terrazzo_v44  (pixel 70/30 split)
+  AUC      = 0.9828
+  IoU@0.5  = 0.8579
+  F1@0.5   = 0.9235
+  accuracy = 0.9327  (prec=0.9091, rec=0.9384)
+  tp=7177 fp=718 fn=471 tn=9298
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v44  (저장모델로 새 데이터 평가)
+  AUC      = 0.8910
+  IoU@0.5  = 0.2317
+  F1@0.5   = 0.3763
+  accuracy = 0.6616  (prec=0.9517, rec=0.2345)
+  tp=6009 fp=305 fn=19618 tn=32948
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v44 (ok)
+
+##### [112/132] ds_v1_seed0/terrazzo_v45  (done 14, fail 0, skip 97, elapsed 9m, ETA 13m) #####
+[scene] ds_v1_seed0/terrazzo_v45  size=1280x720
+[select] mirror 점 개수 = 79022  (mask=88045, valid&depth = 899633)
+[conf] mirror 영역 평균 confidence = 0.6864
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.5904, -0.3297, -0.7367]
+      d = +4.2050   mirror_depth(perp) = 4.2050 m   view_z = 7.8704 m
+      n_inliers = 79022/79022   rms_residual = 0.15573 m
+  [RANSAC]
+      normal = [-0.5944, +0.1341, -0.7929]
+      d = +5.0842   mirror_depth(perp) = 5.0842 m   view_z = 7.8704 m
+      n_inliers = 58438/79022   rms_residual = 0.00915 m
+  [SVD robust (IRLS)]
+      normal = [-0.6066, -0.0605, -0.7927]
+      d = +4.8781   mirror_depth(perp) = 4.8781 m   view_z = 7.8704 m
+      n_inliers = 42249/79022   rms_residual = 0.03526 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\mirror_geometry
+[ds_v1_seed0/terrazzo_v45] 거울 점 79022개 중 inlier 58438 (74.0%) / outlier 20584
+  normal=[-0.594  0.134 -0.793] d=5.084  rms(inlier)=0.0092 m  thr≈0.062 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v45                 perp 4.79m planRMS 0.0000m  normal [0.808, 0.201, -0.553]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v45] feature 184x320  mirror_frac=0.09672214673913043  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  pre_conf           0.5815   +  0.1686    0.477893    0.391622
+  2  delta_conf         0.5802   -  0.1663    0.207525    0.302336
+  3  pre_entropy        0.5747   -  0.0773    1.877245    2.040889
+  4  delta_argdisp       0.572   -  0.0703   30.085162   34.594397
+  5  delta_entropy      0.5679   +  0.0737    -1.22214   -1.379493
+  6  feat_left_pc3      0.5294   +  0.0934    2.148086    1.839892
+  7  feat_left_pc1      0.5219   +   0.143    2.596915     1.81517
+  8  post_conf          0.5212   -  0.0374    0.685418    0.693958
+  9  feat_left_l2       0.5117   +  0.0835   17.104502   16.603622
+ 10  post_entropy       0.5104   +  0.0242    0.655105    0.661396
+ 11  feat_left_pc2      0.5103   +  0.0439    2.167842    2.031168
+BEST: pre_conf (AUC=0.5815, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5868
+  [train] epoch 120/300  loss=0.3822
+  [train] epoch 180/300  loss=0.2747
+  [train] epoch 240/300  loss=0.2019
+  [train] epoch 300/300  loss=0.1506
+
+[VAL] scene=ds_v1_seed0/terrazzo_v45  (pixel 70/30 split)
+  AUC      = 0.9917
+  IoU@0.5  = 0.6572
+  F1@0.5   = 0.7932
+  accuracy = 0.9520  (prec=0.6750, rec=0.9615)
+  tp=1624 fp=782 fn=65 tn=15193
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v45  (저장모델로 새 데이터 평가)
+  AUC      = 0.9610
+  IoU@0.5  = 0.3664
+  F1@0.5   = 0.5363
+  accuracy = 0.9314  (prec=0.7743, rec=0.4102)
+  tp=2336 fp=681 fn=3359 tn=52504
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v45 (ok)
+
+##### [113/132] ds_v1_seed0/terrazzo_v46  (done 15, fail 0, skip 97, elapsed 9m, ETA 12m) #####
+[scene] ds_v1_seed0/terrazzo_v46  size=1280x720
+[select] mirror 점 개수 = 293426  (mask=307396, valid&depth = 901095)
+[conf] mirror 영역 평균 confidence = 0.7161
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.1473, -0.9085, -0.3911]
+      d = +2.3633   mirror_depth(perp) = 2.3633 m   view_z = 8.3599 m
+      n_inliers = 293426/293426   rms_residual = 0.37972 m
+  [RANSAC]
+      normal = [-0.7649, +0.1272, -0.6314]
+      d = +5.1154   mirror_depth(perp) = 5.1154 m   view_z = 8.3599 m
+      n_inliers = 90773/293426   rms_residual = 0.02201 m
+  [SVD robust (IRLS)]
+      normal = [-0.2243, -0.8802, -0.4182]
+      d = +2.4970   mirror_depth(perp) = 2.4970 m   view_z = 8.3599 m
+      n_inliers = 76596/293426   rms_residual = 0.06736 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\mirror_geometry
+[ds_v1_seed0/terrazzo_v46] 거울 점 293426개 중 inlier 90773 (30.9%) / outlier 202653
+  normal=[-0.765  0.127 -0.631] d=5.115  rms(inlier)=0.0220 m  thr≈0.120 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v46                 perp 4.98m planRMS 0.0000m  normal [0.643, 0.19, -0.742]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v46] feature 184x320  mirror_frac=0.3357336956521739  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_argdisp      0.5524   +  0.1418   40.784399   31.774315
+  2  feat_left_pc1      0.5396   +  0.0913    2.221671    1.881288
+  3  feat_left_l2       0.5373   -  0.0351    16.60585   16.773399
+  4  post_conf          0.5246   +  0.0483    0.711764    0.699629
+  5  delta_entropy      0.5239   -  0.0647   -1.445667   -1.321766
+  6  post_entropy       0.5227   -  0.0946    0.620464    0.649153
+  7  delta_conf         0.5157   +   0.005    0.297724     0.29509
+  8  feat_left_pc2      0.5128   -  0.0054    1.952355    1.968114
+  9  pre_entropy        0.5117   +  0.0499    2.066131    1.970919
+ 10  feat_left_pc3      0.5059   +  0.0374    1.858151    1.747561
+ 11  pre_conf           0.5033   -  0.0198     0.41404    0.404539
+BEST: delta_argdisp (AUC=0.5524, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4897
+  [train] epoch 120/300  loss=0.3566
+  [train] epoch 180/300  loss=0.2726
+  [train] epoch 240/300  loss=0.2100
+  [train] epoch 300/300  loss=0.1630
+
+[VAL] scene=ds_v1_seed0/terrazzo_v46  (pixel 70/30 split)
+  AUC      = 0.9849
+  IoU@0.5  = 0.8225
+  F1@0.5   = 0.9026
+  accuracy = 0.9321  (prec=0.8589, rec=0.9511)
+  tp=5562 fp=914 fn=286 tn=10902
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v46  (저장모델로 새 데이터 평가)
+  AUC      = 0.9341
+  IoU@0.5  = 0.3111
+  F1@0.5   = 0.4746
+  accuracy = 0.7640  (prec=0.9397, rec=0.3174)
+  tp=6275 fp=403 fn=13493 tn=38709
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v46 (ok)
+
+##### [114/132] ds_v1_seed0/terrazzo_v47  (done 16, fail 0, skip 97, elapsed 10m, ETA 12m) #####
+[scene] ds_v1_seed0/terrazzo_v47  size=1280x720
+[select] mirror 점 개수 = 239345  (mask=253191, valid&depth = 904165)
+[conf] mirror 영역 평균 confidence = 0.7383
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.5644, -0.5068, -0.6516]
+      d = +4.1884   mirror_depth(perp) = 4.1884 m   view_z = 8.5224 m
+      n_inliers = 239345/239345   rms_residual = 0.41040 m
+  [RANSAC]
+      normal = [-0.6421, +0.1209, -0.7571]
+      d = +5.3787   mirror_depth(perp) = 5.3787 m   view_z = 8.5224 m
+      n_inliers = 130015/239345   rms_residual = 0.01362 m
+  [SVD robust (IRLS)]
+      normal = [-0.5354, -0.4405, -0.7206]
+      d = +4.9962   mirror_depth(perp) = 4.9962 m   view_z = 8.5224 m
+      n_inliers = 48005/239345   rms_residual = 0.03965 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\mirror_geometry
+[ds_v1_seed0/terrazzo_v47] 거울 점 239345개 중 inlier 130015 (54.3%) / outlier 109330
+  normal=[-0.642  0.121 -0.757] d=5.379  rms(inlier)=0.0136 m  thr≈0.075 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v47                 perp 4.94m planRMS 0.0000m  normal [0.768, 0.137, -0.626]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v47] feature 184x320  mirror_frac=0.27657948369565216  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_pc1      0.5598   +  0.1158    2.322723    1.830731
+  2  post_entropy       0.5343   -  0.0623    0.598858    0.614475
+  3  post_conf          0.5332   +   0.061    0.734656    0.720166
+  4  pre_conf           0.5328   +  0.0741     0.45228    0.415631
+  5  delta_argdisp      0.5293   +  0.1009   39.617317   32.950487
+  6  pre_entropy        0.5263   -  0.0006    1.919314    1.920565
+  7  delta_entropy      0.5201   +  0.0074   -1.320456   -1.306089
+  8  feat_left_l2       0.5195   -  0.0046   16.651249   16.675361
+  9  delta_conf         0.5166   -  0.0406    0.282375    0.304535
+ 10  feat_left_pc2      0.5109   +  0.0235    2.155282    2.088395
+ 11  feat_left_pc3      0.5012   -  0.0405    1.942506    1.810469
+BEST: feat_left_pc1 (AUC=0.5598, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5710
+  [train] epoch 120/300  loss=0.4183
+  [train] epoch 180/300  loss=0.3166
+  [train] epoch 240/300  loss=0.2403
+  [train] epoch 300/300  loss=0.1836
+
+[VAL] scene=ds_v1_seed0/terrazzo_v47  (pixel 70/30 split)
+  AUC      = 0.9850
+  IoU@0.5  = 0.7934
+  F1@0.5   = 0.8848
+  accuracy = 0.9325  (prec=0.8290, rec=0.9486)
+  tp=4581 fp=945 fn=248 tn=11890
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v47  (저장모델로 새 데이터 평가)
+  AUC      = 0.9140
+  IoU@0.5  = 0.2941
+  F1@0.5   = 0.4545
+  accuracy = 0.7971  (prec=0.8867, rec=0.3056)
+  tp=4976 fp=636 fn=11309 tn=41959
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v47 (ok)
+
+##### [115/132] ds_v1_seed0/terrazzo_v48  (done 17, fail 0, skip 97, elapsed 11m, ETA 11m) #####
+[scene] ds_v1_seed0/terrazzo_v48  size=1280x720
+[select] mirror 점 개수 = 253445  (mask=266238, valid&depth = 898728)
+[conf] mirror 영역 평균 confidence = 0.7111
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [+0.0174, -0.9118, -0.4104]
+      d = +2.4063   mirror_depth(perp) = 2.4063 m   view_z = 7.6131 m
+      n_inliers = 253445/253445   rms_residual = 0.34193 m
+  [RANSAC]
+      normal = [-0.7276, +0.2033, -0.6551]
+      d = +5.4304   mirror_depth(perp) = 5.4304 m   view_z = 7.6131 m
+      n_inliers = 90541/253445   rms_residual = 0.01508 m
+  [SVD robust (IRLS)]
+      normal = [-0.0301, -0.8958, -0.4435]
+      d = +2.6616   mirror_depth(perp) = 2.6616 m   view_z = 7.6131 m
+      n_inliers = 39265/253445   rms_residual = 0.05200 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\mirror_geometry
+[ds_v1_seed0/terrazzo_v48] 거울 점 253445개 중 inlier 90541 (35.7%) / outlier 162904
+  normal=[-0.728  0.203 -0.655] d=5.430  rms(inlier)=0.0151 m  thr≈0.089 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v48                 perp 4.67m planRMS 0.0000m  normal [0.691, 0.23, -0.685]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v48] feature 184x320  mirror_frac=0.2912533967391304  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_pc1      0.5514   +  0.1199    2.363488    1.921669
+  2  post_entropy        0.534   -  0.0617    0.616549    0.632065
+  3  pre_conf           0.5263   +  0.0688    0.437308     0.40376
+  4  delta_conf         0.5215   -  0.0597    0.273666    0.305813
+  5  pre_entropy        0.5188   -  0.0066    1.956018     1.96873
+  6  feat_left_pc3      0.5139   +  0.1005    1.978329     1.65194
+  7  delta_entropy      0.5123   +  0.0015   -1.339468   -1.336665
+  8  feat_left_l2       0.5087   +  0.0547   16.875521   16.598082
+  9  delta_argdisp      0.5037   -  0.0411   35.701382   33.119072
+ 10  post_conf          0.5024   +  0.0059    0.710974    0.709573
+ 11  feat_left_pc2      0.5018   +  0.0001    1.946452    1.946809
+BEST: feat_left_pc1 (AUC=0.5514, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4867
+  [train] epoch 120/300  loss=0.3422
+  [train] epoch 180/300  loss=0.2591
+  [train] epoch 240/300  loss=0.2016
+  [train] epoch 300/300  loss=0.1603
+
+[VAL] scene=ds_v1_seed0/terrazzo_v48  (pixel 70/30 split)
+  AUC      = 0.9876
+  IoU@0.5  = 0.8243
+  F1@0.5   = 0.9037
+  accuracy = 0.9413  (prec=0.8522, rec=0.9618)
+  tp=4860 fp=843 fn=193 tn=11768
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v48  (저장모델로 새 데이터 평가)
+  AUC      = 0.9404
+  IoU@0.5  = 0.2283
+  F1@0.5   = 0.3718
+  accuracy = 0.7697  (prec=0.9050, rec=0.2339)
+  tp=4012 fp=421 fn=13137 tn=41310
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v48 (ok)
+
+##### [116/132] ds_v1_seed0/terrazzo_v49  (done 18, fail 0, skip 97, elapsed 11m, ETA 11m) #####
+[scene] ds_v1_seed0/terrazzo_v49  size=1280x720
+[select] mirror 점 개수 = 579525  (mask=593478, valid&depth = 905654)
+[conf] mirror 영역 평균 confidence = 0.6996
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.2033, -0.9060, -0.3712]
+      d = +2.5528   mirror_depth(perp) = 2.5528 m   view_z = 8.7268 m
+      n_inliers = 579525/579525   rms_residual = 0.40132 m
+  [RANSAC]
+      normal = [-0.0614, -0.9675, -0.2455]
+      d = +2.0700   mirror_depth(perp) = 2.0700 m   view_z = 8.7268 m
+      n_inliers = 199641/579525   rms_residual = 0.04154 m
+  [SVD robust (IRLS)]
+      normal = [-0.2392, -0.8944, -0.3780]
+      d = +2.6053   mirror_depth(perp) = 2.6053 m   view_z = 8.7268 m
+      n_inliers = 167516/579525   rms_residual = 0.07656 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\mirror_geometry
+[ds_v1_seed0/terrazzo_v49] 거울 점 579525개 중 inlier 199641 (34.4%) / outlier 379884
+  normal=[-0.061 -0.967 -0.245] d=2.070  rms(inlier)=0.0415 m  thr≈0.136 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v49                 perp 4.76m planRMS 0.0000m  normal [0.473, 0.184, -0.862]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v49] feature 184x320  mirror_frac=0.6476222826086957  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_l2       0.5891   -  0.1378   16.653904   17.290944
+  2  post_conf          0.5728   -  0.1265    0.697877    0.729574
+  3  feat_left_pc1      0.5725   +  0.1193    2.438556    2.076543
+  4  delta_argdisp      0.5658   +  0.1568   38.617434     28.9452
+  5  feat_left_pc3      0.5337   -  0.0437    1.692332    1.812792
+  6  post_entropy       0.5287   +  0.0275    0.622013     0.61424
+  7  delta_conf         0.5255   -  0.0506    0.269168    0.295628
+  8  pre_entropy        0.5192   +  0.0516    1.943846    1.852032
+  9  delta_entropy      0.5176   -  0.0476   -1.321834   -1.237792
+ 10  pre_conf           0.5102   -  0.0109    0.428709    0.433945
+ 11  feat_left_pc2      0.5097   +  0.0072     2.04135    2.020608
+BEST: feat_left_l2 (AUC=0.5891, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.2189
+  [train] epoch 120/300  loss=0.1423
+  [train] epoch 180/300  loss=0.0998
+  [train] epoch 240/300  loss=0.0730
+  [train] epoch 300/300  loss=0.0550
+
+[VAL] scene=ds_v1_seed0/terrazzo_v49  (pixel 70/30 split)
+  AUC      = 0.9954
+  IoU@0.5  = 0.9515
+  F1@0.5   = 0.9751
+  accuracy = 0.9681  (prec=0.9819, rec=0.9685)
+  tp=11044 fp=204 fn=359 tn=6057
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v49  (저장모델로 새 데이터 평가)
+  AUC      = 0.9609
+  IoU@0.5  = 0.2148
+  F1@0.5   = 0.3537
+  accuracy = 0.4914  (prec=0.9993, rec=0.2149)
+  tp=8193 fp=6 fn=29939 tn=20742
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v49 (ok)
+
+##### [117/132] ds_v1_seed0/terrazzo_v50  (done 19, fail 0, skip 97, elapsed 13m, ETA 11m) #####
+[scene] ds_v1_seed0/terrazzo_v50  size=1280x720
+[select] mirror 점 개수 = 398985  (mask=414031, valid&depth = 906554)
+[conf] mirror 영역 평균 confidence = 0.7158
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.6792, -0.3714, -0.6330]
+      d = +4.2205   mirror_depth(perp) = 4.2205 m   view_z = 8.5491 m
+      n_inliers = 398985/398985   rms_residual = 0.52018 m
+  [RANSAC]
+      normal = [-0.6851, +0.0628, -0.7257]
+      d = +5.2403   mirror_depth(perp) = 5.2403 m   view_z = 8.5491 m
+      n_inliers = 235231/398985   rms_residual = 0.01535 m
+  [SVD robust (IRLS)]
+      normal = [-0.7235, -0.0158, -0.6901]
+      d = +4.8472   mirror_depth(perp) = 4.8472 m   view_z = 8.5491 m
+      n_inliers = 148333/398985   rms_residual = 0.05367 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\mirror_geometry
+[ds_v1_seed0/terrazzo_v50] 거울 점 398985개 중 inlier 235231 (59.0%) / outlier 163754
+  normal=[-0.685  0.063 -0.726] d=5.240  rms(inlier)=0.0153 m  thr≈0.098 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v50                 perp 4.76m planRMS 0.0071m  normal [0.729, 0.092, -0.678]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v50] feature 184x320  mirror_frac=0.4511209239130435  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_argdisp      0.5916   +  0.1929   45.341465   32.925769
+  2  feat_left_pc1      0.5593   +  0.1113    2.554068    2.146136
+  3  feat_left_l2       0.5533   -  0.0677   16.484408   16.861201
+  4  delta_entropy      0.5458   -  0.1173   -1.481191   -1.275109
+  5  pre_entropy        0.5408   +  0.1143     2.10748    1.904821
+  6  feat_left_pc3       0.534   -  0.0073    1.688876    1.710755
+  7  delta_conf         0.5283   +  0.0316    0.312044    0.296453
+  8  pre_conf           0.5252   -   0.024    0.400773    0.411676
+  9  feat_left_pc2      0.5186   +  0.0205     2.22797    2.164899
+ 10  post_conf          0.5135   +  0.0205    0.712818     0.70813
+ 11  post_entropy       0.5031   -  0.0147    0.626289    0.629712
+BEST: delta_argdisp (AUC=0.5916, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4463
+  [train] epoch 120/300  loss=0.3166
+  [train] epoch 180/300  loss=0.2370
+  [train] epoch 240/300  loss=0.1805
+  [train] epoch 300/300  loss=0.1395
+
+[VAL] scene=ds_v1_seed0/terrazzo_v50  (pixel 70/30 split)
+  AUC      = 0.9856
+  IoU@0.5  = 0.8737
+  F1@0.5   = 0.9326
+  accuracy = 0.9389  (prec=0.9285, rec=0.9367)
+  tp=7470 fp=575 fn=505 tn=9114
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v50  (저장모델로 새 데이터 평가)
+  AUC      = 0.8925
+  IoU@0.5  = 0.1938
+  F1@0.5   = 0.3247
+  accuracy = 0.6342  (prec=0.9717, rec=0.1949)
+  tp=5177 fp=151 fn=21385 tn=32167
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v50 (ok)
+
+##### [118/132] ds_v1_seed0/terrazzo_v51  (done 20, fail 0, skip 97, elapsed 14m, ETA 10m) #####
+[scene] ds_v1_seed0/terrazzo_v51  size=1280x720
+[select] mirror 점 개수 = 279234  (mask=289194, valid&depth = 900150)
+[conf] mirror 영역 평균 confidence = 0.7411
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.0675, -0.9208, -0.3841]
+      d = +2.0888   mirror_depth(perp) = 2.0888 m   view_z = 7.7238 m
+      n_inliers = 279234/279234   rms_residual = 0.32094 m
+  [RANSAC]
+      normal = [-0.0308, -0.9433, -0.3305]
+      d = +2.0118   mirror_depth(perp) = 2.0118 m   view_z = 7.7238 m
+      n_inliers = 113902/279234   rms_residual = 0.02790 m
+  [SVD robust (IRLS)]
+      normal = [-0.0980, -0.9038, -0.4167]
+      d = +2.4049   mirror_depth(perp) = 2.4049 m   view_z = 7.7238 m
+      n_inliers = 73102/279234   rms_residual = 0.06033 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\mirror_geometry
+[ds_v1_seed0/terrazzo_v51] 거울 점 279234개 중 inlier 113902 (40.8%) / outlier 165332
+  normal=[-0.031 -0.943 -0.33 ] d=2.012  rms(inlier)=0.0279 m  thr≈0.106 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v51                 perp 4.99m planRMS 0.0000m  normal [0.566, 0.252, -0.785]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v51] feature 184x320  mirror_frac=0.31674592391304346  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_argdisp      0.5749   -  0.0753   29.446756   34.013547
+  2  post_entropy       0.5598   -  0.1029    0.591337    0.618825
+  3  pre_conf           0.5566   +  0.1244    0.463514    0.401513
+  4  post_conf          0.5549   +  0.1014    0.738583    0.714212
+  5  pre_entropy        0.5495   -  0.0734    1.868427    2.010427
+  6  feat_left_l2       0.5422   +  0.0738   17.015462    16.66306
+  7  delta_entropy      0.5402   +  0.0596    -1.27709   -1.391602
+  8  delta_conf         0.5286   -  0.0704    0.275068    0.312699
+  9  feat_left_pc1      0.5156   +  0.0298     2.21932    2.129171
+ 10  feat_left_pc3      0.5103   -  0.0175    1.800792    1.749352
+ 11  feat_left_pc2      0.5088   +  0.0136    1.895257    1.856744
+BEST: delta_argdisp (AUC=0.5749, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4438
+  [train] epoch 120/300  loss=0.2872
+  [train] epoch 180/300  loss=0.2017
+  [train] epoch 240/300  loss=0.1468
+  [train] epoch 300/300  loss=0.1097
+
+[VAL] scene=ds_v1_seed0/terrazzo_v51  (pixel 70/30 split)
+  AUC      = 0.9947
+  IoU@0.5  = 0.8915
+  F1@0.5   = 0.9426
+  accuracy = 0.9630  (prec=0.9164, rec=0.9703)
+  tp=5363 fp=489 fn=164 tn=11648
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v51  (저장모델로 새 데이터 평가)
+  AUC      = 0.9710
+  IoU@0.5  = 0.2420
+  F1@0.5   = 0.3897
+  accuracy = 0.7584  (prec=0.9755, rec=0.2435)
+  tp=4541 fp=114 fn=14109 tn=40116
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v51 (ok)
+
+##### [119/132] ds_v1_seed0/terrazzo_v52  (done 21, fail 0, skip 97, elapsed 14m, ETA 9m) #####
+[scene] ds_v1_seed0/terrazzo_v52  size=1280x720
+[select] mirror 점 개수 = 447851  (mask=464997, valid&depth = 903394)
+[conf] mirror 영역 평균 confidence = 0.7162
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.1821, -0.8843, -0.4300]
+      d = +2.9771   mirror_depth(perp) = 2.9771 m   view_z = 8.3720 m
+      n_inliers = 447851/447851   rms_residual = 0.47838 m
+  [RANSAC]
+      normal = [-0.7298, +0.1350, -0.6702]
+      d = +5.4575   mirror_depth(perp) = 5.4575 m   view_z = 8.3720 m
+      n_inliers = 155138/447851   rms_residual = 0.01719 m
+  [SVD robust (IRLS)]
+      normal = [-0.1709, -0.8820, -0.4393]
+      d = +3.0868   mirror_depth(perp) = 3.0868 m   view_z = 8.3720 m
+      n_inliers = 86550/447851   rms_residual = 0.06594 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\mirror_geometry
+[ds_v1_seed0/terrazzo_v52] 거울 점 447851개 중 inlier 155138 (34.6%) / outlier 292713
+  normal=[-0.73   0.135 -0.67 ] d=5.457  rms(inlier)=0.0172 m  thr≈0.116 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v52                 perp 4.56m planRMS 0.0000m  normal [0.679, 0.144, -0.72]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v52] feature 184x320  mirror_frac=0.5074898097826087  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_pc1      0.5703   +  0.1261    2.386337    1.975945
+  2  post_entropy       0.5668   -  0.1159    0.617934     0.64851
+  3  feat_left_l2        0.563   -  0.0934   16.501701    16.96911
+  4  post_conf          0.5609   +  0.1057    0.713528    0.688115
+  5  delta_argdisp      0.5415   +  0.1213    40.49841   32.753371
+  6  feat_left_pc3      0.5356   -  0.0218    1.690573    1.754157
+  7  delta_conf         0.5233   +  0.0238    0.288539    0.276298
+  8  delta_entropy       0.517   -  0.0576    -1.36894   -1.266004
+  9  feat_left_pc2      0.5069   -  0.0215    2.094669    2.156936
+ 10  pre_entropy        0.5055   +  0.0402    1.986875    1.914513
+ 11  pre_conf           0.5036   +  0.0279    0.424989    0.411817
+BEST: feat_left_pc1 (AUC=0.5703, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.3956
+  [train] epoch 120/300  loss=0.2999
+  [train] epoch 180/300  loss=0.2376
+  [train] epoch 240/300  loss=0.1903
+  [train] epoch 300/300  loss=0.1541
+
+[VAL] scene=ds_v1_seed0/terrazzo_v52  (pixel 70/30 split)
+  AUC      = 0.9749
+  IoU@0.5  = 0.8478
+  F1@0.5   = 0.9176
+  accuracy = 0.9149  (prec=0.8993, rec=0.9367)
+  tp=8369 fp=937 fn=566 tn=7792
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v52  (저장모델로 새 데이터 평가)
+  AUC      = 0.8869
+  IoU@0.5  = 0.2089
+  F1@0.5   = 0.3457
+  accuracy = 0.5960  (prec=0.9708, rec=0.2103)
+  tp=6283 fp=189 fn=23598 tn=28810
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v52 (ok)
+
+##### [120/132] ds_v1_seed0/terrazzo_v53  (done 22, fail 0, skip 97, elapsed 15m, ETA 9m) #####
+[scene] ds_v1_seed0/terrazzo_v53  size=1280x720
+[select] mirror 점 개수 = 231975  (mask=244492, valid&depth = 899339)
+[conf] mirror 영역 평균 confidence = 0.7059
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.0459, -0.9127, -0.4060]
+      d = +2.3284   mirror_depth(perp) = 2.3284 m   view_z = 7.7204 m
+      n_inliers = 231975/231975   rms_residual = 0.34316 m
+  [RANSAC]
+      normal = [-0.7083, +0.2098, -0.6740]
+      d = +5.3031   mirror_depth(perp) = 5.3031 m   view_z = 7.7204 m
+      n_inliers = 95683/231975   rms_residual = 0.01870 m
+  [SVD robust (IRLS)]
+      normal = [-0.1035, -0.8890, -0.4461]
+      d = +2.6172   mirror_depth(perp) = 2.6172 m   view_z = 7.7204 m
+      n_inliers = 42765/231975   rms_residual = 0.06219 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\mirror_geometry
+[ds_v1_seed0/terrazzo_v53] 거울 점 231975개 중 inlier 95683 (41.2%) / outlier 136292
+  normal=[-0.708  0.21  -0.674] d=5.303  rms(inlier)=0.0187 m  thr≈0.104 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v53                 perp 4.68m planRMS 0.0054m  normal [0.71, 0.235, -0.664]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v53] feature 184x320  mirror_frac=0.26742527173913044  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_pc1      0.5603   +  0.1385    2.398649    1.872712
+  2  delta_argdisp      0.5351   +   0.106    38.90423   32.188158
+  3  pre_conf           0.5205   +  0.0547    0.430264    0.403755
+  4  delta_conf         0.5184   -  0.0559    0.271129    0.300605
+  5  pre_entropy        0.5168   -  0.0044    1.984188    1.975638
+  6  feat_left_l2        0.516   -  0.0207   16.769171     16.6628
+  7  post_entropy       0.5137   -  0.0379    0.628391    0.638112
+  8  feat_left_pc3      0.5127   +  0.0942    1.975027    1.669099
+  9  delta_entropy      0.5114   +  0.0094   -1.355797   -1.337526
+ 10  post_conf          0.5078   -  0.0123    0.701394    0.704359
+ 11  feat_left_pc2      0.5023   +  0.0049    1.991472    1.978005
+BEST: feat_left_pc1 (AUC=0.5603, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5154
+  [train] epoch 120/300  loss=0.3639
+  [train] epoch 180/300  loss=0.2736
+  [train] epoch 240/300  loss=0.2109
+  [train] epoch 300/300  loss=0.1661
+
+[VAL] scene=ds_v1_seed0/terrazzo_v53  (pixel 70/30 split)
+  AUC      = 0.9878
+  IoU@0.5  = 0.8033
+  F1@0.5   = 0.8909
+  accuracy = 0.9381  (prec=0.8329, rec=0.9576)
+  tp=4467 fp=896 fn=198 tn=12103
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v53  (저장모델로 새 데이터 평가)
+  AUC      = 0.9359
+  IoU@0.5  = 0.2403
+  F1@0.5   = 0.3875
+  accuracy = 0.7910  (prec=0.8962, rec=0.2472)
+  tp=3892 fp=451 fn=11854 tn=42683
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v53 (ok)
+
+##### [121/132] ds_v1_seed0/terrazzo_v54  (done 23, fail 0, skip 97, elapsed 16m, ETA 8m) #####
+[scene] ds_v1_seed0/terrazzo_v54  size=1280x720
+[select] mirror 점 개수 = 434945  (mask=450033, valid&depth = 906512)
+[conf] mirror 영역 평균 confidence = 0.7063
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.6005, -0.5962, -0.5328]
+      d = +3.4947   mirror_depth(perp) = 3.4947 m   view_z = 8.5840 m
+      n_inliers = 434945/434945   rms_residual = 0.55471 m
+  [RANSAC]
+      normal = [-0.7367, +0.0880, -0.6704]
+      d = +4.9015   mirror_depth(perp) = 4.9015 m   view_z = 8.5840 m
+      n_inliers = 207606/434945   rms_residual = 0.01604 m
+  [SVD robust (IRLS)]
+      normal = [-0.7007, -0.4659, -0.5404]
+      d = +3.4215   mirror_depth(perp) = 3.4215 m   view_z = 8.5840 m
+      n_inliers = 53298/434945   rms_residual = 0.06653 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\mirror_geometry
+[ds_v1_seed0/terrazzo_v54] 거울 점 434945개 중 inlier 207606 (47.7%) / outlier 227339
+  normal=[-0.737  0.088 -0.67 ] d=4.902  rms(inlier)=0.0160 m  thr≈0.116 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v54                 perp 4.71m planRMS 0.0000m  normal [0.678, 0.101, -0.728]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v54] feature 184x320  mirror_frac=0.49026834239130435  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_argdisp      0.6317   +  0.2696   48.618422   31.513211
+  2  feat_left_l2       0.6054   -  0.1678   16.259837   17.161181
+  3  delta_entropy      0.5707   -  0.1572   -1.543578   -1.270259
+  4  pre_entropy        0.5692   +  0.1582    2.179226    1.903041
+  5  feat_left_pc3      0.5555   -  0.0691    1.593047    1.796402
+  6  pre_conf           0.5513   -  0.0706    0.380705    0.412038
+  7  delta_conf         0.5487   +  0.0732     0.32401    0.288035
+  8  feat_left_pc1       0.548   +  0.0794    2.377074    2.092771
+  9  post_entropy       0.5226   +  0.0112    0.635648    0.632782
+ 10  feat_left_pc2      0.5186   +  0.0168    2.254822    2.203796
+ 11  post_conf          0.5112   +  0.0198    0.704716    0.700073
+BEST: delta_argdisp (AUC=0.6317, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4121
+  [train] epoch 120/300  loss=0.2974
+  [train] epoch 180/300  loss=0.2229
+  [train] epoch 240/300  loss=0.1682
+  [train] epoch 300/300  loss=0.1283
+
+[VAL] scene=ds_v1_seed0/terrazzo_v54  (pixel 70/30 split)
+  AUC      = 0.9848
+  IoU@0.5  = 0.8800
+  F1@0.5   = 0.9362
+  accuracy = 0.9372  (prec=0.9318, rec=0.9406)
+  tp=8139 fp=596 fn=514 tn=8415
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v54  (저장모델로 새 데이터 평가)
+  AUC      = 0.9112
+  IoU@0.5  = 0.2057
+  F1@0.5   = 0.3412
+  accuracy = 0.6100  (prec=0.9927, rec=0.2060)
+  tp=5947 fp=44 fn=22920 tn=29969
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v54 (ok)
+
+##### [122/132] ds_v1_seed0/terrazzo_v55  (done 24, fail 0, skip 97, elapsed 17m, ETA 8m) #####
+[scene] ds_v1_seed0/terrazzo_v55  size=1280x720
+[select] mirror 점 개수 = 381921  (mask=397168, valid&depth = 904485)
+[conf] mirror 영역 평균 confidence = 0.7130
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.2723, -0.8269, -0.4921]
+      d = +3.4314   mirror_depth(perp) = 3.4314 m   view_z = 8.5957 m
+      n_inliers = 381921/381921   rms_residual = 0.48447 m
+  [RANSAC]
+      normal = [-0.7333, +0.1132, -0.6704]
+      d = +5.2469   mirror_depth(perp) = 5.2469 m   view_z = 8.5957 m
+      n_inliers = 189008/381921   rms_residual = 0.05033 m
+  [SVD robust (IRLS)]
+      normal = [-0.2139, -0.8481, -0.4847]
+      d = +3.4519   mirror_depth(perp) = 3.4519 m   view_z = 8.5957 m
+      n_inliers = 60331/381921   rms_residual = 0.06220 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\mirror_geometry
+[ds_v1_seed0/terrazzo_v55] 거울 점 381921개 중 inlier 189008 (49.5%) / outlier 192913
+  normal=[-0.733  0.113 -0.67 ] d=5.247  rms(inlier)=0.0503 m  thr≈0.105 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v55                 perp 4.78m planRMS 0.0034m  normal [0.704, 0.132, -0.698]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v55] feature 184x320  mirror_frac=0.4335258152173913  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_argdisp       0.609   +  0.2182   47.299185   33.063471
+  2  feat_left_pc1      0.5786   +  0.1263    2.356034    1.903985
+  3  feat_left_l2        0.578   -  0.1149   16.366624   16.955658
+  4  delta_entropy      0.5575   -  0.1301    -1.51297   -1.276506
+  5  pre_entropy        0.5543   +  0.1306    2.143298    1.902824
+  6  feat_left_pc3      0.5477   -  0.0377    1.676223     1.78962
+  7  pre_conf           0.5374   -  0.0468    0.392599    0.414466
+  8  post_conf          0.5234   -  0.0399    0.708483     0.71812
+  9  delta_conf         0.5231   +  0.0241    0.315883    0.303655
+ 10  post_entropy       0.5204   +  0.0143    0.630328    0.626318
+ 11  feat_left_pc2       0.511   +  0.0148    2.167942    2.125031
+BEST: delta_argdisp (AUC=0.609, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4469
+  [train] epoch 120/300  loss=0.3400
+  [train] epoch 180/300  loss=0.2680
+  [train] epoch 240/300  loss=0.2109
+  [train] epoch 300/300  loss=0.1677
+
+[VAL] scene=ds_v1_seed0/terrazzo_v55  (pixel 70/30 split)
+  AUC      = 0.9813
+  IoU@0.5  = 0.8432
+  F1@0.5   = 0.9149
+  accuracy = 0.9245  (prec=0.8910, rec=0.9402)
+  tp=7166 fp=877 fn=456 tn=9165
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v55  (저장모델로 새 데이터 평가)
+  AUC      = 0.8915
+  IoU@0.5  = 0.2602
+  F1@0.5   = 0.4130
+  accuracy = 0.6742  (prec=0.9431, rec=0.2644)
+  tp=6748 fp=407 fn=18778 tn=32947
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v55 (ok)
+
+##### [123/132] ds_v1_seed0/terrazzo_v56  (done 25, fail 0, skip 97, elapsed 18m, ETA 7m) #####
+[scene] ds_v1_seed0/terrazzo_v56  size=1280x720
+[select] mirror 점 개수 = 282953  (mask=299066, valid&depth = 903065)
+[conf] mirror 영역 평균 confidence = 0.7278
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.4638, -0.5770, -0.6722]
+      d = +4.2897   mirror_depth(perp) = 4.2897 m   view_z = 7.8985 m
+      n_inliers = 282953/282953   rms_residual = 0.39083 m
+  [RANSAC]
+      normal = [-0.6308, +0.1459, -0.7621]
+      d = +5.1539   mirror_depth(perp) = 5.1539 m   view_z = 7.8985 m
+      n_inliers = 143474/282953   rms_residual = 0.01169 m
+  [SVD robust (IRLS)]
+      normal = [-0.4774, -0.4995, -0.7229]
+      d = +4.7808   mirror_depth(perp) = 4.7808 m   view_z = 7.8985 m
+      n_inliers = 49528/282953   rms_residual = 0.03826 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\mirror_geometry
+[ds_v1_seed0/terrazzo_v56] 거울 점 282953개 중 inlier 143474 (50.7%) / outlier 139479
+  normal=[-0.631  0.146 -0.762] d=5.154  rms(inlier)=0.0117 m  thr≈0.066 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v56                 perp 4.40m planRMS 0.0000m  normal [0.777, 0.16, -0.609]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v56] feature 184x320  mirror_frac=0.32668138586956524  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_pc1      0.5553   +  0.1315    2.316612    1.767503
+  2  post_conf          0.5387   +  0.0678    0.722976    0.706483
+  3  delta_argdisp       0.534   +  0.0822    38.49961   33.146122
+  4  pre_conf           0.5206   +  0.0469    0.438678    0.416152
+  5  feat_left_l2       0.5203   -  0.0017    16.67727   16.668619
+  6  pre_entropy        0.5162   -  0.0205     1.94816     1.90964
+  7  feat_left_pc2      0.5135   -  0.0185    2.048116    2.101202
+  8  delta_entropy      0.5128   +  0.0208   -1.329223   -1.290215
+  9  feat_left_pc3      0.5012   +  0.0533     1.97788    1.809238
+ 10  post_entropy       0.5006   +  0.0019    0.618936    0.619425
+ 11  delta_conf         0.5005   -  0.0116    0.284298    0.290332
+BEST: feat_left_pc1 (AUC=0.5553, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5359
+  [train] epoch 120/300  loss=0.3904
+  [train] epoch 180/300  loss=0.2957
+  [train] epoch 240/300  loss=0.2254
+  [train] epoch 300/300  loss=0.1731
+
+[VAL] scene=ds_v1_seed0/terrazzo_v56  (pixel 70/30 split)
+  AUC      = 0.9865
+  IoU@0.5  = 0.8285
+  F1@0.5   = 0.9062
+  accuracy = 0.9370  (prec=0.8711, rec=0.9443)
+  tp=5371 fp=795 fn=317 tn=11181
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v56  (저장모델로 새 데이터 평가)
+  AUC      = 0.9037
+  IoU@0.5  = 0.2009
+  F1@0.5   = 0.3345
+  accuracy = 0.7368  (prec=0.9615, rec=0.2025)
+  tp=3895 fp=156 fn=15340 tn=39489
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v56 (ok)
+
+##### [124/132] ds_v1_seed0/terrazzo_v57  (done 26, fail 0, skip 97, elapsed 19m, ETA 6m) #####
+[scene] ds_v1_seed0/terrazzo_v57  size=1280x720
+[select] mirror 점 개수 = 608568  (mask=623141, valid&depth = 906236)
+[conf] mirror 영역 평균 confidence = 0.7156
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.2002, -0.9011, -0.3847]
+      d = +2.7710   mirror_depth(perp) = 2.7710 m   view_z = 8.8452 m
+      n_inliers = 608568/608568   rms_residual = 0.41212 m
+  [RANSAC]
+      normal = [-0.0499, -0.9669, -0.2501]
+      d = +2.2245   mirror_depth(perp) = 2.2245 m   view_z = 8.8452 m
+      n_inliers = 208968/608568   rms_residual = 0.03478 m
+  [SVD robust (IRLS)]
+      normal = [-0.2302, -0.8918, -0.3896]
+      d = +2.8116   mirror_depth(perp) = 2.8116 m   view_z = 8.8452 m
+      n_inliers = 167508/608568   rms_residual = 0.07685 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\mirror_geometry
+[ds_v1_seed0/terrazzo_v57] 거울 점 608568개 중 inlier 208968 (34.3%) / outlier 399600
+  normal=[-0.05  -0.967 -0.25 ] d=2.225  rms(inlier)=0.0348 m  thr≈0.135 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v57                 perp 4.80m planRMS 0.0000m  normal [0.498, 0.189, -0.846]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v57] feature 184x320  mirror_frac=0.6796195652173913  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_l2       0.5949   -  0.1494   16.600147   17.314883
+  2  feat_left_pc1      0.5761   +  0.1299     2.45605    2.065331
+  3  delta_argdisp      0.5538   +  0.1615   39.433727   29.582485
+  4  feat_left_pc3      0.5421   -  0.0547    1.679911    1.830684
+  5  post_entropy        0.526   -  0.0784    0.608077    0.629502
+  6  delta_conf         0.5161   -   0.043    0.282251    0.304199
+  7  pre_conf           0.5141   +  0.0497    0.431622    0.408952
+  8  delta_entropy      0.5065   -   0.024   -1.328835   -1.287837
+  9  feat_left_pc2      0.5046   -   0.021    2.036026    2.097401
+ 10  pre_entropy         0.501   -  0.0115    1.936912    1.917339
+ 11  post_conf          0.5005   +   0.003    0.713872    0.713151
+BEST: feat_left_l2 (AUC=0.5949, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.2019
+  [train] epoch 120/300  loss=0.1319
+  [train] epoch 180/300  loss=0.0927
+  [train] epoch 240/300  loss=0.0680
+  [train] epoch 300/300  loss=0.0515
+
+[VAL] scene=ds_v1_seed0/terrazzo_v57  (pixel 70/30 split)
+  AUC      = 0.9943
+  IoU@0.5  = 0.9469
+  F1@0.5   = 0.9727
+  accuracy = 0.9632  (prec=0.9778, rec=0.9677)
+  tp=11589 fp=263 fn=387 tn=5425
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v57  (저장모델로 새 데이터 평가)
+  AUC      = 0.9515
+  IoU@0.5  = 0.2110
+  F1@0.5   = 0.3484
+  accuracy = 0.4636  (prec=0.9988, rec=0.2110)
+  tp=8444 fp=10 fn=31572 tn=18854
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v57 (ok)
+
+##### [125/132] ds_v1_seed0/terrazzo_v58  (done 27, fail 0, skip 97, elapsed 20m, ETA 6m) #####
+[scene] ds_v1_seed0/terrazzo_v58  size=1280x720
+[select] mirror 점 개수 = 295023  (mask=311300, valid&depth = 904631)
+[conf] mirror 영역 평균 confidence = 0.7211
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.6305, -0.4000, -0.6652]
+      d = +4.1851   mirror_depth(perp) = 4.1851 m   view_z = 8.1904 m
+      n_inliers = 295023/295023   rms_residual = 0.43596 m
+  [RANSAC]
+      normal = [-0.6446, +0.0950, -0.7586]
+      d = +5.1940   mirror_depth(perp) = 5.1940 m   view_z = 8.1904 m
+      n_inliers = 172618/295023   rms_residual = 0.01242 m
+  [SVD robust (IRLS)]
+      normal = [-0.6563, +0.0292, -0.7539]
+      d = +5.1055   mirror_depth(perp) = 5.1055 m   view_z = 8.1904 m
+      n_inliers = 139803/295023   rms_residual = 0.04438 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\mirror_geometry
+[ds_v1_seed0/terrazzo_v58] 거울 점 295023개 중 inlier 172618 (58.5%) / outlier 122405
+  normal=[-0.645  0.095 -0.759] d=5.194  rms(inlier)=0.0124 m  thr≈0.075 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v58                 perp 4.68m planRMS 0.0000m  normal [0.761, 0.12, -0.638]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v58] feature 184x320  mirror_frac=0.3399796195652174  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_pc1      0.5854   +  0.1385    2.450383    1.913495
+  2  feat_left_l2        0.554   -   0.059   16.488802   16.801152
+  3  post_conf          0.5533   +  0.0957    0.715491    0.692584
+  4  delta_argdisp      0.5472   +  0.1188   40.994605   33.205625
+  5  post_entropy        0.543   -   0.093    0.616446    0.639198
+  6  feat_left_pc3      0.5412   -  0.0096    1.790103     1.82066
+  7  pre_conf           0.5274   +  0.0669    0.440704    0.408846
+  8  pre_entropy        0.5194   -  0.0128    1.949759      1.9261
+  9  delta_entropy       0.511   +  0.0252   -1.333313   -1.286903
+ 10  feat_left_pc2      0.5094   +  0.0062    2.183287    2.165542
+ 11  delta_conf         0.5023   -  0.0172    0.274787    0.283738
+BEST: feat_left_pc1 (AUC=0.5854, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5391
+  [train] epoch 120/300  loss=0.3910
+  [train] epoch 180/300  loss=0.2929
+  [train] epoch 240/300  loss=0.2199
+  [train] epoch 300/300  loss=0.1671
+
+[VAL] scene=ds_v1_seed0/terrazzo_v58  (pixel 70/30 split)
+  AUC      = 0.9857
+  IoU@0.5  = 0.8389
+  F1@0.5   = 0.9124
+  accuracy = 0.9390  (prec=0.8851, rec=0.9415)
+  tp=5614 fp=729 fn=349 tn=10972
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v58  (저장모델로 새 데이터 평가)
+  AUC      = 0.8963
+  IoU@0.5  = 0.1964
+  F1@0.5   = 0.3283
+  accuracy = 0.7229  (prec=0.9333, rec=0.1992)
+  tp=3987 fp=285 fn=16031 tn=38577
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v58 (ok)
+
+##### [126/132] ds_v1_seed0/terrazzo_v59  (done 28, fail 0, skip 97, elapsed 21m, ETA 5m) #####
+[scene] ds_v1_seed0/terrazzo_v59  size=1280x720
+[select] mirror 점 개수 = 825533  (mask=837412, valid&depth = 909721)
+[conf] mirror 영역 평균 confidence = 0.6899
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.3674, -0.8279, -0.4238]
+      d = +3.6743   mirror_depth(perp) = 3.6743 m   view_z = 9.4769 m
+      n_inliers = 825533/825533   rms_residual = 0.72637 m
+  [RANSAC]
+      normal = [-0.8694, +0.0639, -0.4900]
+      d = +5.0940   mirror_depth(perp) = 5.0940 m   view_z = 9.4769 m
+      n_inliers = 274979/825533   rms_residual = 0.02753 m
+  [SVD robust (IRLS)]
+      normal = [-0.3461, -0.8440, -0.4098]
+      d = +3.5882   mirror_depth(perp) = 3.5882 m   view_z = 9.4769 m
+      n_inliers = 114591/825533   rms_residual = 0.07766 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\mirror_geometry
+[ds_v1_seed0/terrazzo_v59] 거울 점 825533개 중 inlier 274979 (33.3%) / outlier 550554
+  normal=[-0.869  0.064 -0.49 ] d=5.094  rms(inlier)=0.0275 m  thr≈0.136 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v59                 perp 4.47m planRMS 0.0000m  normal [0.506, 0.056, -0.861]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v59] feature 184x320  mirror_frac=0.9104959239130435  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  post_conf          0.7047   -   0.363    0.688923     0.77353
+  2  post_entropy       0.6679   +  0.2423    0.634695    0.576033
+  3  feat_left_l2       0.6636   -  0.2804   16.589866   18.196991
+  4  delta_argdisp      0.6489   +  0.3347   43.060977     23.5926
+  5  delta_conf         0.6089   -  0.1987    0.251262    0.350709
+  6  feat_left_pc1      0.6009   +  0.1836    2.648468    2.068133
+  7  feat_left_pc3      0.5631   -  0.1001    1.635021    1.923506
+  8  feat_left_pc2      0.5518   -  0.1279    2.241882    2.675526
+  9  delta_entropy      0.5264   +  0.0358   -1.238437   -1.298249
+ 10  pre_conf           0.5106   +  0.0325     0.43766    0.422821
+ 11  pre_entropy        0.5068   -  0.0007    1.873132    1.874282
+BEST: post_conf (AUC=0.7047, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.0413
+  [train] epoch 120/300  loss=0.0215
+  [train] epoch 180/300  loss=0.0132
+  [train] epoch 240/300  loss=0.0089
+  [train] epoch 300/300  loss=0.0064
+
+[VAL] scene=ds_v1_seed0/terrazzo_v59  (pixel 70/30 split)
+  AUC      = 0.9980
+  IoU@0.5  = 0.9825
+  F1@0.5   = 0.9912
+  accuracy = 0.9840  (prec=0.9977, rec=0.9847)
+  tp=15808 fp=37 fn=245 tn=1574
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v59  (저장모델로 새 데이터 평가)
+  AUC      = 0.9171
+  IoU@0.5  = 0.1598
+  F1@0.5   = 0.2756
+  accuracy = 0.2350  (prec=1.0000, rec=0.1598)
+  tp=8567 fp=0 fn=45043 tn=5270
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v59 (ok)
+
+##### [127/132] ds_v1_seed0/terrazzo_v60  (done 29, fail 0, skip 97, elapsed 22m, ETA 5m) #####
+[scene] ds_v1_seed0/terrazzo_v60  size=1280x720
+[select] mirror 점 개수 = 759089  (mask=770393, valid&depth = 910296)
+[conf] mirror 영역 평균 confidence = 0.7075
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.3880, -0.8067, -0.4457]
+      d = +3.8972   mirror_depth(perp) = 3.8972 m   view_z = 9.7385 m
+      n_inliers = 759089/759089   rms_residual = 0.72902 m
+  [RANSAC]
+      normal = [-0.8443, +0.0586, -0.5326]
+      d = +5.3778   mirror_depth(perp) = 5.3778 m   view_z = 9.7385 m
+      n_inliers = 261268/759089   rms_residual = 0.03456 m
+  [SVD robust (IRLS)]
+      normal = [-0.3523, -0.8338, -0.4251]
+      d = +3.7433   mirror_depth(perp) = 3.7433 m   view_z = 9.7385 m
+      n_inliers = 93264/759089   rms_residual = 0.07391 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\mirror_geometry
+[ds_v1_seed0/terrazzo_v60] 거울 점 759089개 중 inlier 261268 (34.4%) / outlier 497821
+  normal=[-0.844  0.059 -0.533] d=5.378  rms(inlier)=0.0346 m  thr≈0.128 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v60                 perp 4.69m planRMS 0.0000m  normal [0.552, 0.053, -0.832]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v60] feature 184x320  mirror_frac=0.8374150815217392  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_argdisp      0.6346   +  0.2945   43.830795   26.458895
+  2  feat_left_l2       0.6035   -  0.1785   16.645901   17.673419
+  3  post_conf          0.5957   +  0.1661    0.705524    0.666927
+  4  feat_left_pc1      0.5854   +   0.165    2.695731    2.190187
+  5  post_entropy       0.5594   -  0.0947    0.623726    0.644361
+  6  delta_conf          0.543   +  0.0627     0.27801     0.24658
+  7  feat_left_pc3      0.5373   -  0.0511    1.645386    1.790103
+  8  feat_left_pc2       0.528   -  0.0822    2.243362    2.511793
+  9  delta_entropy      0.5123   -  0.0353   -1.288915   -1.231025
+ 10  pre_entropy        0.5049   +  0.0227    1.912642    1.875385
+ 11  pre_conf           0.5003   -  0.0159    0.427514    0.420347
+BEST: delta_argdisp (AUC=0.6346, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.0859
+  [train] epoch 120/300  loss=0.0502
+  [train] epoch 180/300  loss=0.0340
+  [train] epoch 240/300  loss=0.0240
+  [train] epoch 300/300  loss=0.0174
+
+[VAL] scene=ds_v1_seed0/terrazzo_v60  (pixel 70/30 split)
+  AUC      = 0.9966
+  IoU@0.5  = 0.9710
+  F1@0.5   = 0.9853
+  accuracy = 0.9756  (prec=0.9940, rec=0.9767)
+  tp=14436 fp=87 fn=344 tn=2797
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v60  (저장모델로 새 데이터 평가)
+  AUC      = 0.9324
+  IoU@0.5  = 0.2082
+  F1@0.5   = 0.3447
+  accuracy = 0.3369  (prec=0.9997, rec=0.2082)
+  tp=10268 fp=3 fn=39039 tn=9570
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v60 (ok)
+
+##### [128/132] ds_v1_seed0/terrazzo_v61  (done 30, fail 0, skip 97, elapsed 23m, ETA 4m) #####
+[scene] ds_v1_seed0/terrazzo_v61  size=1280x720
+[select] mirror 점 개수 = 103442  (mask=112786, valid&depth = 900244)
+[conf] mirror 영역 평균 confidence = 0.7063
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.5321, -0.4961, -0.6861]
+      d = +3.7726   mirror_depth(perp) = 3.7726 m   view_z = 7.7222 m
+      n_inliers = 103442/103442   rms_residual = 0.21209 m
+  [RANSAC]
+      normal = [-0.5952, +0.2141, -0.7745]
+      d = +5.0913   mirror_depth(perp) = 5.0913 m   view_z = 7.7222 m
+      n_inliers = 73608/103442   rms_residual = 0.00925 m
+  [SVD robust (IRLS)]
+      normal = [-0.5849, -0.2458, -0.7729]
+      d = +4.6044   mirror_depth(perp) = 4.6044 m   view_z = 7.7222 m
+      n_inliers = 27510/103442   rms_residual = 0.03514 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\mirror_geometry
+[ds_v1_seed0/terrazzo_v61] 거울 점 103442개 중 inlier 73608 (71.2%) / outlier 29834
+  normal=[-0.595  0.214 -0.775] d=5.091  rms(inlier)=0.0092 m  thr≈0.061 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v61                 perp 4.65m planRMS 0.0000m  normal [0.801, 0.216, -0.558]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v61] feature 184x320  mirror_frac=0.12364130434782608  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  pre_conf           0.5853   +  0.1615    0.482803    0.401262
+  2  pre_entropy        0.5813   -  0.0874     1.82504    2.004963
+  3  delta_entropy      0.5739   +  0.0834   -1.182032   -1.354314
+  4  delta_conf         0.5737   -  0.1425    0.220787    0.299411
+  5  delta_argdisp      0.5405   -  0.0316   30.751923   32.754767
+  6  feat_left_pc1      0.5374   +  0.1745    2.713791     1.77634
+  7  feat_left_pc2      0.5213   +  0.0818    2.209848    1.941693
+  8  feat_left_pc3      0.5169   +  0.0537    2.005909    1.839372
+  9  post_conf          0.5067   +  0.0127     0.70359    0.700673
+ 10  post_entropy       0.5061   +   0.029    0.643008     0.65065
+ 11  feat_left_l2       0.5035   -  0.0605   16.950347   16.602387
+BEST: pre_conf (AUC=0.5853, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5804
+  [train] epoch 120/300  loss=0.3882
+  [train] epoch 180/300  loss=0.2799
+  [train] epoch 240/300  loss=0.2065
+  [train] epoch 300/300  loss=0.1547
+
+[VAL] scene=ds_v1_seed0/terrazzo_v61  (pixel 70/30 split)
+  AUC      = 0.9905
+  IoU@0.5  = 0.6941
+  F1@0.5   = 0.8194
+  accuracy = 0.9493  (prec=0.7209, rec=0.9491)
+  tp=2033 fp=787 fn=109 tn=14735
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v61  (저장모델로 새 데이터 평가)
+  AUC      = 0.9576
+  IoU@0.5  = 0.3171
+  F1@0.5   = 0.4815
+  accuracy = 0.9107  (prec=0.8530, rec=0.3354)
+  tp=2442 fp=421 fn=4838 tn=51179
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v61 (ok)
+
+##### [129/132] ds_v1_seed0/terrazzo_v62  (done 31, fail 0, skip 97, elapsed 24m, ETA 3m) #####
+[scene] ds_v1_seed0/terrazzo_v62  size=1280x720
+[select] mirror 점 개수 = 29477  (mask=33733, valid&depth = 893636)
+[conf] mirror 영역 평균 confidence = 0.6331
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.6168, +0.1193, -0.7780]
+      d = +4.9893   mirror_depth(perp) = 4.9893 m   view_z = 8.0825 m
+      n_inliers = 29477/29477   rms_residual = 0.07450 m
+  [RANSAC]
+      normal = [-0.5927, +0.1712, -0.7870]
+      d = +5.1930   mirror_depth(perp) = 5.1930 m   view_z = 8.0825 m
+      n_inliers = 28668/29477   rms_residual = 0.00585 m
+  [SVD robust (IRLS)]
+      normal = [-0.5925, +0.1610, -0.7893]
+      d = +5.1978   mirror_depth(perp) = 5.1978 m   view_z = 8.0825 m
+      n_inliers = 28698/29477   rms_residual = 0.00689 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\mirror_geometry
+[ds_v1_seed0/terrazzo_v62] 거울 점 29477개 중 inlier 28668 (97.3%) / outlier 809
+  normal=[-0.593  0.171 -0.787] d=5.193  rms(inlier)=0.0058 m  thr≈0.056 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v62                 perp 5.02m planRMS 0.0118m  normal [0.808, 0.227, -0.543]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v62] feature 184x320  mirror_frac=0.037550951086956524  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  delta_conf         0.6952   -  0.3588    0.122112    0.316266
+  2  delta_argdisp      0.6699   -  0.2171   24.134328   37.651979
+  3  delta_entropy      0.6591   +  0.2057   -0.978305   -1.419752
+  4  pre_conf           0.6545   +  0.2895    0.519462    0.375275
+  5  pre_entropy        0.6535   -  0.1876    1.699152    2.098749
+  6  post_entropy        0.623   +  0.1443    0.720848    0.678997
+  7  post_conf          0.6177   -  0.2302    0.641574    0.691541
+  8  feat_left_pc2      0.6027   +  0.1649    2.582015    2.139497
+  9  feat_left_pc1       0.567   +   0.173    2.930674    2.078731
+ 10  feat_left_l2       0.5209   -  0.0354   16.961345    16.73963
+ 11  feat_left_pc3      0.5051   +   0.119    2.220195    1.775782
+BEST: delta_conf (AUC=0.6952, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4528
+  [train] epoch 120/300  loss=0.2229
+  [train] epoch 180/300  loss=0.1390
+  [train] epoch 240/300  loss=0.0951
+  [train] epoch 300/300  loss=0.0691
+
+[VAL] scene=ds_v1_seed0/terrazzo_v62  (pixel 70/30 split)
+  AUC      = 0.9979
+  IoU@0.5  = 0.6667
+  F1@0.5   = 0.8000
+  accuracy = 0.9818  (prec=0.6779, rec=0.9757)
+  tp=642 fp=305 fn=16 tn=16701
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v62  (저장모델로 새 데이터 평가)
+  AUC      = 0.9811
+  IoU@0.5  = 0.4708
+  F1@0.5   = 0.6402
+  accuracy = 0.9763  (prec=0.7456, rec=0.5608)
+  tp=1240 fp=423 fn=971 tn=56246
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v62 (ok)
+
+##### [130/132] ds_v1_seed0/terrazzo_v63  (done 32, fail 0, skip 97, elapsed 24m, ETA 2m) #####
+[scene] ds_v1_seed0/terrazzo_v63  size=1280x720
+[select] mirror 점 개수 = 219192  (mask=233472, valid&depth = 905872)
+[conf] mirror 영역 평균 confidence = 0.7572
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.7077, -0.1476, -0.6909]
+      d = +4.3009   mirror_depth(perp) = 4.3009 m   view_z = 8.4449 m
+      n_inliers = 219192/219192   rms_residual = 0.33287 m
+  [RANSAC]
+      normal = [-0.6368, +0.1036, -0.7640]
+      d = +5.1169   mirror_depth(perp) = 5.1169 m   view_z = 8.4449 m
+      n_inliers = 134811/219192   rms_residual = 0.01068 m
+  [SVD robust (IRLS)]
+      normal = [-0.6502, +0.0757, -0.7559]
+      d = +5.0266   mirror_depth(perp) = 5.0266 m   view_z = 8.4449 m
+      n_inliers = 133117/219192   rms_residual = 0.03289 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\mirror_geometry
+[ds_v1_seed0/terrazzo_v63] 거울 점 219192개 중 inlier 134811 (61.5%) / outlier 84381
+  normal=[-0.637  0.104 -0.764] d=5.117  rms(inlier)=0.0107 m  thr≈0.070 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v63                 perp 5.02m planRMS 0.0000m  normal [0.777, 0.111, -0.619]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v63] feature 184x320  mirror_frac=0.25528192934782606  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  post_conf          0.6095   +  0.1934    0.748977    0.705617
+  2  post_entropy       0.5851   -  0.1539     0.59853    0.637863
+  3  feat_left_pc1      0.5534   +  0.0721    2.328145    2.028389
+  4  pre_conf           0.5409   +  0.0918    0.453311     0.40808
+  5  feat_left_l2       0.5377   -  0.0387   16.506162   16.713007
+  6  feat_left_pc3      0.5303   -  0.0104    1.810664    1.844761
+  7  pre_entropy        0.5241   -  0.0017    1.947843    1.951099
+  8  delta_argdisp      0.5237   +  0.0835   40.323664   34.709845
+  9  feat_left_pc2       0.515   -  0.0339     2.12924    2.222792
+ 10  delta_entropy      0.5112   +  0.0186   -1.349313   -1.313236
+ 11  delta_conf         0.5071   +  0.0035    0.295665    0.297537
+BEST: post_conf (AUC=0.6095, polarity=+)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.5962
+  [train] epoch 120/300  loss=0.4233
+  [train] epoch 180/300  loss=0.3171
+  [train] epoch 240/300  loss=0.2369
+  [train] epoch 300/300  loss=0.1774
+
+[VAL] scene=ds_v1_seed0/terrazzo_v63  (pixel 70/30 split)
+  AUC      = 0.9867
+  IoU@0.5  = 0.7968
+  F1@0.5   = 0.8869
+  accuracy = 0.9390  (prec=0.8363, rec=0.9441)
+  tp=4224 fp=827 fn=250 tn=12363
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v63  (저장모델로 새 데이터 평가)
+  AUC      = 0.9134
+  IoU@0.5  = 0.2656
+  F1@0.5   = 0.4197
+  accuracy = 0.8050  (prec=0.8736, rec=0.2762)
+  tp=4152 fp=601 fn=10879 tn=43248
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v63 (ok)
+
+##### [131/132] ds_v1_seed0/terrazzo_v64  (done 33, fail 0, skip 97, elapsed 24m, ETA 1m) #####
+[scene] ds_v1_seed0/terrazzo_v64  size=1280x720
+[select] mirror 점 개수 = 406140  (mask=422446, valid&depth = 905291)
+[conf] mirror 영역 평균 confidence = 0.7039
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.4305, -0.7760, -0.4610]
+      d = +2.9854   mirror_depth(perp) = 2.9854 m   view_z = 8.5893 m
+      n_inliers = 406140/406140   rms_residual = 0.51352 m
+  [RANSAC]
+      normal = [-0.7512, +0.1096, -0.6509]
+      d = +4.8807   mirror_depth(perp) = 4.8807 m   view_z = 8.5893 m
+      n_inliers = 163508/406140   rms_residual = 0.01887 m
+  [SVD robust (IRLS)]
+      normal = [-0.3659, -0.8171, -0.4456]
+      d = +2.9388   mirror_depth(perp) = 2.9388 m   view_z = 8.5893 m
+      n_inliers = 67451/406140   rms_residual = 0.06947 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\mirror_geometry
+[ds_v1_seed0/terrazzo_v64] 거울 점 406140개 중 inlier 163508 (40.3%) / outlier 242632
+  normal=[-0.751  0.11  -0.651] d=4.881  rms(inlier)=0.0189 m  thr≈0.123 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v64                 perp 4.76m planRMS 0.0000m  normal [0.66, 0.125, -0.741]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v64] feature 184x320  mirror_frac=0.4611243206521739  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_l2       0.5919   -  0.1403   16.344266   17.063007
+  2  delta_argdisp      0.5909   +   0.197   45.032559   32.322071
+  3  feat_left_pc1      0.5858   +  0.1341    2.378742    1.915738
+  4  feat_left_pc3      0.5662   -   0.072    1.621314    1.834762
+  5  delta_entropy      0.5426   -  0.1096   -1.482792   -1.286324
+  6  pre_entropy        0.5405   +  0.1091    2.107021    1.910506
+  7  pre_conf           0.5263   -  0.0236     0.40124    0.412147
+  8  post_conf          0.5146   -  0.0244     0.70238    0.708198
+  9  delta_conf         0.5144   +    0.01     0.30114    0.296051
+ 10  post_entropy       0.5067   +  0.0002    0.624229    0.624182
+ 11  feat_left_pc2      0.5058   +  0.0022    2.209526    2.216119
+BEST: feat_left_l2 (AUC=0.5919, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.4284
+  [train] epoch 120/300  loss=0.3140
+  [train] epoch 180/300  loss=0.2390
+  [train] epoch 240/300  loss=0.1828
+  [train] epoch 300/300  loss=0.1407
+
+[VAL] scene=ds_v1_seed0/terrazzo_v64  (pixel 70/30 split)
+  AUC      = 0.9852
+  IoU@0.5  = 0.8726
+  F1@0.5   = 0.9320
+  accuracy = 0.9364  (prec=0.9181, rec=0.9463)
+  tp=7702 fp=687 fn=437 tn=8838
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v64  (저장모델로 새 데이터 평가)
+  AUC      = 0.9088
+  IoU@0.5  = 0.2298
+  F1@0.5   = 0.3737
+  accuracy = 0.6439  (prec=0.9888, rec=0.2304)
+  tp=6256 fp=71 fn=20895 tn=31658
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v64 (ok)
+
+##### [132/132] ds_v1_seed0/terrazzo_v65  (done 34, fail 0, skip 97, elapsed 25m, ETA 1m) #####
+[scene] ds_v1_seed0/terrazzo_v65  size=1280x720
+[select] mirror 점 개수 = 827544  (mask=839388, valid&depth = 909756)
+[conf] mirror 영역 평균 confidence = 0.6939
+
+=== 평면 추정 결과 ===
+  [PCA (closed form)]
+      normal = [-0.3596, -0.8367, -0.4131]
+      d = +3.6787   mirror_depth(perp) = 3.6787 m   view_z = 9.7513 m
+      n_inliers = 827544/827544   rms_residual = 0.75419 m
+  [RANSAC]
+      normal = [-0.8868, +0.0925, -0.4528]
+      d = +4.9792   mirror_depth(perp) = 4.9792 m   view_z = 9.7513 m
+      n_inliers = 252540/827544   rms_residual = 0.02690 m
+  [SVD robust (IRLS)]
+      normal = [-0.3544, -0.8433, -0.4041]
+      d = +3.6392   mirror_depth(perp) = 3.6392 m   view_z = 9.7513 m
+      n_inliers = 124373/827544   rms_residual = 0.08105 m
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\mirror_geometry\result.json
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\mirror_geometry\plane.txt
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\mirror_geometry\viz.png
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\mirror_geometry
+[ds_v1_seed0/terrazzo_v65] 거울 점 827544개 중 inlier 252540 (30.5%) / outlier 575004
+  normal=[-0.887  0.093 -0.453] d=4.979  rms(inlier)=0.0269 m  thr≈0.142 m
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\mirror_geometry\ransac_inliers.png
+[gt] terrazzo_v65                 perp 4.70m planRMS 0.0000m  normal [0.467, 0.074, -0.881]
+
+생성 1, 건너뜀 0 (depth_gt/mask 없음 등)
+[ds_v1_seed0/terrazzo_v65] feature 184x320  mirror_frac=0.9125509510869565  feat_left=True
+rank  signal              AUC    pol  sep     mean_in     mean_out
+  1  feat_left_l2       0.6942   -  0.3435   16.588123    18.60035
+  2  post_conf          0.6891   -  0.3508    0.692616    0.770957
+  3  delta_argdisp      0.6622   +  0.3495   44.049041   23.699748
+  4  post_entropy       0.6386   +  0.1745    0.631247    0.591693
+  5  feat_left_pc1       0.618   +  0.2167    2.692521    2.021362
+  6  delta_conf         0.6061   -  0.1875     0.26444    0.357787
+  7  feat_left_pc2       0.567   -  0.1677    2.235471    2.835421
+  8  feat_left_pc3       0.549   -  0.0757     1.63581    1.850775
+  9  delta_entropy      0.5201   +  0.0248    -1.27714   -1.317726
+ 10  pre_conf           0.5123   +  0.0339    0.428176     0.41317
+ 11  pre_entropy        0.5064   -  0.0006    1.908387    1.909418
+BEST: feat_left_l2 (AUC=0.6942, polarity=-)
+저장: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\features\report.json / panels.png / mirror_signal.npy
+[device] cuda
+  [train] epoch 60/300  loss=0.0346
+  [train] epoch 120/300  loss=0.0174
+  [train] epoch 180/300  loss=0.0109
+  [train] epoch 240/300  loss=0.0075
+  [train] epoch 300/300  loss=0.0054
+
+[VAL] scene=ds_v1_seed0/terrazzo_v65  (pixel 70/30 split)
+  AUC      = 0.9985
+  IoU@0.5  = 0.9848
+  F1@0.5   = 0.9924
+  accuracy = 0.9862  (prec=0.9989, rec=0.9859)
+  tp=15840 fp=17 fn=227 tn=1580
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\submodel
+  pred_mask.png, panel.png, metrics.json, head.pt
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\submodel
+[device] cuda
+[load] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_model\general_head.pt  (train_scenes=['archiviz_baseline080', 'bedroom_baseline080', 'blue_bathroom_baseline080', 'computer_room_baseline080', 'cozy_living_room_baseline080', 'flat-archiviz_baseline080', 'green_house_baseline080', 'gym_baseline080', 'livingroom_baseline080', 'minimal_interior_baseline080', 'scandinavian_baseline080', 'sunlight_baseline080'])
+
+[APPLY] ds_v1_seed0/terrazzo_v65  (저장모델로 새 데이터 평가)
+  AUC      = 0.9387
+  IoU@0.5  = 0.1642
+  F1@0.5   = 0.2821
+  accuracy = 0.2373  (prec=1.0000, rec=0.1642)
+  tp=8825 fp=0 fn=44906 tn=5149
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65\submodel_applied  (pred_mask.png, panel.png, metrics.json)
+
+============================================================
+STEP: estimate_mirror_plane
+============================================================
+
+============================================================
+STEP: viz_ransac_inliers
+============================================================
+
+============================================================
+STEP: make_mirror_gt_from_depth
+============================================================
+
+============================================================
+STEP: analyze_features
+============================================================
+
+============================================================
+STEP: submodel_head
+============================================================
+
+============================================================
+STEP: apply_submodel
+============================================================
+
+DONE: D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\ds_v1_seed0/terrazzo_v65 (ok)
+
+[batch] 끝: done 35, fail 0, skip 97, 총 0.4h

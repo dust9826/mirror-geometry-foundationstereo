@@ -1,0 +1,31 @@
+{
+  "metrics": {
+    "iou": 0.5243576567317575,
+    "f1": 0.6879719525350593,
+    "accuracy": 0.8820991847826087,
+    "precision": 0.5916048237476809,
+    "recall": 0.8218427835051546,
+    "tp": 7653,
+    "fp": 5283,
+    "fn": 1659,
+    "tn": 44285,
+    "auc": 0.9400092757178032
+  },
+  "model": "D:\\Users\\dust\\Documents\\학교\\2026년도1학기\\컴퓨터비전\\실습\\FoundationStereo\\experiments\\_model\\general_head.pt",
+  "train_scenes": [
+    "archiviz_baseline080",
+    "bedroom_baseline080",
+    "blue_bathroom_baseline080",
+    "computer_room_baseline080",
+    "cozy_living_room_baseline080",
+    "flat-archiviz_baseline080",
+    "green_house_baseline080",
+    "gym_baseline080",
+    "livingroom_baseline080",
+    "minimal_interior_baseline080",
+    "scandinavian_baseline080",
+    "sunlight_baseline080"
+  ],
+  "scene": "ds_v1_seed0/sunlight_v04",
+  "has_gt": true
+}

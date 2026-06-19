@@ -1,0 +1,25 @@
+[base] view_split 재사용: train 1073 / test 464, 12 scenes
+[rep_view] 대표뷰 12개 (각 씬 v00, seed0, 뷰 전체 픽셀)
+[train] pixels=706,560 pos=182,356
+  [train] epoch 60/300  loss=0.6970
+  [train] epoch 120/300  loss=0.5823
+  [train] epoch 180/300  loss=0.5033
+  [train] epoch 240/300  loss=0.4549
+  [train] epoch 300/300  loss=0.4269
+
+[rep_view 종합] test 459뷰  AUC 0.9552  IoU 0.5403  F1 0.6857
+scene                      AUC     IoU
+bedroom                 0.9313  0.5008
+blue_bathroom           0.9821  0.6326
+computer_room           0.9741  0.7164
+green_house             0.9658  0.4393
+gym                     0.9630  0.5294
+living_room_contemp     0.9562  0.5340
+livingroom              0.9342  0.5220
+minigym                 0.9640  0.6663
+minimal_interior        0.9457  0.3544
+scandinavian            0.9551  0.6244
+sunlight                0.9522  0.3255
+terrazzo                0.9438  0.6676
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_splits\rep_view

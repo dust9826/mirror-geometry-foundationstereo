@@ -1,0 +1,12 @@
+# mirror plane for scene: flat-archiviz_baseline080
+# recommended method: ransac
+# plane equation: n . x + d = 0   (camera coords, OpenCV, ||n||=1)
+normal -0.83124214 0.00098816 -0.55590964
+d 5.43549401
+perp_distance_m 5.43549401
+# 4x4 Householder reflection matrix (row-major)
+reflection_matrix
+  -0.38192700 0.00164280 -0.92419103 9.03642337
+  0.00164280 0.99999805 0.00109866 -0.01074229
+  -0.92419103 0.00109866 0.38192895 6.04328700
+  0.00000000 0.00000000 0.00000000 1.00000000

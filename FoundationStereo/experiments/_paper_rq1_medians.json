@@ -1,0 +1,38 @@
+{
+  "ds_v1_seed0": {
+    "nonmirror": {
+      "disp_mae": 0.20925,
+      "bad1px": 2.585,
+      "bad3px": 0.48,
+      "depth_mae_m": 0.1512,
+      "absrel": 0.0429,
+      "n_views": 770
+    },
+    "mirror": {
+      "disp_mae": 8.722549999999998,
+      "bad1px": 98.43,
+      "bad3px": 90.18,
+      "depth_mae_m": 2.57395,
+      "absrel": 0.5226,
+      "n_views": 770
+    }
+  },
+  "ds_v2_seed1": {
+    "nonmirror": {
+      "disp_mae": 0.2218,
+      "bad1px": 2.78,
+      "bad3px": 0.52,
+      "depth_mae_m": 0.1477,
+      "absrel": 0.0432,
+      "n_views": 767
+    },
+    "mirror": {
+      "disp_mae": 8.8396,
+      "bad1px": 98.36,
+      "bad3px": 90.44,
+      "depth_mae_m": 2.6048,
+      "absrel": 0.5246,
+      "n_views": 767
+    }
+  }
+}

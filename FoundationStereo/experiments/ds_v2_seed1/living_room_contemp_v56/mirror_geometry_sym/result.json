@@ -1,0 +1,20 @@
+{
+  "normal": [
+    -0.30644207232758863,
+    0.1242946327390686,
+    -0.9437394240889975
+  ],
+  "d": 8.963020753814543,
+  "score": 0.332525066350077,
+  "perp": 8.963020753814543,
+  "scene": "ds_v2_seed1/living_room_contemp_v56",
+  "mask_src": "gt",
+  "n_mirror_pts": 4000,
+  "n_room_pts": 80000,
+  "eval_vs_gt": {
+    "gt_name": "mirror_gt_from_depth",
+    "angle_deg": 3.4708245366568686,
+    "perp_err_m": 3.011863843493429,
+    "gt_perp": 5.951156910321115
+  }
+}

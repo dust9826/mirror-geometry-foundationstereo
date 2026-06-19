@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>작업 로그 — Mirror Geometry / FoundationStereo</title>
+<style>
+  :root{--ink:#1b1b1b;--muted:#666;--line:#dcdcdc;--accent:#1f5f8b;--bg:#fbfbf9;}
+  *{box-sizing:border-box;}
+  body{font-family:"Segoe UI","Malgun Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);
+       max-width:980px;margin:0 auto;padding:40px 26px 90px;line-height:1.65;}
+  h1{font-size:25px;margin:0 0 4px;}
+  .sub{color:var(--muted);margin:0 0 22px;}
+  h2{font-size:19px;border-bottom:2px solid var(--ink);padding-bottom:5px;margin:34px 0 10px;}
+  h3{font-size:16px;margin:18px 0 6px;color:var(--accent);}
+  p,li{margin:6px 0;}
+  code{font-family:Consolas,monospace;background:#eee;padding:1px 5px;border-radius:3px;font-size:13px;}
+  table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px;}
+  th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top;}
+  th{background:#eef2f5;}
+  .b{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;font-weight:700;color:#fff;font-family:sans-serif;}
+  .ok{background:#1a7f37;} .warn{background:#c47f00;} .fail{background:#b3261e;} .info{background:#1f5f8b;}
+  .note{background:#fff8e6;border-left:4px solid #d9a400;padding:10px 14px;margin:12px 0;font-size:14px;}
+  .foot{margin-top:50px;border-top:1px solid var(--line);padding-top:12px;color:var(--muted);font-size:12.5px;}
+  ul{margin:6px 0 6px 4px;}
+</style>
+</head>
+<body>
+
+<h1>작업 로그 — "Find Mirror Geometry inside FoundationStereo's Prior"</h1>
+<p class="sub">2026-06-05 세션 정리 · 성공·한계·실패를 모두 기록 · 가반 7팀(김정현)</p>
+
+<h2>0. 한눈에 보기 (상태 요약)</h2>
+<table>
+<tr><th>작업</th><th>상태</th><th>핵심 결과</th></tr>
+<tr><td>현재 상태 점검</td><td><span class="b ok">완료</span></td><td>코드·실험이 메모리와 일치 확인</td></tr>
+<tr><td>GT 거울평면 export 도구</td><td><span class="b ok">완료</span></td><td>Blender 추출 + 좌표변환(축플립) 2단계, TDD</td></tr>
+<tr><td>K(초점거리) 가정 오류 발견</td><td><span class="b warn">중대 발견</span></td><td>가정 50mm ≠ 실제 25–60mm(장면별)</td></tr>
+<tr><td>Mirror GT 전체 생성</td><td><span class="b ok">완료</span></td><td>16 scene / 37 거울, ext 일치</td></tr>
+<tr><td>검출 LOSO / view04</td><td><span class="b ok">완료</span></td><td>LOSO AUC 0.911 / view04 0.947</td></tr>
+<tr><td>bedroom 마스크·GT 수정</td><td><span class="b ok">완료</span></td><td>옷장 미러도어로 교정(3.6%→31.7%)</td></tr>
+<tr><td>living_room 마스크·GT 수정</td><td><span class="b ok">완료</span></td><td>거울 발견(MirrorL/M/R) + texture-mirror 가림 우회</td></tr>
+<tr><td>terrazzo / minigym 마스크</td><td><span class="b warn">한계</span></td><td>거울이 벽 뒤/edge-on — 카메라 시야에 안 보임</td></tr>
+<tr><td>modern_living_room 마스크</td><td><span class="b fail">불가</span></td><td>거울이 화면 밖(카메라 이동 필요)</td></tr>
+<tr><td>view04 GT 생성</td><td><span class="b warn">부분</span></td><td>카메라/파이프라인은 OK, 거울이 큐브라 평면 GT 불안정</td></tr>
+<tr><td>스크립트 일반화</td><td><span class="b ok">완료</span></td><td>prepare_meta 거울/카메라 + scene 오버라이드</td></tr>
+<tr><td>산출물(보고서·노트북·Colab)</td><td><span class="b ok">완료</span></td><td>report/, .ipynb, colab/</td></tr>
+</table>
+
+<h2>1. GT 거울평면 Export 도구 <span class="b ok">완료</span></h2>
+<p>정공법(반사 대칭으로 거울면을 찾는 방법) 평가에 필요한 <b>정답 거울 평면</b>을 Blender 원본에서 추출하는 도구.
+brainstorming → spec → plan → subagent-driven 구현(5 Task, 각 단계 spec/품질 리뷰 통과)으로 만들었다.</p>
+<ul>
+<li><code>MakeStereoDataset/scripts/export_mirror_gt.py</code> — (Blender) 거울 메쉬 정점 → world 최소제곱 평면 + 실제 카메라 intrinsics 추출.</li>
+<li><code>FoundationStereo/scripts/make_mirror_gt.py</code> — world→left-camera OpenCV 변환(축 플립 <code>F=diag(1,−1,−1)</code>) → <code>gt.json</code> + 검증 <code>overlay.png</code>. 순수 함수는 <code>test_make_mirror_gt.py</code>로 TDD(6 테스트).</li>
+</ul>
+<p>설계·계획 문서: <code>docs/superpowers/specs/2026-06-05-gt-mirror-plane-export-design.md</code>, <code>docs/superpowers/plans/2026-06-05-gt-mirror-plane-export.md</code>.</p>
+
+<h2>2. 중대 발견 — K(초점거리) 가정 오류 <span class="b warn">발견</span></h2>
+<p>GT overlay가 마스크와 안 맞아 디버깅한 결과, 데이터셋이 카메라 초점거리를 <code>lens=50mm</code>로 <b>가정</b>했으나 Blender 실제 값이 장면마다 다름을 발견:</p>
+<table>
+<tr><th>실제 lens</th><th>scene</th></tr>
+<tr><td>25–26mm</td><td>green_house(25), minigym(25.7), cozy_living_room/livingroom(26)</td></tr>
+<tr><td>28–30mm</td><td>modern_living_room(28), computer_room/gym/loft/scandinavian(30)</td></tr>
+<tr><td>35mm</td><td>sunlight</td></tr>
+<tr><td>50mm</td><td>archiviz, flat-archiviz, terrazzo, bedroom, blue_bathroom</td></tr>
+<tr><td>60mm</td><td>minimal_interior</td></tr>
+</table>
+<div class="note"><b>영향:</b> <code>points.npy</code> depth = fx·baseline/disp 이므로 절대 깊이가 (50/실제)배 어긋난다(예: computer_room ×1.667). <b>단 disparity 기반 결론(검출·AHCF AUC)과 GT 기하(절대 미터)는 K와 무관하므로 영향 없음.</b> 정공법의 <i>절대 거리</i> 평가 전에는 장면별 실제 lens로 K/points 재생성이 필요하다. GT 추출 도구가 실제 intrinsics를 뽑아 <code>gt.json.true_K</code>·overlay에 사용한다.</div>
+
+<h2>3. Mirror GT 전체 생성 <span class="b ok">완료</span></h2>
+<p><code>make_mirror_gt.py --all</code>로 16 scene / 37 거울 GT 생성. 모든 scene에서 Blender 카메라와 데이터셋 카메라 일치(ext_diff≈0). 멀티거울: bedroom×4→(옷장)×5, livingroom×6, loft×7, minigym×3, modern×2, sunlight×2, archiviz/flat-archiviz×2, living_room×3.</p>
+<p>품질 플래그(평가 시 제외 권장): <code>blue_bathroom/Azeen Rectangle Wood</code>(프레임, planRMS 0.011), <code>loft/Cube.019</code>(비평면 0.055).</p>
+
+<h2>4. 검출 성능 <span class="b ok">완료</span></h2>
+<ul>
+<li>단일 scene: AUC ~0.99 (예 cozy 0.999/IoU 0.92).</li>
+<li><b>LOSO(미지 scene, 12-fold): 평균 AUC 0.911 / 중앙값 0.939 / IoU 0.454.</b></li>
+<li><b>교차-시점(minigym_view04): 12 baseline 학습 → view04 평가 AUC 0.947 / IoU 0.737.</b></li>
+</ul>
+
+<h2>5. 마스크 점검 — 이상 마스크 조사 (혼합 결과)</h2>
+<p>일부 scene의 거울 마스크가 비거나 이상해 원인을 규명했다. <code>render_mask</code> 자체는 정상(computer_room 재렌더=기존 32.8% 일치)임을 대조로 확인.</p>
+
+<h3>bedroom <span class="b ok">수정 완료</span></h3>
+<p>실제로는 오른쪽에 큰 옷장 미러도어가 보이는데, <code>find_mirrors</code>가 이름("Mirror1~4") 우선이라 작은 엉뚱한 객체를 골라 마스크가 3.6%뿐이었다. 진짜 거울 <code>Wardrobe_04_001(.001~.004)</code>로 교정 → 마스크 <b>31.7%</b>, GT도 재생성(평면은 동일 perp 3.64, 범위가 정확해짐).</p>
+<figure><img src="figures/fig_gt_bedroom.png" style="max-width:100%;border:1px solid #ddd"><figcaption style="font-size:13px;color:#666">bedroom GT overlay (옷장 거울)</figcaption></figure>
+
+<h3>living_room <span class="b ok">수정 완료</span></h3>
+<p>중앙에 거울이 보임(<code>MirrorL/M/R</code>). 빈 마스크 원인 둘: ① blend 폴더명 불일치(<code>livingRoom_contemporary</code>≠<code>living_room</code>)로 자동 스킵, ② <b>texture-mirror</b> 방식(거울 앞 유리/BG 평면)이 정상 render_mask에서 거울을 완전히 가림(정상 0%, 가림 제거 시 32.9%). 가림 제거 마스크 + GT 생성.</p>
+<figure><img src="figures/fig_gt_livingroom.png" style="max-width:100%;border:1px solid #ddd"><figcaption style="font-size:13px;color:#666">living_room GT overlay (center-right 거울)</figcaption></figure>
+
+<h3>terrazzo / minigym <span class="b warn">한계 (수정 불가, 재렌더 필요)</span></h3>
+<p>대상 거울 객체가 <b>보이는 벽 뒤</b>(가림 제거 시 ~52% 차지하나 정상 렌더 0%)거나 edge-on이라 CM 카메라 시야에 거울 표면이 보이지 않는다. 마스크 재렌더만으로 해결 불가하며, 거울이 보이도록 카메라를 옮겨 left/right/mask를 전부 재렌더해야 한다(MakeStereoDataset 변경).</p>
+
+<h3>modern_living_room <span class="b fail">불가</span></h3>
+<p>거울(MirrorL/R)이 화면 밖(가림 제거해도 0.2%). 빈 마스크가 기하적으로 정답 — 카메라 이동 없이는 거울이 안 보인다.</p>
+
+<h2>6. view04 GT 생성 <span class="b warn">부분 성공 / 한계</span></h2>
+<p>요청대로 <code>minigym.blend</code> + view04 카메라(prepare_meta)로 GT 생성 경로를 만들었다. 카메라 처리(뷰 시점)·파이프라인은 정상 동작(<code>cam_diff=1.41</code>=뷰 시점차 정상). <b>그러나 minigym의 거울이 평면이 아니라 큐브(<code>Cube.001~003</code>)라 평면 GT의 planarity_rms가 1.0m로 신뢰 불가</b>(메모리의 "minigym Cube.xxx" 문제). 큐브의 거울 면만 골라 평면을 잡는 별도 처리가 필요 — 미해결로 남김.</p>
+
+<h2>7. 파이프라인 일반화 <span class="b ok">완료</span></h2>
+<p><code>make_mirror_gt.py</code>를 view·예외 scene까지 다루도록 일반화:</p>
+<ul>
+<li>거울 객체: <b>scene 오버라이드 &gt; <code>prepare_meta.mirror_objects</code>(데이터셋이 실제 렌더에 쓴 거울) &gt; find_mirrors 자동</b>. → GT와 마스크의 거울을 일치.</li>
+<li>변환 카메라: <b>항상 <code>prepare_meta.left_camera_to_world</code></b> → baseline·view 시점 모두 정확. blend 기본 CM과의 차이는 정보용(<code>blend_vs_dataset_cam_diff</code>).</li>
+<li>blend 경로 오버라이드(폴더/이름 불일치, view scene): living_room→<code>livingRoom_contemporary/living_room.blend</code>, minigym_view04→<code>minigym.blend</code>.</li>
+<li>bedroom→옷장 거울 객체 오버라이드.</li>
+</ul>
+
+<h2>8. 산출물 <span class="b ok">완료</span></h2>
+<ul>
+<li><b>통합 보고서</b>: <code>report/index.html</code> (+ <code>index.md</code>) — 기술 결과(검출·AHCF·평면·GT).</li>
+<li><b>작업 로그</b>: <code>report/worklog.html</code> (+ <code>worklog.md</code>) — 본 문서.</li>
+<li><b>그림</b>: <code>report/figures/</code>.</li>
+<li><b>로컬 재현 노트북</b>: <code>mirror_pipeline_demo.ipynb</code> (left/right/mirror_mask로 검출·AHCF·평면 재현).</li>
+<li><b>Colab</b>: <code>colab/mirror_pipeline_colab.ipynb</code> + <code>colab_bundle.zip</code> + <code>colab_model_vitl.zip</code>(ViT-L 슬림 1.4GB).</li>
+<li>scene 보고서 예: <code>experiments/minigym_view04/report.html</code>.</li>
+</ul>
+
+<h2>9. 다음 과제</h2>
+<ul>
+<li>장면별 실제 lens로 <b>K/points 재생성</b>(절대 스케일 교정) — 정공법 metric 평가 선행.</li>
+<li><b>정공법</b>(반사 대칭 M 최적화) 구현 → 본 GT로 법선각도/수직거리/center거리/bbox IoU 평가.</li>
+<li>minigym 큐브 거울의 면-단위 평면 추출, terrazzo/minigym/modern 카메라 재배치 재렌더(선택).</li>
+</ul>
+
+<div class="foot">
+생성: 2026-06-05 · FoundationStereo mirror-geometry 실험 정리 · 코드 <code>scripts/</code> · 실험 <code>experiments/&lt;scene&gt;/</code>
+</div>
+</body>
+</html>

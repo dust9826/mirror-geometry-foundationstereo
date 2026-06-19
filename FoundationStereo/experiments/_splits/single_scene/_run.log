@@ -1,0 +1,77 @@
+[base] view_split 재사용: train 1073 / test 464, 12 scenes
+  [train] epoch 60/300  loss=0.4099
+  [train] epoch 120/300  loss=0.3168
+  [train] epoch 180/300  loss=0.2562
+  [train] epoch 240/300  loss=0.2137
+  [train] epoch 300/300  loss=0.1863
+[ 1/12] bedroom                own AUC 0.984/IoU 0.691  | others AUC 0.906/IoU 0.390
+  [train] epoch 60/300  loss=0.3937
+  [train] epoch 120/300  loss=0.3072
+  [train] epoch 180/300  loss=0.2504
+  [train] epoch 240/300  loss=0.2045
+  [train] epoch 300/300  loss=0.1679
+[ 2/12] blue_bathroom          own AUC 0.989/IoU 0.575  | others AUC 0.910/IoU 0.434
+  [train] epoch 60/300  loss=0.3978
+  [train] epoch 120/300  loss=0.3124
+  [train] epoch 180/300  loss=0.2489
+  [train] epoch 240/300  loss=0.1968
+  [train] epoch 300/300  loss=0.1548
+[ 3/12] computer_room          own AUC 0.990/IoU 0.790  | others AUC 0.910/IoU 0.416
+  [train] epoch 60/300  loss=0.3717
+  [train] epoch 120/300  loss=0.2901
+  [train] epoch 180/300  loss=0.2424
+  [train] epoch 240/300  loss=0.2063
+  [train] epoch 300/300  loss=0.1777
+[ 4/12] green_house            own AUC 0.979/IoU 0.623  | others AUC 0.880/IoU 0.405
+  [train] epoch 60/300  loss=0.4062
+  [train] epoch 120/300  loss=0.3140
+  [train] epoch 180/300  loss=0.2503
+  [train] epoch 240/300  loss=0.2005
+  [train] epoch 300/300  loss=0.1616
+[ 5/12] gym                    own AUC 0.988/IoU 0.787  | others AUC 0.933/IoU 0.470
+  [train] epoch 60/300  loss=0.3792
+  [train] epoch 120/300  loss=0.2911
+  [train] epoch 180/300  loss=0.2295
+  [train] epoch 240/300  loss=0.1831
+  [train] epoch 300/300  loss=0.1493
+[ 6/12] living_room_contemp    own AUC 0.987/IoU 0.730  | others AUC 0.930/IoU 0.486
+  [train] epoch 60/300  loss=0.4301
+  [train] epoch 120/300  loss=0.3500
+  [train] epoch 180/300  loss=0.2980
+  [train] epoch 240/300  loss=0.2589
+  [train] epoch 300/300  loss=0.2297
+[ 7/12] livingroom             own AUC 0.965/IoU 0.604  | others AUC 0.889/IoU 0.437
+  [train] epoch 60/300  loss=0.3913
+  [train] epoch 120/300  loss=0.3103
+  [train] epoch 180/300  loss=0.2680
+  [train] epoch 240/300  loss=0.2385
+  [train] epoch 300/300  loss=0.2156
+[ 8/12] minigym                own AUC 0.973/IoU 0.749  | others AUC 0.860/IoU 0.385
+  [train] epoch 60/300  loss=0.3713
+  [train] epoch 120/300  loss=0.2498
+  [train] epoch 180/300  loss=0.1747
+  [train] epoch 240/300  loss=0.1263
+  [train] epoch 300/300  loss=0.0971
+[ 9/12] minimal_interior       own AUC 0.995/IoU 0.666  | others AUC 0.943/IoU 0.505
+  [train] epoch 60/300  loss=0.3327
+  [train] epoch 120/300  loss=0.2283
+  [train] epoch 180/300  loss=0.1763
+  [train] epoch 240/300  loss=0.1439
+  [train] epoch 300/300  loss=0.1225
+[10/12] scandinavian           own AUC 0.991/IoU 0.790  | others AUC 0.865/IoU 0.385
+  [train] epoch 60/300  loss=0.3887
+  [train] epoch 120/300  loss=0.2730
+  [train] epoch 180/300  loss=0.2040
+  [train] epoch 240/300  loss=0.1564
+  [train] epoch 300/300  loss=0.1236
+[11/12] sunlight               own AUC 0.992/IoU 0.743  | others AUC 0.945/IoU 0.357
+  [train] epoch 60/300  loss=0.4089
+  [train] epoch 120/300  loss=0.3224
+  [train] epoch 180/300  loss=0.2594
+  [train] epoch 240/300  loss=0.2091
+  [train] epoch 300/300  loss=0.1718
+[12/12] terrazzo               own AUC 0.988/IoU 0.817  | others AUC 0.922/IoU 0.429
+
+[single_scene 종합] own(자기씬) AUC 0.9854/IoU 0.7152  vs cross(타씬) AUC 0.9077/IoU 0.4250
+
+[save] D:\Users\dust\Documents\학교\2026년도1학기\컴퓨터비전\실습\FoundationStereo\experiments\_splits\single_scene

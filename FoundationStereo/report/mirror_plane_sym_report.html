@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>반사대칭 기반 거울평면 추정 (정공법) — 결과 보고서</title>
+<style>
+  body { font-family: 'Malgun Gothic', 'Segoe UI', sans-serif; max-width: 980px;
+         margin: 0 auto; padding: 24px 32px 80px; color: #1c2733; line-height: 1.65;
+         background: #fafbfc; }
+  h1 { font-size: 1.5em; border-bottom: 3px solid #7c3aed; padding-bottom: 10px; }
+  h2 { font-size: 1.25em; margin-top: 2.2em; border-left: 5px solid #7c3aed;
+       padding-left: 10px; }
+  h3 { font-size: 1.05em; margin-top: 1.6em; color: #5b21b6; }
+  table { border-collapse: collapse; margin: 14px 0; font-size: 0.92em; width: 100%; }
+  th, td { border: 1px solid #cbd5e1; padding: 6px 10px; text-align: center; }
+  th { background: #f3efff; }
+  td:first-child, th:first-child { text-align: left; }
+  img { max-width: 100%; border: 1px solid #d8dee6; border-radius: 6px;
+        margin: 10px 0; background: #fff; }
+  code, pre { background: #eef1f5; border-radius: 4px; padding: 1px 5px;
+              font-size: 0.9em; }
+  pre { padding: 12px; overflow-x: auto; line-height: 1.45; }
+  .meta { color: #64748b; font-size: 0.92em; }
+  .good { color: #15803d; font-weight: 600; }
+  .bad  { color: #b91c1c; font-weight: 600; }
+  .key  { background: #f6f2ff; border: 1px solid #ddd6fe; border-radius: 8px;
+          padding: 14px 18px; margin: 14px 0; }
+  .cap  { font-size: 0.88em; color: #475569; margin: -4px 0 14px; }
+  strong { color: #0f172a; }
+</style>
+</head>
+<body>
+
+<h1>반사대칭 기반 거울평면 추정 (정공법) — 결과 보고서</h1>
+<p class="meta">작성일 2026-06-06 · 프로젝트: Find Mirror Geometry Inside FoundationStereo's Prior<br>
+구현: <code>scripts/estimate_mirror_plane_sym.py</code> · 평가 데이터: ds_v1_seed0 + ds_v2_seed1 (12씬 × 2seed)</p>
+
+<h2>1. 문제 — RANSAC 평면은 거울면이 아니다</h2>
+<p>FoundationStereo(FS)는 거울을 "창문"처럼 통과해 <b>반사된 씬의 깊이</b>를 본다.
+그래서 거울 마스크 안 3D 점들에 평면을 피팅하면 거울 유리면이 아니라 거울 <i>뒤</i>
+가상공간의 면("반사면")이 잡힌다 — 실측으로 진짜 거울면보다 <b>약 2배 깊다</b>.</p>
+<table>
+<tr><th>예: computer_room_v00</th><th>수직거리(perp)</th></tr>
+<tr><td>거울 안 점 RANSAC (기존)</td><td>6.96 m ← 반사면</td></tr>
+<tr><td><b>반사대칭 정공법 (본 방법)</b></td><td><b>3.23 m</b></td></tr>
+<tr><td>GT 거울면</td><td>3.24 m</td></tr>
+</table>
+
+<h2>2. 방법 — 반사 대칭 + 수직이등분면 RANSAC</h2>
+<p>거울 안 가상점 P′ 와 방의 실제점 P 는 거울평면 M 에 대해 완벽한 대칭이다:</p>
+<pre>P = reflect_M(P′) = P′ − 2(n·P′ + d)·n        (Householder 반사)</pre>
+<div class="key">핵심 성질: <b>대응쌍 (P′, P) 하나를 알면 평면이 닫힌형으로 결정</b>된다
+(두 점의 수직이등분면: <code>n=(P−P′)/‖P−P′‖</code>, <code>d=−n·(P+P′)/2</code>).</div>
+<p>알고리즘 (학습 불필요, FS 출력만 사용):</p>
+<ol>
+<li><b>입력 분리</b>: mask 침식 후 거울 안 점 P′(≤4,000), mask 팽창 밖 방 점 Q(≤80,000, KD-tree)</li>
+<li><b>가설 생성</b>: 랜덤 (p′∈P′, q∈Q) 쌍 4,000개 → 각 쌍의 수직이등분면
+(perp 범위 제약: 0.3m ~ 가상점 깊이 90퍼센타일)</li>
+<li><b>2단계 스코어</b>: P′ 샘플을 가설로 반사 → Q 와의 NN 거리 <b>하위 50% 평균(trimmed)</b>
+— 거울은 카메라 뒤(관측 밖)도 비추므로 대응 없는 점 절사가 필수.
+150pt 전수 평가 → 상위 40개만 600pt 재평가 (7배 가속, 뷰당 ~10초)</li>
+<li><b>ICP식 정제</b>: 상위 5개 가설 × 8회 반복 — 반사 → NN 대응(하위 60%) →
+닫힌형 재추정(방향 주성분 + 중점 median)</li>
+<li><b>평가</b>: GT 평면 대비 법선 각도(°), 수직거리 오차(m) — GT는 평가에만 사용</li>
+</ol>
+<p>검증: 단위테스트 6/6 (<code>test_estimate_mirror_plane_sym.py</code> — 반사 involution,
+이등분면 복원, 닫힌형 정제 정밀도, 합성 방 복원: 노이즈 2cm + 무대응 40%에서도 &lt;3°).</p>
+
+<h2>3. 전체 결과 — 1,536뷰 (GT mask)</h2>
+<table>
+<tr><th>지표</th><th>값</th></tr>
+<tr><td>법선각 중앙값</td><td><b>2.3°</b> (&lt;5°: 76%, &lt;10°: <b>92%</b>)</td></tr>
+<tr><td>perp 거리오차 중앙값</td><td><b>0.14 m</b> (&lt;0.2m: 57%, &lt;0.5m: 74%)</td></tr>
+<tr><td>동시 충족 (&lt;10° &amp; &lt;0.5m)</td><td><b>72%</b></td></tr>
+<tr><td>처리</td><td>8샤드 병렬, 뷰당 ~10초, 실패 1뷰(점 부족 스킵)</td></tr>
+</table>
+<img src="figures_seeds/sym_scatter.png" alt="scatter + CDF">
+
+<h3>씬별 성능</h3>
+<table>
+<tr><th>씬</th><th>n</th><th>각도 med</th><th>perp med</th><th>성공률(&lt;10°&amp;&lt;0.5m)</th></tr>
+<tr><td>computer_room</td><td>132</td><td>1.4°</td><td>0.04m</td><td><b>100%</b></td></tr>
+<tr><td>livingroom</td><td>129</td><td>1.0°</td><td>0.05m</td><td>98%</td></tr>
+<tr><td>minigym</td><td>111</td><td>2.2°</td><td>0.08m</td><td>96%</td></tr>
+<tr><td>sunlight</td><td>132</td><td>1.1°</td><td>0.13m</td><td>88%</td></tr>
+<tr><td>gym</td><td>132</td><td>2.3°</td><td>0.07m</td><td>82%</td></tr>
+<tr><td>minimal_interior</td><td>130</td><td>1.8°</td><td>0.10m</td><td>76%</td></tr>
+<tr><td>living_room_contemp</td><td>132</td><td>2.2°</td><td>0.16m</td><td>75%</td></tr>
+<tr><td>blue_bathroom</td><td>116</td><td>0.9°</td><td>0.19m</td><td>74%</td></tr>
+<tr><td>bedroom</td><td>129</td><td>2.9°</td><td>0.14m</td><td>71%</td></tr>
+<tr><td>terrazzo</td><td>132</td><td>4.2°</td><td>0.40m</td><td>64%</td></tr>
+<tr><td>green_house</td><td>129</td><td>5.1°</td><td>0.61m</td><td>40%</td></tr>
+<tr><td><b>scandinavian</b></td><td>132</td><td>7.0°</td><td><b>2.09m</b></td><td><b>2%</b></td></tr>
+</table>
+
+<h2>4. 성공/실패 기하 분석</h2>
+<h3 class="good">성공 — 반사점이 방 점군과 포개짐</h3>
+<p>computer_room_v00 (각도 2.2°, perp 오차 0.01m). 거울 안 가상점(빨강)을 추정 평면으로
+반사하면(초록) 방 점군(회색)과 정확히 정합하고, 추정 평면(주황)이 GT(파랑)와 일치:</p>
+<img src="figures_seeds/sym_topdown_good.png" alt="success top-down">
+
+<h3 class="bad">실패 — d-슬라이딩 퇴화 (scandinavian형)</h3>
+<p>scandinavian_v10 (perp 오차 2.30m). <b>GT 평면으로 반사하면 점들이 카메라 뒤
+(관측되지 않은 공간)로 간다</b> → 방 점군에 대응이 존재하지 않음 → trimmed NN 스코어가
+신호를 잃고, 반사점을 "보이는 먼 벽"에 끼워 맞추는 더 깊은 평면을 선택:</p>
+<img src="figures_seeds/sym_topdown_bad.png" alt="failure top-down">
+<p class="cap">green_house(40%)·terrazzo(64%)도 같은 계열의 약화 — 거울이 비추는 영역과
+카메라 관측 영역의 겹침이 작을수록 취약.</p>
+
+<h2>5. 결론 및 개선 방향</h2>
+<div class="key"><b>결론</b>: 스테레오 입력 → FS prior → 거울 mask → <b>반사대칭 최적화</b>만으로
+진짜 거울평면(유리면)이 복원된다. 학습 없이 1,536뷰에서 법선 중앙값 2.3° / 거리 0.14m.
+프로젝트 가설("FS prior 안에 거울 기하가 들어 있다")의 마지막 단계가 입증됨.</div>
+<ol>
+<li><b>mask 경계 링 제약</b>: 거울 프레임/주변 벽의 3D 점은 거울평면 근방의 <i>실제</i>
+기하 → "평면이 경계 링을 지나야 한다" 제약 추가 시 d-슬라이딩 차단 기대</li>
+<li><b>가시성 인지 스코어</b>: 반사점이 카메라 frustum 밖이면 벌점 대신 중립 처리</li>
+<li><b>멀티뷰 일관성</b>: 같은 씬 여러 뷰의 평면 추정을 월드 좌표에서 합의</li>
+<li><b>예측 mask 적용</b>: GT mask → submodel 예측 mask 교체(<code>--mask submodel</code>
+구현됨) → 완전 end-to-end "스테레오 → 거울평면" 데모</li>
+</ol>
+
+<h2>부록 — 재현</h2>
+<pre># 단일 뷰
+python scripts/estimate_mirror_plane_sym.py --scene ds_v1_seed0/computer_room_v00
+
+# 전체 (8샤드 병렬 예시) + 집계
+python scripts/run_sym_batch.py --shard 0/8   # ... 7/8 까지
+python scripts/run_sym_batch.py --aggregate   # → experiments/_eval_sym.csv/.json
+
+# 단위테스트 / figure 재생성
+python -m pytest scripts/test_estimate_mirror_plane_sym.py -q
+python scripts/build_sym_report_figs.py</pre>
+<p>뷰별 결과: <code>experiments/&lt;group&gt;/&lt;scene&gt;_&lt;view&gt;/mirror_geometry_sym/result.json</code>
+(추정 normal/d/perp/score + eval_vs_gt). 종합 보고서: <a href="ds_seeds_report.html">ds_seeds_report.html</a> §6.</p>
+
+</body>
+</html>

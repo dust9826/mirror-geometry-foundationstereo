@@ -1,0 +1,20 @@
+{
+  "normal": [
+    0.3953961325599072,
+    0.37956453842266236,
+    -0.8364165586169725
+  ],
+  "d": 3.251698876872486,
+  "score": 0.05881734486360599,
+  "perp": 3.251698876872486,
+  "scene": "ds_v1_seed0/computer_room_v40",
+  "mask_src": "submodel",
+  "n_mirror_pts": 4000,
+  "n_room_pts": 80000,
+  "eval_vs_gt": {
+    "gt_name": "mirror_gt_from_depth",
+    "angle_deg": 1.7834257465522625,
+    "perp_err_m": 0.0950824395190617,
+    "gt_perp": 3.3467813163915476
+  }
+}

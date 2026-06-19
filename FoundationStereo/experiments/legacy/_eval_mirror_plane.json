@@ -1,0 +1,156 @@
+[
+  {
+    "matched_gt": "main door right.001",
+    "normal_angle_deg": 77.747,
+    "corner_dist_m": 2.3812,
+    "perp_err_m": 0.9254,
+    "perp_est_m": 5.437,
+    "perp_gt_m": 6.363,
+    "center_dist_m": 3.2457,
+    "n_gt_mirrors": 2,
+    "scene": "archiviz_baseline080"
+  },
+  {
+    "matched_gt": "Wardrobe_04_001",
+    "normal_angle_deg": 2.656,
+    "corner_dist_m": 3.7685,
+    "perp_err_m": 3.3662,
+    "perp_est_m": 7.02,
+    "perp_gt_m": 3.654,
+    "center_dist_m": 3.8673,
+    "n_gt_mirrors": 5,
+    "scene": "bedroom_baseline080"
+  },
+  {
+    "matched_gt": "Mirror_Plane",
+    "normal_angle_deg": 89.372,
+    "corner_dist_m": 1.7793,
+    "perp_err_m": 3.4201,
+    "perp_est_m": 1.415,
+    "perp_gt_m": 4.835,
+    "center_dist_m": 1.5291,
+    "n_gt_mirrors": 2,
+    "scene": "blue_bathroom_baseline080"
+  },
+  {
+    "matched_gt": "Mirror",
+    "normal_angle_deg": 14.958,
+    "corner_dist_m": 7.5403,
+    "perp_err_m": 6.2699,
+    "perp_est_m": 9.509,
+    "perp_gt_m": 3.239,
+    "center_dist_m": 7.686,
+    "n_gt_mirrors": 1,
+    "scene": "computer_room_baseline080"
+  },
+  {
+    "matched_gt": "Mirror",
+    "normal_angle_deg": 41.941,
+    "corner_dist_m": 14.4229,
+    "perp_err_m": 3.3725,
+    "perp_est_m": 9.932,
+    "perp_gt_m": 6.559,
+    "center_dist_m": 16.561,
+    "n_gt_mirrors": 1,
+    "scene": "cozy_living_room_baseline080"
+  },
+  {
+    "matched_gt": "main door right.001",
+    "normal_angle_deg": 77.766,
+    "corner_dist_m": 2.3852,
+    "perp_err_m": 0.9272,
+    "perp_est_m": 5.435,
+    "perp_gt_m": 6.363,
+    "center_dist_m": 3.2475,
+    "n_gt_mirrors": 2,
+    "scene": "flat-archiviz_baseline080"
+  },
+  {
+    "matched_gt": "Mirror",
+    "normal_angle_deg": 21.495,
+    "corner_dist_m": 11.5462,
+    "perp_err_m": 8.6935,
+    "perp_est_m": 12.509,
+    "perp_gt_m": 3.815,
+    "center_dist_m": 12.1453,
+    "n_gt_mirrors": 1,
+    "scene": "green_house_baseline080"
+  },
+  {
+    "matched_gt": "Mirror",
+    "normal_angle_deg": 80.048,
+    "corner_dist_m": 8.6848,
+    "perp_err_m": 0.0757,
+    "perp_est_m": 4.391,
+    "perp_gt_m": 4.466,
+    "center_dist_m": 11.3268,
+    "n_gt_mirrors": 1,
+    "scene": "gym_baseline080"
+  },
+  {
+    "matched_gt": "LL_Mirror",
+    "normal_angle_deg": 73.007,
+    "corner_dist_m": 4.3388,
+    "perp_err_m": 0.7073,
+    "perp_est_m": 3.464,
+    "perp_gt_m": 2.757,
+    "center_dist_m": 5.4974,
+    "n_gt_mirrors": 6,
+    "scene": "livingroom_baseline080"
+  },
+  {
+    "matched_gt": "Cube.002",
+    "normal_angle_deg": 89.461,
+    "corner_dist_m": 5.4871,
+    "perp_err_m": 1.1483,
+    "perp_est_m": 1.985,
+    "perp_gt_m": 0.836,
+    "center_dist_m": 6.2993,
+    "n_gt_mirrors": 3,
+    "scene": "minigym_view04"
+  },
+  {
+    "matched_gt": "Mirror",
+    "normal_angle_deg": 81.194,
+    "corner_dist_m": 2.2211,
+    "perp_err_m": 4.5888,
+    "perp_est_m": 2.36,
+    "perp_gt_m": 6.948,
+    "center_dist_m": 1.411,
+    "n_gt_mirrors": 1,
+    "scene": "minimal_interior_baseline080"
+  },
+  {
+    "matched_gt": "MirrorL",
+    "normal_angle_deg": 89.652,
+    "corner_dist_m": 2.7889,
+    "perp_err_m": 6.8237,
+    "perp_est_m": 1.102,
+    "perp_gt_m": 7.925,
+    "center_dist_m": 3.6372,
+    "n_gt_mirrors": 2,
+    "scene": "modern_living_room_baseline080"
+  },
+  {
+    "matched_gt": "Mirror",
+    "normal_angle_deg": 11.664,
+    "corner_dist_m": 9.2129,
+    "perp_err_m": 8.0175,
+    "perp_est_m": 11.781,
+    "perp_gt_m": 3.764,
+    "center_dist_m": 9.6708,
+    "n_gt_mirrors": 1,
+    "scene": "scandinavian_baseline080"
+  },
+  {
+    "matched_gt": "Plane_Mirror1",
+    "normal_angle_deg": 80.758,
+    "corner_dist_m": 6.7705,
+    "perp_err_m": 1.3274,
+    "perp_est_m": 6.192,
+    "perp_gt_m": 7.519,
+    "center_dist_m": 7.4642,
+    "n_gt_mirrors": 2,
+    "scene": "sunlight_baseline080"
+  }
+]

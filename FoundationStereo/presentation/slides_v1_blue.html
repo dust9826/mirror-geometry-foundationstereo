@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>스테레오 Prior에 내재된 거울 기하의 복원 — IPIU 2026 발표</title>
+<style>
+  :root {
+    --accent: #1d4ed8; --accent2: #0e7490; --warn: #b91c1c; --ok: #15803d;
+    --bg: #ffffff; --fg: #111827; --sub: #4b5563;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #1f2430; overflow: hidden;
+    font-family: 'Malgun Gothic', 'Segoe UI', sans-serif; }
+  #stage { position: absolute; top: 50%; left: 50%; width: 1280px; height: 720px;
+    transform-origin: center; background: var(--bg); color: var(--fg);
+    box-shadow: 0 8px 40px rgba(0,0,0,.5); }
+  .slide { position: absolute; inset: 0; padding: 52px 70px 64px; display: none; }
+  .slide.active { display: flex; flex-direction: column; }
+  h1 { font-size: 40px; line-height: 1.35; color: var(--fg); }
+  h2 { font-size: 33px; color: var(--accent); border-left: 8px solid var(--accent);
+       padding-left: 16px; margin-bottom: 26px; }
+  h3 { font-size: 23px; color: var(--accent2); margin: 12px 0 8px; }
+  p, li { font-size: 21px; line-height: 1.55; color: var(--fg); }
+  li { margin: 7px 0; }
+  ul, ol { padding-left: 30px; }
+  .sub { color: var(--sub); font-size: 18px; }
+  .big { font-size: 26px; font-weight: 700; }
+  .accent { color: var(--accent); font-weight: 700; }
+  .warn { color: var(--warn); font-weight: 700; }
+  .ok { color: var(--ok); font-weight: 700; }
+  .row { display: flex; gap: 28px; align-items: flex-start; flex: 1; min-height: 0; }
+  .col { flex: 1; min-width: 0; }
+  img.fig { max-width: 100%; max-height: 100%; object-fit: contain;
+    border: 1px solid #d1d5db; border-radius: 8px; background: #fff; }
+  .figbox { display: flex; flex-direction: column; align-items: center; gap: 6px;
+    justify-content: center; min-height: 0; }
+  .cap { font-size: 15px; color: var(--sub); text-align: center; }
+  table { border-collapse: collapse; width: 100%; font-size: 19px; margin: 8px 0; }
+  th, td { border: 1px solid #cbd5e1; padding: 7px 12px; text-align: center; }
+  th { background: #eff6ff; }
+  td:first-child, th:first-child { text-align: left; }
+  .hl td { background: #fefce8; font-weight: 700; }
+  .kbox { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 12px;
+    padding: 16px 22px; margin: 12px 0; }
+  .kbox p { font-size: 22px; }
+  .eq { font-family: 'Cambria Math', 'Times New Roman', serif; font-size: 24px;
+    text-align: center; margin: 10px 0; font-style: italic; }
+  footer { position: absolute; bottom: 0; left: 0; right: 0; height: 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px; font-size: 14px; color: #9ca3af;
+    border-top: 1px solid #e5e7eb; background: #fafafa; }
+  #bar { position: absolute; top: 0; left: 0; height: 5px; background: var(--accent);
+    width: 0; transition: width .25s; z-index: 5; }
+  #notes { position: fixed; right: 0; top: 0; bottom: 0; width: 360px;
+    background: #111827e6; color: #e5e7eb; padding: 22px; font-size: 15px;
+    line-height: 1.6; display: none; z-index: 20; overflow-y: auto; }
+  #notes h4 { color: #93c5fd; margin-bottom: 10px; }
+  #hud { position: fixed; left: 14px; bottom: 10px; color: #9ca3af; font-size: 13px;
+    z-index: 20; font-family: Consolas, monospace; }
+  .titlepage { justify-content: center; align-items: center; text-align: center; gap: 22px; }
+  .titlepage .venue { color: var(--accent); font-weight: 700; font-size: 22px; }
+  .titlepage .authors { font-size: 23px; }
+  .titlepage .affil { font-size: 18px; color: var(--sub); }
+  .twocol-list { columns: 2; column-gap: 36px; }
+</style>
+</head>
+<body>
+<div id="stage">
+<div id="bar"></div>
+
+<!-- 1. 타이틀 -->
+<section class="slide titlepage" data-time="0:00" data-note="안녕하세요, 숭실대학교 가반 7팀 발표 시작하겠습니다. 저희는 사전학습 스테레오 모델 FoundationStereo의 내부 표현만으로, 재학습 없이 거울의 3D 기하를 복원하는 연구를 했습니다.">
+  <div class="venue">제38회 영상처리 및 이해에 관한 워크샵 (IPIU 2026)</div>
+  <h1>스테레오 Prior에 내재된 거울 기하의 복원</h1>
+  <p class="big" style="color:var(--accent2)">동결 FoundationStereo Prior를 이용한<br>거울 평면 거리 · 법선 · 경계 추정</p>
+  <div>
+    <p class="authors">이든솔¹ · 김정현² · 김지성²</p>
+    <p class="affil">숭실대학교 AI소프트웨어학부¹ · 소프트웨어학부²</p>
+  </div>
+</section>
+
+<!-- 2. 문제 -->
+<section class="slide" data-time="0:20" data-note="거울 표면은 자기 깊이가 아니라 반사된 장면의 깊이를 보여줍니다. 최신 기반모델인 FoundationStereo조차 거울을 창문처럼 통과해서, 거울 너머 가상 공간의 깊이를 출력합니다. 저희가 1,537개 뷰에서 정량화해 보니 거울 영역의 disparity 오차가 비거울의 41배였습니다. 1픽셀 이상 틀리는 비율은 96.6%, 사실상 거울 안 전 픽셀이 실패합니다. 3D 재구성이나 로봇 주행에서 거울이 고질적 실패 원인인 이유입니다.">
+  <h2>문제: 거울은 스테레오를 체계적으로 깬다</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>거울은 자신의 깊이가 아니라 <b>반사된 장면의 깊이</b>를 보여줌</li>
+        <li>FoundationStereo도 거울을 <b>"창문"처럼 통과</b> → 거울 뒤 가상 공간을 출력</li>
+        <li>3D 재구성·로봇 주행의 고질적 실패 원인</li>
+      </ul>
+      <table style="margin-top:18px">
+        <tr><th>지표 (1,537뷰)</th><th>비거울</th><th>거울</th><th>배율</th></tr>
+        <tr><td>disp MAE (px)</td><td>0.21</td><td class="warn">8.72</td><td class="warn">~41×</td></tr>
+        <tr><td>depth MAE (m)</td><td>0.151</td><td class="warn">2.57</td><td>~17×</td></tr>
+        <tr><td>bad@1px (%)</td><td>8.0</td><td class="warn">96.6</td><td>—</td></tr>
+      </table>
+    </div>
+    <div class="col figbox">
+      <img class="fig" src="figures/fig_disp.png" alt="disparity">
+      <div class="cap">FoundationStereo disparity — 거울 영역(우측 시차맵)이 반사 씬 깊이에 고정됨</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 관점 전환 -->
+<section class="slide" data-time="1:20" data-note="기존 연구는 두 갈래입니다. MirrorNet, PMD 같은 전용 분할 네트워크는 거울 영역은 찾지만 3D 기하, 즉 평면 법선과 거리를 주지 못합니다. 반대로 MirrorGaussian이나 Reflect3r처럼 반사를 3D 복원에 쓰는 방법들은 거울 평면이 이미 주어졌다고 가정합니다. 저희의 관점은 다릅니다. 거울이 정합을 깨뜨린다면, 그 깨진 흔적이 모델 내부에 남아 있을 것이다. 즉 '정합 불안정성 자체가 거울의 prior가 된다'는 것이 핵심 가설입니다.">
+  <h2>기존 연구의 공백과 핵심 가설</h2>
+  <div class="row">
+    <div class="col">
+      <h3>기존 연구 두 갈래</h3>
+      <ul>
+        <li><b>전용 분할 네트워크</b> (MirrorNet, PMD)<br><span class="sub">→ 거울 영역만, 3D 기하(법선·거리) 없음</span></li>
+        <li><b>반사 활용 3D 복원</b> (MirrorGaussian, Reflect3r)<br><span class="sub">→ 거울평면이 주어졌다고 가정</span></li>
+      </ul>
+      <p style="margin-top:14px">→ <b>검출과 평면 기하를 동시에</b>, 그것도 <b>이미 있는 스테레오 모델 내부에서</b> 얻는 시도는 없었음</p>
+    </div>
+    <div class="col">
+      <div class="kbox" style="margin-top:34px">
+        <p class="big" style="text-align:center">핵심 가설</p>
+        <p style="text-align:center; margin-top:8px">"거울이 유발하는 <span class="accent">정합 불안정성 자체</span>가<br>거울의 <span class="accent">prior</span>가 된다"</p>
+      </div>
+      <ul style="margin-top:10px">
+        <li>FoundationStereo 가중치는 <b>완전 동결</b> (재학습 0)</li>
+        <li>순전파 1회의 내부 prior만 사용</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 파이프라인 개요 -->
+<section class="slide" data-time="2:20" data-note="전체 파이프라인입니다. 스테레오 한 쌍을 동결된 FoundationStereo에 넣고, 순전파 한 번에서 prior를 추출합니다. side-tuning 특징 128채널과 AHCF 전후 cost volume 통계 8채널, 그리고 최종 disparity입니다. 이 위에 두 모듈이 올라갑니다. 첫째, 픽셀당 경량 MLP 헤드가 거울 마스크를 검출하고 외접 사각형으로 bounding box를 만듭니다. 둘째, 학습이 전혀 없는 반사 대칭 최적화가 진짜 거울평면을 복원해서 법선과 평면 거리를 줍니다. 무거운 분할 네트워크가 전혀 없다는 게 포인트입니다.">
+  <h2>파이프라인: 동결 Prior + 두 개의 경량 모듈</h2>
+  <div style="display:flex; gap:14px; align-items:stretch; margin:16px 0 22px">
+    <div style="flex:1.1; background:#f1f5f9; border:2px solid #cbd5e1; border-radius:12px; padding:14px 16px; text-align:center">
+      <p class="big">스테레오 한 쌍</p><p class="sub">1280×720</p>
+    </div>
+    <div style="display:flex; align-items:center; font-size:30px; color:var(--sub)">→</div>
+    <div style="flex:1.6; background:#eff6ff; border:2px solid #93c5fd; border-radius:12px; padding:14px 16px; text-align:center">
+      <p class="big">FoundationStereo <span class="warn">(동결)</span></p>
+      <p class="sub">순전파 1회 → prior 추출<br>feat 128ch + cost 통계 8ch + disparity</p>
+    </div>
+    <div style="display:flex; align-items:center; font-size:30px; color:var(--sub)">→</div>
+    <div style="flex:2; display:flex; flex-direction:column; gap:10px">
+      <div style="background:#ecfdf5; border:2px solid #6ee7b7; border-radius:12px; padding:10px 14px">
+        <p><b>① 경량 MLP 헤드</b> (픽셀당 136d, 지도학습)<br><span class="sub">→ 거울 마스크 → <b>경계(bbox)</b></span></p>
+      </div>
+      <div style="background:#fef3c7; border:2px solid #fcd34d; border-radius:12px; padding:10px 14px">
+        <p><b>② 반사 대칭 최적화</b> (학습 없음)<br><span class="sub">→ 거울평면 → <b>법선 + 평면 거리</b></span></p>
+      </div>
+    </div>
+  </div>
+  <ul>
+    <li>전용 분할 네트워크 없음 — 검출 헤드는 <b>파라미터 ~9천 개</b>의 픽셀별 MLP</li>
+    <li>평면 복원은 <b>학습 자체가 없음</b> — 순수 기하 (RANSAC + 닫힌형 해)</li>
+    <li>거울 기하 3요소(경계 / 법선 / 평면 거리)가 두 모듈에서 전부 산출</li>
+  </ul>
+</section>
+
+<!-- 5. 신호는 어디에 -->
+<section class="slide" data-time="3:20" data-note="그럼 거울 신호가 모델 내부 어디에 있을까요. prior 채널 하나하나를 거울 마스크와 대조해 ROC AUC로 분리도를 쟀습니다. AHCF 이전의 cost volume 통계는 우연 수준인 0.51입니다. 그런데 AHCF를 통과하면 0.75까지 올라갑니다. 즉 거울 단서는 원시 매칭이 아니라 비용 집계 이후에 강화됩니다. 그리고 side-tuning 특징의 첫 주성분이 독립적으로 0.80, 가장 강한 단일 신호였습니다. 두 계열이 상보적이라 검출 헤드는 둘을 합친 136차원을 씁니다. 다만 단일 채널로는 0.8이 한계라서, 실용적 검출에는 학습된 조합이 필요합니다.">
+  <h2>거울 신호는 어디서 생기나 — AHCF 전후 진단</h2>
+  <div class="row">
+    <div class="col">
+      <table>
+        <tr><th>prior 신호 계열</th><th>최고 AUC</th></tr>
+        <tr><td>pre_* (AHCF <b>이전</b> 비용 부피)</td><td>≈ 0.51 <span class="sub">(우연)</span></td></tr>
+        <tr><td>post_*/delta_* (AHCF <b>이후</b>)</td><td class="accent">0.75</td></tr>
+        <tr class="hl"><td>feat_left_pc1 (side-tuning 특징)</td><td>0.80</td></tr>
+      </table>
+      <ul style="margin-top:12px">
+        <li>거울 단서는 <b>AHCF 비용 집계 이후</b>에 뚜렷해짐</li>
+        <li>외관 특징(feat)은 <b>독립적으로 더 강한</b> 신호 보유</li>
+        <li>→ 두 계열이 상보적 → 검출 입력 = <b>합친 136차원</b></li>
+        <li class="sub">단일 채널 한계(≤0.80) → 학습된 조합 필요 (다음 슬라이드)</li>
+      </ul>
+    </div>
+    <div class="col figbox">
+      <img class="fig" src="figures/fig_ahcf.png" alt="AHCF">
+      <div class="cap">AHCF 전/후 채널별 분리도 (computer_room) — pre는 우연, post/delta는 상승</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 검출 방법+결과 -->
+<section class="slide" data-time="4:20" data-note="검출 결과입니다. 픽셀당 136차원에 은닉 64짜리 작은 MLP 하나를 얹었습니다. 네 가지 학습/평가 분할로 일반화를 쟀는데요. 핵심은 네 번째 행, 한 번도 본 적 없는 장면에서 AUC 0.93입니다. 그리고 세 가지 발견이 있습니다. 첫째, 장면당 대표뷰 딱 1장씩, 총 12장만 학습해도 1,073장 학습과 동급입니다. FoundationStereo 특징이 시점에 불변이기 때문입니다. 둘째, 경계 정밀도 IoU는 장면 특화에서 크게 오릅니다. 자기 장면 0.715 대 교차 0.425입니다. 셋째, IoU 실패 대부분은 AUC는 높은데 임계 0.5에서 무너지는 캘리브레이션 문제로, 검출 순위 자체는 옳습니다.">
+  <h2>거울 검출: 경량 헤드 하나로 미지 장면까지</h2>
+  <div class="row">
+    <div class="col" style="flex:1.15">
+      <table style="font-size:18px">
+        <tr><th>체제</th><th>AUC</th><th>IoU</th></tr>
+        <tr><td>single_scene (자기 장면)</td><td><b>0.985</b></td><td><b>0.715</b></td></tr>
+        <tr><td>view_split (새 시점)</td><td>0.958</td><td>0.546</td></tr>
+        <tr><td>rep_view (<b>씬당 1뷰</b>, 12장)</td><td>0.955</td><td>0.540</td></tr>
+        <tr class="hl"><td>scene_split (<b>미지 장면</b>)</td><td>0.928</td><td>0.492</td></tr>
+        <tr><td>single_scene (교차)</td><td>0.908</td><td>0.425</td></tr>
+      </table>
+      <ol style="margin-top:10px; font-size:19px">
+        <li><b>장면 커버리지가 결정적</b> — 12장 학습 ≈ 1,073장 학습 (시점 불변)</li>
+        <li><b>경계 정밀도는 장면 특화</b>에서 향상 (0.715 vs 0.425)</li>
+        <li>IoU 실패 다수 = 임계 캘리브레이션 문제 (순위는 옳음)</li>
+      </ol>
+    </div>
+    <div class="col figbox">
+      <img class="fig" src="figures/fig_detect.png" style="max-height:46%" alt="detect">
+      <div class="cap">미지 장면 검출 예 (blue_bathroom, IoU 0.77) — 입력 / 예측 / GT</div>
+      <img class="fig" src="figures/fig_matrix.png" style="max-height:46%" alt="matrix">
+      <div class="cap">12×12 장면 교차 IoU — 대각(자기 장면) 우세</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. 반사면 문제 -->
+<section class="slide" data-time="5:50" data-note="이제 평면입니다. 그런데 함정이 하나 있습니다. 거울 안 점들에 그냥 RANSAC으로 평면을 맞추면 거울 유리면이 아니라, 거울 뒤 가상공간의 면이 잡힙니다. 실측으로 약 2배 깊습니다. computer_room에서 단순 적합은 6.96미터를 내놓는데 진짜 거울은 3.24미터에 있습니다. 거울 내부 깊이만으로는 거울면을 원리적으로 회복할 수 없다는 겁니다. 그림에서 초록 inlier들이 전부 거울 너머에 있는 게 보이시죠.">
+  <h2>함정: 단순 평면 적합은 "반사면"을 잡는다</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>거울 안 점군 = 거울 <b>뒤</b> 가상공간의 점들</li>
+        <li>RANSAC 평면 적합 → 거울면이 아니라 <b>반사된 벽/바닥</b>이 잡힘</li>
+        <li>실측: 진짜 거울면보다 <span class="warn">약 2배 깊음</span></li>
+      </ul>
+      <div class="kbox">
+        <p style="text-align:center">computer_room 예시</p>
+        <p style="text-align:center; margin-top:6px">단순 적합 <span class="warn">6.96 m</span> &nbsp;vs&nbsp; GT 거울면 <span class="ok">3.24 m</span></p>
+      </div>
+      <p>→ 거울 내부 깊이만으로는 <b>원리적으로 불가능</b><br>→ 해법: <span class="accent">반사 대칭</span></p>
+    </div>
+    <div class="col figbox">
+      <img class="fig" src="figures/fig_ransac.png" alt="ransac">
+      <div class="cap">거울 내부 점 RANSAC inlier(초록) — 전부 거울 너머 가상공간</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. 반사대칭 방법 -->
+<section class="slide" data-time="6:40" data-note="반사 대칭의 핵심은 이겁니다. 거울 안 가상점 P프라임과 방의 실제점 P는 거울평면에 대해 완전 대칭입니다. 하우스홀더 반사식이죠. 그러면 대응쌍 단 하나만 있어도 평면이 닫힌형으로 결정됩니다. 두 점의 수직이등분면이니까요. 그래서 RANSAC이 자연스럽게 구성됩니다. 거울 안 점과 방 점을 무작위로 짝지어 이등분면 가설을 만들고, 거울 안 점들을 그 가설로 반사시켜 방 점군과 얼마나 겹치는지 절사 최근접 거리로 점수화합니다. 거울은 카메라 뒤도 비추기 때문에 대응 없는 점을 잘라내는 절사가 필수입니다. 마지막으로 ICP식 정제를 돌립니다. 학습이 전혀 없습니다.">
+  <h2>해법: 반사 대칭 RANSAC (학습 없음)</h2>
+  <div class="row">
+    <div class="col">
+      <p><b>성질 1.</b> 가상점 P′와 실제점 P는 평면 M=(n, d)에 완전 대칭</p>
+      <p class="eq">P = P′ − 2(n·P′ + d) n</p>
+      <p><b>성질 2.</b> 대응쌍 <b>하나</b>로 평면이 닫힌형 결정 (수직이등분면)</p>
+      <p class="eq">n = (P−P′)/‖P−P′‖,&nbsp;&nbsp; d = −n·(P+P′)/2</p>
+      <ol style="margin-top:10px; font-size:19px">
+        <li>마스크 침식 내부 P′ / 팽창 외부 방 점 Q 분리</li>
+        <li>무작위 쌍 4,000개 → 이등분면 가설</li>
+        <li>반사 후 <b>절사(trimmed) 최근접 거리</b>로 점수화<br><span class="sub">거울은 관측 밖(카메라 뒤)도 비춤 → 무대응 점 절사 필수</span></li>
+        <li>상위 가설 ICP식 8회 정제 (닫힌형 재추정)</li>
+      </ol>
+    </div>
+    <div class="col figbox">
+      <img class="fig" src="figures/fig_sym_good.png" alt="sym">
+      <div class="cap">가상점(빨강)을 추정 평면으로 반사(초록) → 방 점군(회색)과 정합.<br>추정 평면(주황 3.23m) = GT(파랑 3.24m)</div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. 데이터셋 -->
+<section class="slide" data-time="7:40" data-note="평가를 위해 벤치마크도 직접 만들었습니다. Reflect3r의 블렌더 원본을 가져와 스테레오로 재렌더했고, 장면당 한 시점뿐이던 한계를 카메라 교란으로 넘어 장면당 수십 뷰를 만들었습니다. 모든 뷰에 거울 마스크, GT 깊이, 그리고 3D 거울평면 정답이 붙습니다. 렌더 결함이 있던 한 장면을 제외하고 12개 장면, 두 시드로 총 1,537뷰를 전 단계 실패 없이 처리했습니다.">
+  <h2>평가 인프라: 거울평면 GT를 갖춘 벤치마크 구축</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>Reflect3r .blend 원본 → <b>스테레오 재렌더</b> (1280×720)</li>
+        <li>카메라 교란(±0.3m, ±5°)으로 장면당 <b>55~66뷰</b></li>
+        <li>뷰마다: 거울 마스크 + GT depth/disparity + <b>3D 거울평면 GT</b></li>
+        <li>마스크는 재질 기준 객체 인덱스 패스 — 평면 GT와 IoU 0.88~0.98 교차검증</li>
+      </ul>
+      <div class="kbox">
+        <p style="text-align:center"><b>12장면 × 2시드 = 총 1,537뷰</b><br><span class="sub">렌더 결함 1장면(loft) 제외 · 전 단계 실패 0</span></p>
+      </div>
+    </div>
+    <div class="col figbox">
+      <img class="fig" src="figures/fig_scatter.png" alt="scatter">
+      <div class="cap">이 벤치마크 위에서의 평면 복원 평가 (다음 슬라이드)</div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. 평면 결과 -->
+<section class="slide" data-time="8:20" data-note="평면 복원 결과입니다. GT 마스크 조건에서 기하 알고리즘의 상한을 평가했는데요, 1,536뷰에서 법선각 중앙값 2.3도, 92%가 10도 이내입니다. 평면 수직거리 오차 중앙값은 0.14미터고요. 두 조건을 동시에 만족하는 성공률이 72%입니다. 왼쪽 산점도를 보시면 추정 거리가 GT 대각선 위에 정렬되고, 오른쪽 CDF에서 법선각이 가파르게 누적되는 걸 볼 수 있습니다. 장면별로는 computer_room 100%, livingroom 98% 등 12개 중 10개 장면이 64% 이상입니다.">
+  <h2>평면 복원 결과: 법선 2.3°, 거리 오차 0.14 m</h2>
+  <div class="row">
+    <div class="col" style="flex:0.9">
+      <table>
+        <tr><th>지표 (1,536뷰)</th><th>값</th></tr>
+        <tr><td>법선각 중앙값</td><td><b>2.3°</b> <span class="sub">(&lt;10°: 92%)</span></td></tr>
+        <tr><td>수직거리 오차 중앙값</td><td><b>0.14 m</b> <span class="sub">(&lt;0.5m: 74%)</span></td></tr>
+        <tr class="hl"><td>동시 충족 (&lt;10° & &lt;0.5m)</td><td>72%</td></tr>
+      </table>
+      <ul style="margin-top:10px; font-size:19px">
+        <li>학습·미세조정 <b>전혀 없음</b></li>
+        <li>단순 적합 6.96m → <b>3.23m</b> (GT 3.24m)</li>
+        <li>씬별: computer_room <b>100%</b> · livingroom 98% · minigym 96% — 12장면 중 10개 ≥64%</li>
+        <li class="sub">GT 마스크 조건 = 기하 알고리즘 상한 평가</li>
+      </ul>
+    </div>
+    <div class="col figbox" style="flex:1.25">
+      <img class="fig" src="figures/fig_scatter.png" alt="scatter">
+      <div class="cap">추정 vs GT 수직거리 산점도(좌) · 법선각 CDF(우), 1,536뷰</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. 실패 모드 -->
+<section class="slide" data-time="9:00" data-note="실패도 기하학적으로 규명했습니다. 나머지 28% 실패는 고르게 퍼져 있지 않고 두세 장면에 몰립니다. 원인은 d-슬라이딩 퇴화입니다. 거울이 카메라 뒤, 즉 관측 밖 공간을 비추면 반사점의 대응이 점군에 존재하지 않아서 점수 함수가 거리 방향 신호를 잃고, 평면이 깊이 방향으로 미끄러집니다. 그림처럼 방향은 맞는데 거리만 밀리는 거죠. 마스크 경계 링 제약이나 가시성 인지 점수로 개선할 수 있는, 명확히 정의된 향후 과제입니다.">
+  <h2>실패 모드 분석: d-슬라이딩 퇴화</h2>
+  <div class="row">
+    <div class="col">
+      <ul>
+        <li>실패 28%는 <b>특정 장면에 집중</b>: scandinavian 2% · green_house 40% · terrazzo 64%</li>
+        <li>원인: 거울이 <b>카메라 뒤(관측 밖)</b>를 비춤<br>→ 반사점의 대응이 점군에 없음<br>→ 절사 점수가 거리 방향 신호 상실<br>→ 평면이 d축으로 미끄러짐</li>
+      </ul>
+      <div class="kbox">
+        <p><b>개선 방향</b>: 마스크 경계 링 제약 · 가시성 인지 점수 · 멀티뷰 일관성</p>
+      </div>
+    </div>
+    <div class="col figbox">
+      <img class="fig" src="figures/fig_sym_bad.png" alt="fail">
+      <div class="cap">실패 예 — 법선 방향은 유사하나 거리가 깊은 쪽으로 슬라이딩 (scandinavian)</div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. 결론 -->
+<section class="slide" data-time="9:40" data-note="정리하겠습니다. 저희는 FoundationStereo를 한 번도 재학습하지 않고, 그 내부 prior만으로 거울의 경계, 법선, 평면 거리를 복원했습니다. 거울이 모델을 깨는 41배의 불안정성이 오히려 신호가 되어, 9천 파라미터 헤드가 미지 장면에서 AUC 0.93으로 거울을 찾고, 학습 없는 반사 대칭 기하가 법선 2.3도, 거리 0.14미터로 진짜 거울면을 복원합니다. 무거운 분할 네트워크 없이도, 사전학습 스테레오 모델 안에 거울 기하가 이미 들어 있다는 것이 저희의 결론입니다. 한계로는 GT 마스크 상한 평가, 합성 데이터 한정, 관측 겹침이 작을 때의 취약성이 남아 있습니다. 감사합니다.">
+  <h2>결론</h2>
+  <div class="kbox" style="margin-top:4px">
+    <p class="big" style="text-align:center">"거울이 스테레오를 깨는 그 신호로, 거울의 기하를 복원한다"</p>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <div class="col">
+      <h3>입증한 것</h3>
+      <ul style="font-size:19px">
+        <li>거울 불안정성 정량화: disp 오차 <b>41배</b>, AHCF 후 신호 강화 (0.51→0.75, feat 0.80)</li>
+        <li>경량 헤드(~9k 파라미터) 검출: <b>미지 장면 AUC 0.93</b>, 씬당 1뷰 학습으로도 0.955</li>
+        <li>학습 없는 반사 대칭 복원: <b>법선 2.3° · 거리 0.14m</b> (1,536뷰, 성공률 72%)</li>
+        <li>거울평면 GT 벤치마크 구축 (1,537뷰)</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>한계 / 향후 과제</h3>
+      <ul style="font-size:19px">
+        <li>평면 복원은 GT 마스크 상한 평가 — 예측 마스크 연결 end-to-end는 향후 과제 (구현은 완료)</li>
+        <li>관측 겹침 작은 장면의 d-슬라이딩 (경계 링 제약 등으로 개선 여지)</li>
+        <li>합성 데이터 한정 — 실영상 검증 필요</li>
+      </ul>
+      <p style="margin-top:16px; text-align:center" class="big accent">감사합니다 — Q&A</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<div id="notes"><h4>발표자 노트 (N키로 닫기)</h4><div id="noteText"></div></div>
+<div id="hud"><span id="pageNum"></span> · <span id="clock">00:00</span> · ←/→ 이동 · N 노트 · T 타이머 리셋</div>
+
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+let cur = 0, t0 = null;
+function show(i) {
+  cur = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, k) => s.classList.toggle('active', k === cur));
+  document.getElementById('bar').style.width = ((cur + 1) / slides.length * 100) + '%';
+  document.getElementById('pageNum').textContent = (cur + 1) + ' / ' + slides.length +
+    '  (목표 ' + (slides[cur].dataset.time || '') + ')';
+  document.getElementById('noteText').innerHTML =
+    (slides[cur].dataset.note || '').replace(/\n/g, '<br>');
+  if (cur > 0 && t0 === null) t0 = Date.now();
+}
+function fit() {
+  const s = Math.min(innerWidth / 1280, innerHeight / 720);
+  document.getElementById('stage').style.transform =
+    'translate(-50%,-50%) scale(' + s + ')';
+}
+setInterval(() => {
+  if (t0 === null) return;
+  const e = Math.floor((Date.now() - t0) / 1000);
+  const m = String(Math.floor(e / 60)).padStart(2, '0');
+  const sec = String(e % 60).padStart(2, '0');
+  const c = document.getElementById('clock');
+  c.textContent = m + ':' + sec;
+  c.style.color = e > 600 ? '#f87171' : (e > 540 ? '#fbbf24' : '#9ca3af');
+}, 1000);
+addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) show(cur + 1);
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) show(cur - 1);
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(slides.length - 1);
+  else if (e.key.toLowerCase() === 'n') {
+    const n = document.getElementById('notes');
+    n.style.display = n.style.display === 'block' ? 'none' : 'block';
+  } else if (e.key.toLowerCase() === 't') { t0 = Date.now(); }
+});
+addEventListener('click', e => {
+  if (e.clientX > innerWidth * 0.66) show(cur + 1);
+  else if (e.clientX < innerWidth * 0.2) show(cur - 1);
+});
+addEventListener('resize', fit);
+fit(); show(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finding Mirror Geometry inside FoundationStereo's Prior</title>
+<style>
+  :root{ --ink:#1a1a1a; --muted:#555; --line:#d8d8d8; --accent:#7a1f2b; --bg:#fbfaf7; }
+  *{box-sizing:border-box;}
+  body{
+    font-family:"Times New Roman", "Nanum Myeongjo", Georgia, serif;
+    color:var(--ink); background:var(--bg);
+    max-width:900px; margin:0 auto; padding:48px 28px 96px; line-height:1.65;
+    font-size:17px;
+  }
+  h1{font-size:27px; line-height:1.3; text-align:center; margin:0 0 6px; font-weight:700;}
+  .sub{ text-align:center; color:var(--muted); font-size:15px; margin:0 0 4px;}
+  .authors{ text-align:center; font-size:16px; margin:14px 0 2px;}
+  .affil{ text-align:center; color:var(--muted); font-size:14px; margin:0 0 26px;}
+  h2{font-size:20px; border-bottom:2px solid var(--ink); padding-bottom:4px; margin:38px 0 12px;}
+  h3{font-size:17px; margin:24px 0 6px; color:var(--accent);}
+  p{margin:8px 0; text-align:justify;}
+  .abstract{ background:#fff; border:1px solid var(--line); padding:18px 22px; margin:18px 0 8px; font-size:15.5px;}
+  .abstract b{ font-variant:small-caps; letter-spacing:.5px;}
+  code{ font-family:"Consolas",monospace; background:#efece6; padding:1px 5px; border-radius:3px; font-size:14px;}
+  table{ border-collapse:collapse; width:100%; margin:14px 0; font-size:14.5px;}
+  th,td{ border:1px solid var(--line); padding:6px 9px; text-align:center;}
+  th{ background:#efece6; }
+  td.l,th.l{ text-align:left; }
+  tr:nth-child(even) td{ background:#fff; }
+  figure{ margin:22px 0; text-align:center; }
+  figure img{ max-width:100%; border:1px solid var(--line); background:#fff; }
+  figcaption{ font-size:14px; color:var(--muted); margin-top:8px; text-align:left; padding:0 6px;}
+  .figid{ color:var(--ink); font-weight:700;}
+  .key{ background:#fff6f6; border-left:4px solid var(--accent); padding:10px 16px; margin:16px 0; font-size:15.5px;}
+  .eq{ text-align:center; font-style:italic; margin:12px 0; font-size:16px;}
+  .foot{ margin-top:60px; border-top:1px solid var(--line); padding-top:14px; color:var(--muted); font-size:13px;}
+  ol.refs{ font-size:14px; color:var(--ink); }
+  .tag{ display:inline-block; background:var(--accent); color:#fff; font-size:11px; padding:1px 7px; border-radius:10px; vertical-align:middle; font-family:sans-serif;}
+</style>
+</head>
+<body>
+
+<h1>Finding Mirror Geometry inside<br>FoundationStereo's Prior</h1>
+<p class="sub">스테레오 입력과 사전학습된 깊이 prior 만으로 거울을 검출하고 거울 평면 정답(GT)을 구축하기</p>
+<p class="authors">가반(可搬) 7팀 · 김정현</p>
+<p class="affil">2026학년도 1학기 컴퓨터비전 · 기술 보고서 (2026-06-05) · 진행/실패 포함 작업 로그: <a href="worklog.html">worklog.html</a></p>
+
+<div class="abstract">
+<p><b>Abstract.</b> 거울은 좌·우 영상의 광도 일관성(photometric consistency)을 깨뜨려 스테레오 정합을 교란하지만, 바로 그 불안정성이 거울의 위치를 알려주는 신호가 된다.
+본 보고서는 사전학습 스테레오 모델 <b>FoundationStereo</b>(FS)를 <b>재학습하지 않고</b>, FS가 내부적으로 이미 계산한 prior(side-tuning 특징, cost-volume 통계)만으로 거울을 다루는 일련의 실험을 정리한다.
+(1) FS prior 위에 픽셀당 경량 MLP 헤드를 얹어 거울을 <b>검출</b>하면, 한 장면을 완전히 제외하고 평가하는 LOSO(leave-one-scene-out, 12-fold)에서 평균 ROC AUC <b>0.911</b>을 얻는다.
+(2) FS의 핵심 모듈 <b>AHCF</b>(Attentive Hybrid Cost Filtering) 전·후의 cost-volume을 같은 분류기로 디코딩해 비교하면, AHCF <b>이전</b>에는 거울 신호가 우연 수준(AUC≈0.51)이다가 <b>이후</b>에 분리도가 상승(AUC 최대 0.80)한다 — 즉 거울 신호는 AHCF가 생성한다.
+(3) 거울 평면을 점군에 RANSAC으로 적합하면 강건하게(잔차 RMS ≈ 0.03 m) 평면을 얻지만, 그 평면은 거울면이 아니라 <b>반사면</b>이다(원리적 한계).
+(4) 이를 정량 평가하기 위해 Blender 원본에서 <b>거울 평면 GT</b>를 좌측 카메라 좌표로 추출하는 도구를 구현했고, 그 과정에서 데이터셋이 가정한 카메라 초점거리(50 mm)가 실제 값(장면별 26/30/50 mm)과 다르다는 <b>스케일 오류</b>를 발견·교정했다.</p>
+</div>
+
+<h2>1. 서론</h2>
+<p>거울은 실내 3D 재구성에서 고질적인 실패 원인이다. 거울 표면은 자신의 깊이가 아니라 <em>반사된 장면</em>의 깊이를 보여주므로, 일반적인 스테레오·MVS 파이프라인은 거울 너머의 가상 공간을 실제 기하로 오인한다.
+본 연구의 목표는 거울을 별도로 학습하지 않고, 강력한 깊이 prior를 가진 사전학습 모델 FoundationStereo&nbsp;[1]의 내부 표현만으로 (i) 거울 영역을 <b>검출</b>하고, (ii) 거울 <b>평면 기하</b>(법선·거리·경계)를 추정하여 MirrorGaussian&nbsp;[2] 같은 후속 재구성에 넘기는 것이다.</p>
+<p>핵심 가설은 다음과 같다. <b>거울이 유발하는 정합 불안정성 자체가 거울의 prior가 된다.</b> 거울 영역에서 FS는 (a) 낮은 매칭 신뢰도, (b) 높은 분포 엔트로피, (c) 불안정한 disparity를 보이며, 이 신호들은 FS를 한 번 추론하는 것만으로 얻어진다. 본 보고서는 이 가설을 네 갈래의 실험으로 검증한다.</p>
+
+<h2>2. 배경: FoundationStereo와 AHCF</h2>
+<p>FoundationStereo는 단안 깊이 기반 모델의 풍부한 특징을 스테레오에 이식한 사전학습 모델로, 강한 zero-shot 일반화를 보인다. 본 연구가 추출하는 prior는 세 가지다.</p>
+<ul>
+<li><b>side-tuning 특징</b> <code>feat_left</code> (128채널 2D 특징): 영상의 의미·구조 표현.</li>
+<li><b>AHCF 이전 cost volume</b> (<code>corr_stem</code> 출력): 원시 매칭 비용.</li>
+<li><b>AHCF 이후 cost volume</b> (<code>cost_agg</code> 출력): 집계·정제된 매칭 비용.</li>
+</ul>
+<p>두 cost volume에 <em>동일한</em> FS 분류기를 적용해 disparity 분포를 얻고, 픽셀별 신뢰도(분포 최대확률), 엔트로피, argmax disparity를 계산한다. 이로써 "AHCF가 거울 영역의 분포를 어떻게 바꾸는가"를 같은 잣대로 비교할 수 있다.</p>
+
+<h2>3. 방법</h2>
+
+<h3>3.1 데이터셋</h3>
+<p>자매 프로젝트 <em>MakeStereoDataset</em>로 Blender 17개 실내 장면을 물리 기반 렌더링하여 스테레오 쌍(베이스라인 0.08 m, 1024×576)과 거울 마스크 GT를 생성했다. 거울은 단순한 흰 사각형이 아니라 <b>실제 광선추적 반사</b>로 렌더링되어, FS가 거울을 통과해 반사 장면의 깊이를 보도록 만든다.</p>
+
+<h3>3.2 검출: FS prior 위의 경량 헤드 <span class="tag">접근 #3</span></h3>
+<p>FS는 동결한 채, 픽셀당 <b>136차원</b> 특징(<code>feat_left</code> 128 + cost 통계 8: pre/post의 conf·entropy·argdisp, Δconf, Δentropy) 위에 작은 MLP(은닉 64)만 학습해 픽셀별 거울 확률을 예측한다. 일반화는 <b>LOSO</b>로 측정한다: 한 장면을 완전히 빼고 나머지로 학습한 뒤 그 장면에서 평가한다.</p>
+
+<h3>3.3 AHCF 신호 분석 <span class="tag">RQ</span></h3>
+<p>각 prior 신호 맵을 거울 마스크와 대조해 ROC AUC로 분리도를 매긴다. AHCF 이전(<code>pre_*</code>)과 이후(<code>post_*</code>, <code>delta_*</code>)를 비교하여 "거울 신호가 어느 단계에서 생기는가"를 규명한다.</p>
+
+<h3>3.4 거울 평면 적합과 그 한계</h3>
+<p>거울 마스크 영역의 3D 점들에 PCA / RANSAC / 강건 IRLS로 평면을 적합한다. RANSAC은 강건하나, 적합되는 평면은 거울면이 아니라 <b>반사면</b>이다 — 거울면은 실제 점 <i>P</i>와 반사점 <i>P′</i>의 수직이등분면이므로, 반사점 <i>P′</i>만으로는 복원할 수 없다(§5.1).</p>
+
+<h3>3.5 거울 평면 GT 추출 <span class="tag">이번 세션</span></h3>
+<p>정공법(반사 대칭으로 거울면을 직접 찾기) 평가에 필요한 정답을 위해, Blender 원본에서 거울 메쉬의 최소제곱 평면을 추출하고 좌측 카메라의 OpenCV 좌표로 변환하는 2단계 도구를 구현했다. Blender 카메라 규약(−Z 전방/+Y 상)을 OpenCV 규약(+Z 전방/+Y 하)으로 바꾸는 축 변환이 핵심이다:</p>
+<p class="eq">M = F · C<sup>−1</sup>,&nbsp;&nbsp; F = diag(1, −1, −1),&nbsp;&nbsp; n<sub>cam</sub> = R n<sub>world</sub>,&nbsp;&nbsp; d = −n·c</p>
+<p>여기서 <i>C</i>는 카메라→월드 외부행렬, <i>R</i>는 <i>M</i>의 회전부다. 변환의 정당성은 GT 평면 모서리를 영상에 재투영해 거울 마스크와 겹치는지로 검증한다(그림 4).</p>
+
+<h2>4. 실험 결과</h2>
+
+<h3>4.1 검출 일반화 (LOSO)</h3>
+<p>단일 장면 내부 분할에서는 거의 완벽하게 분리된다(예: cozy_living_room AUC 0.999 / IoU 0.92). 더 엄격한 LOSO(12-fold, 미지 장면)에서도 평균 AUC <b>0.911</b>(중앙값 0.939)로, FS prior가 장면에 무관한 "거울다움"을 인코딩함을 보인다. IoU는 평균 0.454로, 작은 거울(bedroom)에서 약하다.</p>
+
+<table>
+<tr><th class="l">평가</th><th>AUC</th><th>IoU</th></tr>
+<tr><td class="l">단일 장면 (cozy_living_room, 70/30 분할)</td><td>0.999</td><td>0.92</td></tr>
+<tr><td class="l">단일 장면 (computer_room)</td><td>0.988</td><td>0.85</td></tr>
+<tr><td class="l"><b>LOSO 평균 (12-fold, 미지 장면)</b></td><td><b>0.911</b></td><td><b>0.454</b></td></tr>
+<tr><td class="l">LOSO 중앙값</td><td>0.939</td><td>0.431</td></tr>
+</table>
+
+<figure>
+<img src="figures/fig_detection.png" alt="submodel detection panel">
+<figcaption><span class="figid">그림 1.</span> 경량 헤드의 거울 검출 결과(cozy_living_room). 좌: 입력, 중: 예측 확률, 우: GT 마스크. FS prior 만으로 거울 영역이 또렷이 분리된다.</figcaption>
+</figure>
+
+<h3>4.2 AHCF가 거울 신호를 만든다</h3>
+<p>모든 장면에서 AHCF <b>이전</b> 신호(<code>pre_conf</code>, <code>pre_entropy</code>)는 우연 수준(AUC≈0.51)인 반면, AHCF <b>이후</b>(<code>post_*</code>)와 변화량(<code>delta_*</code>)은 분리도가 뚜렷이 상승한다. 즉 거울 신호는 입력 특징이 아니라 <b>AHCF 집계 단계에서 생성</b>된다. 장면별 최고 신호와 AUC는 표 2와 같다.</p>
+
+<table>
+<tr><th class="l">장면</th><th>PCA rms(m)</th><th>RANSAC rms(m)</th><th class="l">최고 AHCF 신호 (AUC)</th><th>검출 AUC/IoU</th></tr>
+<tr><td class="l">archiviz</td><td>0.427</td><td><b>0.047</b></td><td class="l">delta_conf (0.55)</td><td>0.992 / 0.85</td></tr>
+<tr><td class="l">blue_bathroom</td><td>0.291</td><td><b>0.034</b></td><td class="l">delta_argdisp (0.67)</td><td>0.995 / 0.87</td></tr>
+<tr><td class="l">computer_room</td><td>0.430</td><td><b>0.027</b></td><td class="l">delta_entropy (0.68)</td><td>0.988 / 0.85</td></tr>
+<tr><td class="l">cozy_living_room</td><td>0.804</td><td><b>0.040</b></td><td class="l">post_conf (0.59)</td><td>0.999 / 0.92</td></tr>
+<tr><td class="l">green_house</td><td>0.464</td><td><b>0.026</b></td><td class="l">post_entropy (0.74)</td><td>0.985 / 0.73</td></tr>
+<tr><td class="l">gym</td><td>0.919</td><td><b>0.062</b></td><td class="l">delta_argdisp (0.60)</td><td>0.989 / 0.85</td></tr>
+<tr><td class="l">modern_living_room</td><td>0.124</td><td><b>0.040</b></td><td class="l">feat_left_pc1 (0.80)</td><td>—</td></tr>
+<tr><td class="l">scandinavian</td><td>0.644</td><td><b>0.051</b></td><td class="l">post_entropy (0.75)</td><td>0.996 / 0.88</td></tr>
+</table>
+
+<figure>
+<img src="figures/fig_ahcf.png" alt="AHCF pre/post analysis panels">
+<figcaption><span class="figid">그림 2.</span> AHCF 전/후 신호 분석(computer_room). 각 패널 제목의 AUC는 거울 분리도(0.5=우연). <code>pre_*</code>(0.51)→<code>post_*</code>/<code>delta_*</code>(최대 0.68)로 상승 — AHCF가 거울 신호를 강화함을 보인다. (표시는 패널별 1–99 백분위 정규화)</figcaption>
+</figure>
+
+<h3>4.3 평면 적합: 강건하지만 "반사면"</h3>
+<p>RANSAC은 PCA 대비 잔차 RMS를 한 자릿수 낮춘다(표 2; 예 computer_room 0.43→0.027 m). 그러나 적합된 평면의 깊이는 거울면이 아니라 반사면의 것이다(§5.1, 그림 3).</p>
+
+<figure>
+<img src="figures/fig_ransac.png" alt="RANSAC plane visualization">
+<figcaption><span class="figid">그림 3.</span> 거울 점군에 적합된 RANSAC 평면(computer_room). 적합 자체는 강건하나(수직거리 ≈ 9.5 m), 이는 거울 테두리 벽보다 훨씬 깊은 <b>반사면</b>의 거리다.</figcaption>
+</figure>
+
+<h3>4.4 거울 평면 GT 구축 (16 scene / 37 거울)</h3>
+<p><code>make_mirror_gt.py --all</code>로 16개 scene의 GT를 생성했다. 추출 평면은 거의 완전히 평면(planarity RMS ≈ 0)이며, Blender 카메라와 데이터셋 메타가 일치(ext_diff ≈ 0)한다. 거울 객체는 <b>데이터셋이 실제 렌더에 쓴 <code>prepare_meta.mirror_objects</code></b>를 우선 사용하고, 잘못 잡힌 scene(bedroom)만 교정했다. 재투영 오버레이가 거울 마스크와 겹쳐 좌표 변환의 정당성을 입증한다(그림 4).</p>
+
+<table>
+<tr><th class="l">장면</th><th>거울 수</th><th>실제 lens</th><th>GT 수직거리(m)</th><th>비고</th></tr>
+<tr><td class="l">computer_room</td><td>1</td><td>30 mm</td><td>3.24</td><td>—</td></tr>
+<tr><td class="l">cozy_living_room</td><td>1</td><td>26 mm</td><td>6.56</td><td>—</td></tr>
+<tr><td class="l">archiviz / flat-archiviz</td><td>2</td><td>50 mm</td><td>6.36</td><td>문짝 거울 2개</td></tr>
+<tr><td class="l">bedroom</td><td>5</td><td>50 mm</td><td>3.64</td><td>옷장 미러도어(동일 평면), <b>거울 객체 교정</b></td></tr>
+<tr><td class="l">living_room</td><td>3</td><td>—</td><td>5.75</td><td>texture-mirror 가림 우회</td></tr>
+<tr><td class="l">livingroom / loft / sunlight …</td><td>6 / 7 / 2</td><td>26–35 mm</td><td>—</td><td>멀티거울</td></tr>
+</table>
+<p style="font-size:13.5px;color:#555">품질 플래그(평가 시 제외 권장): <code>blue_bathroom</code> 프레임 메쉬, <code>loft/Cube.019</code>(planRMS 0.055), <code>minigym/view04</code>(큐브형 거울 → 평면 GT 불안정). 상세는 <a href="worklog.html">worklog</a>.</p>
+
+<figure>
+<img src="figures/fig_gt_computer.png" alt="GT overlay computer_room">
+<img src="figures/fig_gt_bedroom.png" alt="GT overlay bedroom" style="margin-top:10px;">
+<img src="figures/fig_gt_livingroom.png" alt="GT overlay living_room" style="margin-top:10px;">
+<figcaption><span class="figid">그림 4.</span> GT 거울 평면(초록)을 실제 카메라 K로 영상·마스크에 재투영. 위→아래: computer_room(프레임 밖으로 확장), bedroom(옷장 미러도어, 거울 객체 교정), living_room(center-right, texture-mirror). 초록 폴리곤이 흰 마스크를 덮는다.</figcaption>
+</figure>
+
+<h2>5. 논의 — 한계와 발견</h2>
+
+<h3>5.1 반사면 ≠ 거울면 (원리적 한계)</h3>
+<p>거울 안쪽 점군은 반사된 가상 장면이므로, 거기에 적합한 평면은 거울면이 아니라 반사면이다. computer_room에서 RANSAC 반사면의 수직거리는 약 9.5 m인 반면, 본 연구가 추출한 GT 거울면은 3.24 m로, 반사면이 거울면보다 훨씬 깊다. 거울면 <i>M</i>은 실제 점 <i>P</i>와 그 반사점 <i>P′</i>의 수직이등분면이므로, 반사점만 가지고는 복원이 불가능하다. <b>검출(어디 있는가)은 prior로 충분하지만, 거울 평면 자체는 점군 적합으로 풀 수 없다.</b> 해법은 반사 대칭을 직접 이용하는 정공법이다(§6).</p>
+
+<div class="key">
+<b>5.2 발견: 데이터셋의 초점거리 가정 오류.</b>
+GT 추출 중, 데이터셋이 카메라 초점거리를 <code>lens = 50 mm</code>로 가정했으나 Blender 실제 값은 장면마다 다름을 확인했다(computer_room 30 mm, cozy 26 mm, archiviz 50 mm). 가정 fx가 (50/실제)배 과대하므로, FS가 산출하는 <b>절대 깊이</b>(depth = fx·B/disp)가 같은 비율로 과대 스케일된다(예: computer_room ×1.667). 이로써 RANSAC 반사면의 참 거리는 약 5.7 m로 보정되어 GT 거울면 3.24 m의 약 1.76배가 되며, 기존에 관찰된 "반사면이 거울면보다 1.6–1.7배 깊다"는 결과와 정합한다.
+중요한 점: <b>disparity 기반 결론(검출, AHCF RQ)은 K와 무관하므로 영향받지 않으며</b>, GT 기하 역시 절대 미터라 정확하다. 영향은 오직 <b>절대 거리 척도</b>에 국한된다. 본 도구는 장면별 실제 K를 추출·저장하므로, 향후 절대 metric 평가 전에 이를 적용해 깊이 스케일을 교정할 수 있다.
+</div>
+
+<h2>6. 결론 및 향후 과제</h2>
+<p>FS prior 만으로 거울 <b>검출</b>은 미지 장면에서도 안정적으로 동작하며(LOSO AUC 0.911), 그 신호는 FS의 <b>AHCF</b> 단계에서 생성됨을 정량적으로 확인했다. 반면 거울 <b>평면</b>은 반사면-거울면 구분이라는 원리적 한계로 점군 적합만으로는 풀 수 없으며, 이를 평가할 <b>거울 평면 GT</b> 인프라를 구축했다.</p>
+<p>향후 과제는 두 가지다. (i) 장면별 실제 초점거리로 K와 점군을 재생성해 <b>절대 스케일을 교정</b>한다. (ii) 반사 대칭 <i>reflect<sub>M</sub></i>(거울 안 점 <i>P′</i>) ↔ 방 점 <i>P</i> 를 정합하는 <b>정공법</b>(RANSAC+ICP 또는 3대응 닫힌형)을 구현하고, 본 GT로 법선 각도·수직거리·중심 거리·경계 IoU를 평가한다.</p>
+
+<div class="foot">
+<b>References</b>
+<ol class="refs">
+<li>B. Wen et&nbsp;al., "FoundationStereo: Zero-Shot Stereo Matching," 2024.</li>
+<li>"MirrorGaussian: Reflecting 3D Gaussians for Reconstructing Mirror Reflections," 2024.</li>
+</ol>
+<p>코드·실험: <code>FoundationStereo/scripts/</code>, <code>experiments/&lt;scene&gt;/</code>. 설계·계획 문서: <code>docs/superpowers/</code>. 본 보고서는 2026-06-05 기준 실험 결과로 생성됨.</p>
+</div>
+
+</body>
+</html>

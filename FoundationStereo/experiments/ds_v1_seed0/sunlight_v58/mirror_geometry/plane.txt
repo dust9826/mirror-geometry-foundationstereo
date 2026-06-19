@@ -1,0 +1,12 @@
+# mirror plane for scene: ds_v1_seed0/sunlight_v58
+# recommended method: ransac
+# plane equation: n . x + d = 0   (camera coords, OpenCV, ||n||=1)
+normal -0.04838649 -0.92077320 -0.38708586
+d 2.64699882
+perp_distance_m 2.64699882
+# 4x4 Householder reflection matrix (row-major)
+reflection_matrix
+  0.99531749 -0.08910597 -0.03745946 0.25615799
+  -0.08910597 -0.69564656 -0.71283658 4.87457114
+  -0.03745946 -0.71283658 0.70032907 2.04923165
+  0.00000000 0.00000000 0.00000000 1.00000000
